@@ -18,7 +18,7 @@ let
 
       sourceRoot = "source/rust";
 
-      cargoSha256 = "078cwlqdafa8mna2kmg9zbs4sd3g8dl07x9xqnmzswqgq8ds0fkk";
+      cargoSha256 = "0mmzwzibc6rfn7y3jw7fim5xhilrbq5vbs7jkmihiq3n2zxvwaw8";
 
       postInstall = ''
         make -C syntect-plugin install XI_PLUGIN_DIR=$out/share/xi/plugins

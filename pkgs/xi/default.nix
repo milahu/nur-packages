@@ -1,12 +1,12 @@
 { lib, fetchFromGitHub, rustPlatform, newScope }:
 
 let
-  version = "2018-11-01";
+  version = "2018-11-03";
   xi-editor-src = fetchFromGitHub {
     owner = "xi-editor";
     repo = "xi-editor";
-    rev = "f55687718bcbf4ea206119a81ac59c3c5a5d9a93";
-    sha256 = "023z78q01wvd2ql9g3aggzc95bwksr9xldnwfnnx9x1b5jc357y7";
+    rev = "35fc29624c32cfc5a904100b9ce0c9dca8a8a1e7";
+    sha256 = "0k5075pd7wqxvk1kcczc8y740bm9m77qzrk6n5wi9ixsgbp958f9";
   };
   callPackage = newScope self;
   self = {

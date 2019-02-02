@@ -19,6 +19,8 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook
   ];
 
+  hardeningDisable = [ "format" ]; # build error in gettext/gnulib??
+
   cargoSha256 = "1ani8xm55mgrrf5m2va26m5c75qrql9k4l5i05rhrbvn9y37c881";
 
   meta = with stdenv.lib; {

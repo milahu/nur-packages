@@ -20,7 +20,7 @@ let
 
       cargoPatches = [ ./0001-only-use-one-version-of-syntect.patch ];
 
-      cargoSha256 = "0xc9wpiv98rwmq94mjvgwvzfr3jlbd4w5nykrlz4clrqd7habjkf";
+      cargoSha256 = "1jy7jfkpmp1xg6jj8di8g6wvn12f9mrqf63qx09n2hgr23fxcbd5";
 
       postInstall = ''
         make -C syntect-plugin install XI_PLUGIN_DIR=$out/share/xi/plugins

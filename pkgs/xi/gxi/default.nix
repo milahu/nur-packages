@@ -5,7 +5,7 @@ rustPlatform.buildRustPackage rec {
   version = "2018-08-27";
   
   src = fetchFromGitHub {
-    owner = "bvinc";
+    owner = "Cogitri";
     repo = "gxi";
     rev = "a35d2cf6c5f1ac71387caf6fc33f158454a89f25";
     sha256 = "1yg9mglxssavmcyvi38mjsmzsgrls2ridnphvwrxgzgnw7293wav";

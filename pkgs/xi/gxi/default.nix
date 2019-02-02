@@ -8,7 +8,8 @@ rustPlatform.buildRustPackage rec {
     owner = "Cogitri";
     repo = "gxi";
     rev = "8c4cb673417f391d6ddc2b868ded2c5569ab0cd9";
-    sha256 = "080d1knlcxzxzn30wqpwg1fy934z335w0jkvfpd9gvij8r0ir5ad";
+    sha256 = "1p9w2hhanqnzh73iim3s9sd0g8f5dvzfjy8wycxiygsfcaajv1ha";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake pkgconfig freetype ];

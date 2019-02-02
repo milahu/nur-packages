@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cmake, pkgconfig, freetype, gtk3, wrapGAppsHook, wrapXiFrontendHook }:
+{ stdenv, fetchFromGitHub, rustPlatform, cmake, pkgconfig, freetype, gtk3, wrapGAppsHook }:
 
 rustPlatform.buildRustPackage rec {
   name = "gxi-unstable-${version}";
@@ -17,12 +17,9 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     gtk3
     wrapGAppsHook
-    wrapXiFrontendHook
   ];
 
   cargoSha256 = "0v72s58g0v69gpja8n0sxzpc821849p6q53pmyasbrnjhyh51nxw";
-
-  postInstall = "wrapXiFrontend $out/bin/*";
 
   meta = with stdenv.lib; {
     description = "GTK frontend for the xi text editor, written in rust";

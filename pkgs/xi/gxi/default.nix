@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook
   ];
 
-  cargoSha256 = "0v72s58g0v69gpja8n0sxzpc821849p6q53pmyasbrnjhyh51nxw";
+  cargoSha256 = "1ani8xm55mgrrf5m2va26m5c75qrql9k4l5i05rhrbvn9y37c881";
 
   meta = with stdenv.lib; {
     description = "GTK frontend for the xi text editor, written in rust";

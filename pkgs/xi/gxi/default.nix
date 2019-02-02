@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "gxi-unstable-${version}";
-  version = "2018-08-27";
+  version = "2019-02-01";
   
   src = fetchFromGitHub {
     owner = "Cogitri";
     repo = "gxi";
-    rev = "a35d2cf6c5f1ac71387caf6fc33f158454a89f25";
-    sha256 = "1yg9mglxssavmcyvi38mjsmzsgrls2ridnphvwrxgzgnw7293wav";
+    rev = "8c4cb673417f391d6ddc2b868ded2c5569ab0cd9";
+    sha256 = "080d1knlcxzxzn30wqpwg1fy934z335w0jkvfpd9gvij8r0ir5ad";
   };
 
   nativeBuildInputs = [ cmake pkgconfig freetype ];

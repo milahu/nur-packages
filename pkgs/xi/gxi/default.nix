@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "gxi-unstable-${version}";
-  version = "2019-02-01";
+  version = "2019-02-03";
   
   src = fetchFromGitHub {
     owner = "Cogitri";
     repo = "gxi";
-    rev = "8c4cb673417f391d6ddc2b868ded2c5569ab0cd9";
-    sha256 = "1p9w2hhanqnzh73iim3s9sd0g8f5dvzfjy8wycxiygsfcaajv1ha";
+    rev = "7ea27ac64bc6b8b19100e58e00fc8ca419eba24b";
+    sha256 = "";
     fetchSubmodules = true;
   };
 

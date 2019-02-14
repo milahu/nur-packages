@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
     owner = "Cogitri";
     repo = "gxi";
     rev = "4d9aff7ea072498c27dab6dc24a92b6dee0ed5f8";
-    sha256 = "";
+    sha256 = "10dbkcnbil2rl58aj6z7xn8i4sf55kpw98d7xmb5aq0j2zr03bg1";
     fetchSubmodules = true;
   };
 

@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   hardeningDisable = [ "format" ]; # build error in gettext/gnulib??
 
-  cargoSha256 = "1wn8jymxkg8a14lmak5l1agjizvym9vpbb9smhgz4mv89gppf4il";
+  cargoSha256 = "02r4v1yzz4i5rdz39r46nfngqkdkja6z4y88g56p0fwvhx1pgd05";
 
   postInstall = ''
     mkdir -p ${GXI_PLUGIN_DIR}

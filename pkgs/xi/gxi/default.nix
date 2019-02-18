@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
     owner = "Cogitri";
     repo = "gxi";
     rev = "edba6fd994dbc66649d1c24f8db8925ca025eb1f";
-    sha256 = "";
+    sha256 = "076n3qacgpsrnnf2jqcnm5rabbh7w8a3877dirbgcm05q0p19bhb";
     fetchSubmodules = true;
   };
 
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   hardeningDisable = [ "format" ]; # build error in gettext/gnulib??
 
-  cargoSha256 = "02r4v1yzz4i5rdz39r46nfngqkdkja6z4y88g56p0fwvhx1pgd05";
+  cargoSha256 = "1qfwdkjq09xs5vcjhzkp28jpamzds9h0sq366mifar40v4z5z10h";
 
   postInstall = ''
     mkdir -p ${GXI_PLUGIN_DIR}

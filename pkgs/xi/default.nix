@@ -1,12 +1,12 @@
 { lib, fetchFromGitHub, rustPlatform, newScope }:
 
 let
-  version = "2019-03-14";
+  version = "2019-03-23";
   xi-editor-src = fetchFromGitHub {
     owner = "xi-editor";
     repo = "xi-editor";
-    rev = "b83f5470e3fc0d0681b4676ac103b112399b3071";
-    sha256 = "1a3ifqi8l6yyamrisghbqsqsaq42jkgjapyl11g12c99im88as9m";
+    rev = "9e5a388e8198e3370fe53ce8f2a174bef6d3d1c7";
+    sha256 = "1n4pz0nynl8wjs02lbn1pg28mmw5gvf5n0bdg9ypdhl8q5fav4a1";
   };
   callPackage = newScope self;
   self = {
@@ -20,7 +20,7 @@ let
 
       cargoPatches = [ ./0001-only-use-one-version-of-syntect.patch ];
 
-      cargoSha256 = "1vh40ymn8lfclrswwzq1lprhdlvnir96kwcjks4ffprd4ypj2iqy";
+      cargoSha256 = "1jy7jfkpmp1xg6jj8di8g6wvn12f9mrqf63qx09n2hgr23fxcbd5";
 
       postInstall = ''
         make -C syntect-plugin install XI_PLUGIN_DIR=$out/share/xi/plugins

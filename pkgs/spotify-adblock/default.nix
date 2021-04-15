@@ -212,5 +212,59 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/abba23/spotify-adblock-linux";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
+    longDescription = ''
+      ## install
+
+      this requires a recent version of spotify (gtk3, libxkbcommon).
+      spotify from nixos-unstable is too old
+
+      ### /etc/nixos/configuration.nix
+
+      ```nix
+      { config, pkgs, lib, stdenv, ... }:
+      let
+
+        base-config = {
+          allowUnfree = true; # needed for spotify
+        };
+
+        # use a recent version of spotify
+        spotify-pkgs = import (fetchTarball {
+          # spotify 1.1.55.498
+          # https://github.com/NixOS/nixpkgs/pull/118055
+          url = "https://github.com/NixOS/nixpkgs/archive/caeafab22e39f1e95fc9452ff190fa7bdf342579.tar.gz";
+          sha256 = "0axzksla5x5akvjx3fz6kx2dbhw9fv5r6yrhwjj5zd21pgpkgnc3";
+        }) { config = base-config; };
+
+      in
+      {
+        imports = [ ./hardware-configuration.nix ];
+
+        nixpkgs.config = base-config // {
+
+          packageOverrides = pkgs: {
+
+            nur = import (builtins.fetchTarball {
+              # NUR 2021-04-15
+              url = "https://github.com/nix-community/NUR/archive/2ed3b8f5861313e9e8e8b39b1fb05f3a5a049325.tar.gz";
+              sha256 = "1rpl2jpwvp05gj79xflw5ka6lv149rkikh6x7zhr3za36s27q5pz";
+            }) {
+              inherit pkgs;
+            };
+
+            # use a recent version of spotify
+            inherit (spotify-pkgs) spotify;
+            inherit (spotify-pkgs) spotify-unwrapped; # required by spotify-adblock-linux
+
+          };
+
+        };
+
+        environment.systemPackages = with pkgs; [
+          nur.repos.milahu.spotify-adblock-linux
+        ];
+      }
+      ```
+    '';
   };
 }

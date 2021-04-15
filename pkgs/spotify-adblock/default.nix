@@ -71,10 +71,10 @@ let
       spotify-unwrapped-version = spotify-unwrapped.version;
 
       cef-version =
-        #builtins.trace "spotify-adblock: spotify-version = ${spotify-version}"
+        #builtins.trace "spotify-adblock-linux: spotify-version = ${spotify-version}"
         builtins.getAttr spotify-version cef-version-of-spotify-version;
       cef-build =
-        #builtins.trace "spotify-adblock: cef-version = ${cef-version}"
+        #builtins.trace "spotify-adblock-linux: cef-version = ${cef-version}"
         builtins.getAttr cef-version cef-build-of-cef-version;
       cef-sha256 = builtins.getAttr cef-file cef-sha256-of-file;
 
@@ -148,7 +148,7 @@ let
 in
 
 stdenv.mkDerivation rec {
-  pname = "spotify-adblock";
+  pname = "spotify-adblock-linux";
   version = "1.4";
 
   src = fetchFromGitHub {
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
     libdir=${spotify-unwrapped}/lib/spotify
     librarypath="${lib.makeLibraryPath deps}:$libdir"
 
-    makeWrapper ${spotify-unwrapped}/share/spotify/.spotify-wrapped $out/bin/spotify-adblock \
+    makeWrapper ${spotify-unwrapped}/share/spotify/.spotify-wrapped $out/bin/spotify-adblock-linux \
       --prefix LD_LIBRARY_PATH : "$librarypath" \
       --prefix PATH : "${gnome3.zenity}/bin" \
       --suffix LD_PRELOAD : "$out/lib/spotify-adblock.so"
@@ -189,13 +189,13 @@ stdenv.mkDerivation rec {
     # Desktop file
     # based on spotify/default.nix
     mkdir -p $out/share/applications
-    cp ${spotify-unwrapped}/share/spotify/spotify.desktop $out/share/applications/spotify-adblock.desktop
+    cp ${spotify-unwrapped}/share/spotify/spotify.desktop $out/share/applications/spotify-adblock-linux.desktop
     # fix Icon line in the desktop file (#48062)
     sed -i "
       s/^Icon=.*/Icon=spotify-client/;
-      s/Exec=spotify/Exec=spotify-adblock/;
-      s/Name=Spotify/Name=Spotify Adblock/;
-    " $out/share/applications/spotify-adblock.desktop
+      s/Exec=spotify/Exec=spotify-adblock-linux/;
+      s/Name=Spotify/Name=Spotify Adblock Linux/;
+    " $out/share/applications/spotify-adblock-linux.desktop
     # Icons
     for i in 16 22 24 32 48 64 128 256 512; do
       ixi="$i"x"$i"

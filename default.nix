@@ -16,6 +16,10 @@
 
   spotify-adblock-linux = pkgs.callPackage ./pkgs/spotify-adblock-linux { };
 
+  openhantek-e7e0c7b = pkgs.callPackage ./pkgs/openhantek/default-e7e0c7b.nix { };
+
+  ricochet-refresh = pkgs.libsForQt5.callPackage ./pkgs/ricochet-refresh/default.nix { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

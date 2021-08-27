@@ -135,6 +135,6 @@ stdenv.mkDerivation rec { # https://nixos.org/manual/nixpkgs/stable/#qt-default-
     homepage = "https://www.ricochetrefresh.net";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
-    maintainers = teams.blueprint-freespeech.members;
+    #maintainers = teams.blueprint-freespeech.members; # FIXME attribute 'blueprint-freespeech' missing
   };
 }

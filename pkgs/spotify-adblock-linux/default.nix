@@ -1,3 +1,12 @@
+# nix-build -E 'with import <nixpkgs> { }; callPackage ./default.nix { }'
+# ./result/bin/spotify*
+
+# TODO https://github.com/abba23/spotify-adblock
+
+/* BROKEN
+error: Package ‘ffmpeg-3.4.8’ in ffmpeg/generic.nix:215 is marked as insecure, refusing to evaluate.
+*/
+
 { fetchFromGitHub, pkg-config, pkgs, spotify, spotify-unwrapped, libyaml
 , gtk3, libxkbcommon # spotify-unwrapped-1.1.55.498
   # copy paste from spotify/default.nix:
@@ -16,11 +25,21 @@ let
   debugFlags = "-g";
 
   # copy paste from /etc/nixos/configuration.nix
+  /*
+  # NUR: evaluation error https://github.com/nix-community/NUR/issues/219
   nur = import (builtins.fetchTarball {
     # NUR 2021-04-15
     url = "https://github.com/nix-community/NUR/archive/2ed3b8f5861313e9e8e8b39b1fb05f3a5a049325.tar.gz";
     sha256 = "1rpl2jpwvp05gj79xflw5ka6lv149rkikh6x7zhr3za36s27q5pz";
   }) { inherit pkgs; };
+  */
+  nur = import (fetchFromGitHub {
+    owner = "nix-community";
+    repo = "NUR";
+    rev = "2ed3b8f5861313e9e8e8b39b1fb05f3a5a049325";
+    sha256 = "1rpl2jpwvp05gj79xflw5ka6lv149rkikh6x7zhr3za36s27q5pz";
+  }
+  ) { inherit pkgs; };
 
   libcyaml = nur.repos.suhr.libcyaml;
 

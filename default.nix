@@ -14,7 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  spotify-adblock-linux = pkgs.callPackage ./pkgs/spotify-adblock-linux { };
+  #spotify-adblock-linux = pkgs.callPackage ./pkgs/spotify-adblock-linux { };
 
   ricochet-refresh = pkgs.libsForQt5.callPackage ./pkgs/ricochet-refresh/default.nix { };
 

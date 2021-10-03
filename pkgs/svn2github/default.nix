@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   wrapper = writeShellScript "svn2github-wrapper" ''
     PATH=${lib.makeBinPath buildInputs}
-    exec python3 ${src}/svn2github.py
+    exec python3 ${src}/svn2github.py "$@"
   '';
 
   buildInputs = [ python3 subversion git gnutar ];

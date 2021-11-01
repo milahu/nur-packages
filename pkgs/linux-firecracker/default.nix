@@ -11,7 +11,7 @@ https://github.com/xddxdd/nur-packages/tree/812de98e6b0080c85a4a94e289fa0425165b
 , linuxManualConfig
 , linuxKernel
 #, kernelPatches ? []
-, writeTextFile
+, runCommand
 , fetchurl
 }:
 
@@ -22,33 +22,20 @@ let
   configfile-rev = "9b03e30a92c48be7fc061a46571e99862eaa1fd8";
   configfile-sha256 = "AEbQtRD7cWWJIzynEorT35wrfZrHnbSJ8a0wkC8wliE=";
 
-  configfile = fetchurl {
+  configfile-src = fetchurl {
     url = "https://github.com/firecracker-microvm/firecracker/raw/${configfile-rev}/resources/microvm-kernel-x86_64.config";
     sha256 = configfile-sha256;
-    # FIXME? replace variable $UNAME_RELEASE: CONFIG_DEFCONFIG_LIST="/lib/modules/$UNAME_RELEASE/.config"
   };
 
-  # https://github.com/xddxdd/nur-packages/blob/812de98e6b0080c85a4a94e289fa0425165b7c3b/pkgs/linux-xanmod-lantian/gen_config_nix.sh
-  config = import (stdenv.mkDerivation {
-    name = "kernel-config.nix";
-    phases = "buildPhase";
-    buildPhase = ''
-      #!/bin/sh
-      echo "debug: parsing nix attrset from configfile ${configfile}"
-      echo "{" > $out
-      while IFS='=' read key val; do
-        [ "x''${key#CONFIG_}" != "x$key" ] || continue
-        no_firstquote="''${val#\"}";
-        echo '  "'"$key"'" = "'"''${no_firstquote%\"}"'";' >> $out
-      done < ${configfile}
-      echo "}" >> $out
-    '';
-  });
+  # FIXME? replace variable $UNAME_RELEASE: CONFIG_DEFCONFIG_LIST="/lib/modules/$UNAME_RELEASE/.config"
+  configfile = (runCommand "linux-firecracker.config" {} ''
+    cp ${configfile-src} $out
+    sed -i 's/# CONFIG_IKCONFIG is not set/CONFIG_IKCONFIG=y/' $out
+  '').outPath;
 in
 
-# https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
 linuxManualConfig rec {
-  inherit stdenv lib config configfile;
+  inherit stdenv lib configfile;
   inherit (baseKernel) version src;
 
   kernelPatches = baseKernel.kernelPatches;

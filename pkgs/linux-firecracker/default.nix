@@ -20,7 +20,8 @@ let
 
   # https://github.com/firecracker-microvm/firecracker/blob/main/resources/microvm-kernel-x86_64.config
   configfile-rev = "9b03e30a92c48be7fc061a46571e99862eaa1fd8";
-  configfile-sha256 = "9b03e30a92c48be7fc061a46571e99862eaa1fd8";
+  configfile-sha256 = "AEbQtRD7cWWJIzynEorT35wrfZrHnbSJ8a0wkC8wliE=";
+
   configfile = fetchurl {
     url = "https://github.com/firecracker-microvm/firecracker/raw/${configfile-rev}/resources/microvm-kernel-x86_64.config";
     sha256 = configfile-sha256;

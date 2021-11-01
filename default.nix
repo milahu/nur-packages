@@ -32,6 +32,8 @@
 
   oci-image-generator = pkgs.callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
 
+  linux-firecracker = pkgs.callPackage ./pkgs/linux-firecracker { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

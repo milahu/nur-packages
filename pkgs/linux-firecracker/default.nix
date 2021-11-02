@@ -28,21 +28,17 @@ let
   };
 
   # FIXME? replace variable $UNAME_RELEASE: CONFIG_DEFCONFIG_LIST="/lib/modules/$UNAME_RELEASE/.config"
+  # CONFIG_IKCONFIG: expose /proc/config.gz
   configfile = (runCommand "linux-firecracker.config" {} ''
-    cp ${configfile-src} $out
+    cp -v ${configfile-src} $out
     sed -i 's/# CONFIG_IKCONFIG is not set/CONFIG_IKCONFIG=y/' $out
   '').outPath;
 in
 
 linuxManualConfig rec {
+  version = "${baseKernel.version}-firecracker";
   inherit stdenv lib configfile;
-  inherit (baseKernel) version src;
-
-  kernelPatches = baseKernel.kernelPatches;
-
-  modDirVersion = baseKernel.modDirVersion;
-  # TODO? disable modules
-  # linux-firecracker has no modules (?)
-
+  inherit (baseKernel) src kernelPatches modDirVersion;
+  # TODO? disable modules (modDirVersion, etc). linux-firecracker has no modules (?)
   allowImportFromDerivation = true;
 }

@@ -36,6 +36,8 @@
 
   hazel-editor = pkgs.callPackage ./pkgs/hazel-editor { };
 
+  brother-hll3210cw = pkgs.callPackage ./pkgs/brother-hll3210cw { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

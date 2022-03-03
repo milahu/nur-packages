@@ -42,6 +42,8 @@
 
   srtgen = pkgs.callPackage ./pkgs/srtgen { };
 
+  gaupol = pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

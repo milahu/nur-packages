@@ -13,6 +13,8 @@ let
   # getting the commit time from github API is not possible, cos timezone is missing
 in
 
+with pkgs;
+
 pkgs.stdenv.mkDerivation {
 
   pname = "hazel";

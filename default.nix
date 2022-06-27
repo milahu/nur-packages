@@ -66,6 +66,8 @@
 
   tg-archive = pkgs.callPackage ./pkgs/tg-archive/tg-archive.nix { };
 
+  jaq = pkgs.callPackage ./pkgs/jaq/jaq.nix { };
+
   aegisub = pkgs.libsForQt5.callPackage ./pkgs/aegisub/aegisub.nix { };
 
   # example-package = pkgs.callPackage ./pkgs/example-package { };

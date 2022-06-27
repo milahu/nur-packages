@@ -65,6 +65,7 @@ nix-build -E 'with import <nixpkgs> { }; libsForQt5.callPackage ./aegisub.nix { 
 , libiconv
 , readline
 , python3
+, symlinkJoin
 
 , spellcheckSupport ? true
 , hunspell ? null
@@ -188,7 +189,12 @@ let
     '';
   };
 
-  boost = boost17x;
+  _boost = boost17x;
+  boost = symlinkJoin { # needed for BOOST_ROOT
+    name = "${_boost.name}-out-dev";
+    paths = [ _boost.out _boost.dev ];
+  };
+
   wxGTK = wxGTK31;
 in
 
@@ -203,9 +209,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KTKKzP80nON7P6JFeYxugbwX03c3muZQQrjBClQnjYE=";
   };
 
+  #src = ./src/Aegisub;
+
   patches = [
-    ./fix-configure-find-boost-on-nix.patch
+    #./fix-configure-find-boost-on-nix.patch
+    # https://github.com/TypesettingTools/Aegisub/pull/157
+    #./fix-configure-dont-find-library-iconv-on-linux.patch
+    #./update-to-meson-version-0.58.0.patch
+    # fix: ERROR: Automatic wrap-based subproject downloading is disabled
+    ./disable-tests.patch
   ];
+
+  # https://github.com/TypesettingTools/Aegisub/issues/151
+  # https://github.com/mesonbuild/meson/issues/8801
+  BOOST_ROOT = boost;
 
   mesonFlags = [
     "-Dportaudio=disabled"
@@ -220,10 +237,10 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
   buildInputs = [
+    #luajit_lua52
     #luajit_lua51 # Message: System luajit found but not compiled in 5.2 mode
     #luajit_2_1 # Run-time dependency luajit found: YES 2.1.0-beta3
     #luajit_2_0
-    luajit_lua52
     boost
     ffmpeg
     ffms
@@ -248,6 +265,7 @@ stdenv.mkDerivation rec {
   ]
   ++ optional alsaSupport alsa-lib
   #++ optional automationSupport lua
+  ++ optional automationSupport luajit_lua52
   ++ optional openalSupport openal
   ++ optional portaudioSupport portaudio
   ++ optional pulseaudioSupport libpulseaudio

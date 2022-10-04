@@ -74,3 +74,6 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
+
+# based on https://github.com/dtzWill/nur-packages
+// (pkgs.callPackages ./pkgs/xi { })

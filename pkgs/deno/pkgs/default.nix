@@ -8,4 +8,6 @@ lib.makeScope newScope (self: with self; {
 
   webview_deno = callPackage ./webview_deno {};
 
+  deno2nix = callPackage ./deno2nix {};
+
 })

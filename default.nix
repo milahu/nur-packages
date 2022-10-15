@@ -73,6 +73,8 @@
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
+
+  deno = pkgs.callPackage ./pkgs/deno { };
 }
 
 # based on https://github.com/dtzWill/nur-packages

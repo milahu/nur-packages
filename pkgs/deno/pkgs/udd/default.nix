@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     #fetchSubmodules = true;
   };
 
-  denoDirHash = "sha256-SZldhIE7+m/EUXmeuL+GIQYUKss1JqOxdvD9sn/ZHXg=";
+  #denoDirHash = "sha256-SZldhIE7+m/EUXmeuL+GIQYUKss1JqOxdvD9sn/ZHXg=";
+  # force rebuild of denoDir
+  # use
+  #   nix-build . -A deno.pkgs.udd --keep-failed
+  # to keep temporary build files
+  denoDirHash = "";
 
   meta = {
     description = "Update Deno Dependencies - update dependency urls to their latest published versions";
@@ -62,9 +67,9 @@ stdenv.mkDerivation rec {
       do
         # workaround for
         # error: missing field `headers` at line 3 column 1
-        #cat $j | jq 'del(.headers) | del(.now)' >$j.new
+        cat $j | jq 'del(.headers) | del(.now)' >$j.new
         # https://github.com/denoland/deno/issues/16295
-        cat $j | jq '.headers={} | del(.now)' >$j.new
+        #cat $j | jq '.headers={} | del(.now)' >$j.new
         mv $j.new $j
       done
       rm $DENO_DIR/dep_analysis_cache_v1

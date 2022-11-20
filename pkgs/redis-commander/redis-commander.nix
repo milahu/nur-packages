@@ -1,0 +1,55 @@
+# $out/bin/redis-commander.js
+
+# default config
+# $out/config/default.json
+
+# custom config
+# $out/config/local.json
+
+/* $out/lib/util.js
+
+function getConfigPath (configFile) {
+  const c = require('config');
+  const configPath = c.util.getEnv('NODE_CONFIG_DIR');
+  if (configFile === 'local') {
+    return path.join(configPath, 'local.json');
+  }
+  else {  // connections
+    return path.join(configPath, 'local-' + c.util.getEnv('NODE_ENV') + '.json');
+  }
+}
+*/
+
+{ pkgs, fetchFromGitHub, callPackage, python3 }:
+
+let
+  npmlock2nix = callPackage (fetchFromGitHub {
+    # https://github.com/nix-community/npmlock2nix
+    owner = "nix-community";
+    repo = "npmlock2nix";
+    rev = "eeed152290ec2425f96c5e74e469c40b621e1468";
+    sha256 = "sha256-HME6rnysvCwUVtH+BDWDGahmweMaLgD2wqHeRuGp6QI=";
+  }) {};
+in
+
+npmlock2nix.build {
+  src = fetchFromGitHub {
+    # https://github.com/joeferner/redis-commander
+    owner = "joeferner";
+    repo = "redis-commander";
+    rev = "4bb60a06660e4c55f0e9c46f1d3a9ce6b1bee6ef";
+    sha256 = "sha256-XBIhKRwGtHaR7+4m81+6SAhWf9AusTG/I1ZU4uVMbFE=";
+  };
+  installPhase = ''
+    cp -r . $out
+    mv -v $out/bin/redis-commander.js $out/bin/redis-commander
+  '';
+  #node_modules_mode = "copy";
+  node_modules_attrs = {
+    buildInputs = [
+      python3 # for node-gyp
+    ];
+  };
+}
+
+# fixme? EPERM: operation not permitted, rename

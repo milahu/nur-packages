@@ -75,6 +75,8 @@
   # ...
 
   deno = pkgs.callPackage ./pkgs/deno { };
+
+  redis-commander = pkgs.callPackage ./pkgs/redis-commander/redis-commander.nix { };
 }
 
 # based on https://github.com/dtzWill/nur-packages

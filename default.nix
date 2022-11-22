@@ -77,6 +77,8 @@
   deno = pkgs.callPackage ./pkgs/deno { };
 
   redis-commander = pkgs.callPackage ./pkgs/redis-commander/redis-commander.nix { };
+
+  yacy = pkgs.callPackage ./pkgs/yacy/yacy.nix { };
 }
 
 # based on https://github.com/dtzWill/nur-packages

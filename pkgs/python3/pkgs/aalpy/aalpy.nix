@@ -3,6 +3,8 @@
 , fetchFromGitHub
 }:
 
+let aalpy =
+
 python3.pkgs.buildPythonPackage rec {
   pname = "AALpy";
   version = "2022-11-24";
@@ -25,4 +27,12 @@ python3.pkgs.buildPythonPackage rec {
     description = "Active Automata Learning";
     license = licenses.mit;
   };
+}
+
+; in
+
+aalpy // {
+  shell = (python3.withPackages (p: with p; [
+    aalpy
+  ])).env;
 }

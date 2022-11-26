@@ -80,6 +80,8 @@
 
   yacy = pkgs.callPackage ./pkgs/yacy/yacy.nix { };
 
+  flutter-engine = pkgs.callPackage ./pkgs/flutter-engine/flutter-engine.nix { };
+
   libalf = pkgs.callPackage ./pkgs/libalf/libalf.nix { };
 }
 

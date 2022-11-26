@@ -83,6 +83,8 @@
   flutter-engine = pkgs.callPackage ./pkgs/flutter-engine/flutter-engine.nix { };
 
   libalf = pkgs.callPackage ./pkgs/libalf/libalf.nix { };
+
+  python3.pkgs.aalpy = pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
 }
 
 # based on https://github.com/dtzWill/nur-packages

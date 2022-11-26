@@ -79,6 +79,8 @@
   redis-commander = pkgs.callPackage ./pkgs/redis-commander/redis-commander.nix { };
 
   yacy = pkgs.callPackage ./pkgs/yacy/yacy.nix { };
+
+  libalf = pkgs.callPackage ./pkgs/libalf/libalf.nix { };
 }
 
 # based on https://github.com/dtzWill/nur-packages

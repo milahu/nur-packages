@@ -68,7 +68,8 @@
 
   jaq = pkgs.callPackage ./pkgs/jaq/jaq.nix { };
 
-  aegisub = pkgs.libsForQt5.callPackage ./pkgs/aegisub/aegisub.nix { };
+  # FIXME error: attribute 'gtk' missing
+  #aegisub = pkgs.libsForQt5.callPackage ./pkgs/aegisub/aegisub.nix { };
 
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

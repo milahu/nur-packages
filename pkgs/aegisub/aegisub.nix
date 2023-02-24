@@ -258,6 +258,7 @@ stdenv.mkDerivation rec {
     libass
     libiconv # only needed for non-linux: darwin, windows?
     wxGTK
+    # FIXME error: attribute 'gtk' missing
     wxGTK.gtk
     qt5.qtbase
     zlib

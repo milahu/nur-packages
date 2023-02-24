@@ -85,6 +85,9 @@
   libalf = pkgs.callPackage ./pkgs/libalf/libalf.nix { };
 
   python3.pkgs.aalpy = pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+
+  brother-hll6400dw = pkgs.callPackage ./pkgs/misc/cups/drivers/brother/hll6400dw/hll6400dw.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -88,6 +88,8 @@
 
   brother-hll6400dw = pkgs.callPackage ./pkgs/misc/cups/drivers/brother/hll6400dw/hll6400dw.nix { };
 
+  brother-hll5100dn = pkgs.callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

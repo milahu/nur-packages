@@ -101,9 +101,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in {
     );
   };
 
-  # https://github.com/NixOS/nixpkgs/pull/200788
-  turbo = callPackage ./pkgs/turbo/turbo.nix { };
-
   caramel = callPackage ./pkgs/caramel/caramel.nix {
     # latest supported version is ocaml 4.11
     # https://github.com/AbstractMachinesLab/caramel/issues/105

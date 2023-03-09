@@ -3,6 +3,22 @@
 
 cd "$(dirname "$0")"
 
+keep_tempdir=false
+
+nix_args=()
+for arg in "$@"
+do
+  case "$arg" in
+    --keep-tempdir)
+      keep_tempdir=true
+      ;;
+    *)
+      # passthru arg to nix-env
+      nix_args+=("$arg")
+      ;;
+  esac
+done
+
 source_repo_path=$(readlink -f .)
 source_repo_url="file://$source_repo_path"
 
@@ -105,7 +121,7 @@ a+=(-I "$eval_path")
 a+=(-I "$EVALREPO_PATH")
 
 # passthru args to nix-env, for example "--verbose"
-a+=("$@")
+a+=("${nix_args[@]}")
 
 export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
 
@@ -117,10 +133,16 @@ if packages_json=$("${a[@]}"); then
   echo
   echo your packages:
   echo "$packages_json" | jq -r 'values | .[].name'
+  rm -rf $tempdir
 else
   result=$?
   echo eval fail
+  if $keep_tempdir; then
+    echo keeping tempdir: $tempdir
+  else
+    echo "removing tempdir. add '--keep-tempdir' to keep temporary files"
+    rm -rf $tempdir
+  fi
 fi
 
-rm -rf $tempdir
 exit $result

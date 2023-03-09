@@ -111,7 +111,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in {
 
   brother-hll5100dn = callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
 
-  npmlock2nix = callPackage (callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { }) { };
+  npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
 
   # TODO
   #xi = callPackages ./pkgs/xi { };

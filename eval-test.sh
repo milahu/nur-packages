@@ -37,8 +37,14 @@ git -C $repo_path checkout --quiet $repo_commit
 # the actual value of repo.file is stored in
 # https://github.com/nix-community/NUR/blob/master/repos.json
 repo_file=default.nix
+# evalRepo.nix only works with default.nix
+if false; then
 if [ -e $repo_path/flake.nix ]; then
+  echo entrypoint is flake.nix
   repo_file=flake.nix
+else
+  echo entrypoint is default.nix
+fi
 fi
 
 repo_src=$repo_path/$repo_file

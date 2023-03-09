@@ -22,7 +22,7 @@ function getConfigPath (configFile) {
 
 { pkgs, fetchFromGitHub, callPackage, python3, npmlock2nix }:
 
-npmlock2nix.build {
+npmlock2nix.v2.build {
   src = fetchFromGitHub {
     # https://github.com/joeferner/redis-commander
     owner = "joeferner";
@@ -36,6 +36,8 @@ npmlock2nix.build {
   '';
   #node_modules_mode = "copy";
   node_modules_attrs = {
+    packageJson = ./package.json;
+    packageLockJson = ./package-lock.json;
     buildInputs = [
       python3 # for node-gyp
     ];

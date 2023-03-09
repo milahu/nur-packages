@@ -1,4 +1,5 @@
-#! /usr/bin/env bash
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p bash git jq
 
 cd "$(dirname "$0")"
 

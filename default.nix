@@ -116,6 +116,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in {
   # TODO
   #xi = callPackages ./pkgs/xi { };
 
+  subdl = callPackage ./pkgs/applications/video/subdl/subdl.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

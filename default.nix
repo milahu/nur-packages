@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in {
+pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # library functions
   lib = pkgs.lib // (import ./lib { inherit pkgs; });
@@ -117,6 +117,19 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in {
   #xi = callPackages ./pkgs/xi { };
 
   subdl = callPackage ./pkgs/applications/video/subdl/subdl.nix { };
+
+  # TODO callPackages? seems to be no difference (singular vs plural)
+  #inherit (callPackages ./pkgs/development/tools/parsing/antlr/4.nix { })
+  inherit (callPackage ./pkgs/development/tools/parsing/antlr/4.nix { })
+    antlr4_8
+    antlr4_9
+    antlr4_10
+    antlr4_11
+  ;
+
+  antlr4 = antlr4_11;
+
+  antlr = antlr4;
 
 }
 

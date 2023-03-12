@@ -125,9 +125,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     antlr4_9
     antlr4_10
     antlr4_11
+    antlr4_12
   ;
 
-  antlr4 = antlr4_11;
+  antlr4 = antlr4_12;
 
   antlr = antlr4;
 

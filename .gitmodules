@@ -1,3 +1,0 @@
-[submodule "pkgs/development/tools/npmlock2nix/src/npmlock2nix"]
-	path = pkgs/development/tools/npmlock2nix/src/npmlock2nix
-	url = https://github.com/nix-community/npmlock2nix

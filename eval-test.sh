@@ -33,7 +33,10 @@ git -C $repo_path init --quiet
 git -C $repo_path remote add repo "$source_repo_url"
 git -C $repo_path fetch --quiet --update-shallow repo $repo_commit
 git -C $repo_path checkout --quiet $repo_commit
-git -C $repo_path submodule update --init --depth=1 --recursive --recommend-shallow
+# no. currently, NUR does not support git submodules
+# eval will fail with:
+# error: getting status of '/nix/store/...': No such file or directory
+#git -C $repo_path submodule update --init --depth=1 --recursive --recommend-shallow
 
 # the actual value of repo.file is stored in
 # https://github.com/nix-community/NUR/blob/master/repos.json

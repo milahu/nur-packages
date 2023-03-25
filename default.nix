@@ -174,6 +174,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   kindle_1_34_1_63103 = kindle_1_34_63103;
   kindle_1_34_1 = kindle_1_34_63103;
 
+  kindle_1_39_65323 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.39.65323"; };
+  kindle_1_39_1_65323 = kindle_1_39_65323;
+  kindle_1_39_1 = kindle_1_39_65323;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

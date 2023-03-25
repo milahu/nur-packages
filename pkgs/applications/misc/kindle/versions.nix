@@ -139,6 +139,7 @@ rec {
   # https://github.com/derrickstolee/winget-pkgs/blob/bc326a444af91e5266686ecc046726db5f2a06d9/manifests/a/Amazon/Kindle/1.31.60170/Amazon.Kindle.yaml#L23
 
   # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
+  # FIXME add dxkv vulkan, see pkgs/build-support/make-windows-app/make-windows-app.nix
   #"1.32.0"
   "1.32.61109" = {
     src = builtins.fetchurl {
@@ -188,10 +189,18 @@ rec {
   #url           = 'https://kindleforpc.s3.amazonaws.com/65306/KindleForPC-installer-1.39.65306.exe'
   #checksum      = 'c1e53345295902e944850b1aa8d9ffa751bcbbf422aa4a096d4d934b5e9916cb'
 
+  # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
   # Kindle.1.39.65323.nupkg
   #url           = 'https://kindleforpc.s3.amazonaws.com/65323/KindleForPC-installer-1.39.65323.exe'
   #checksum      = '30363931fe21070d95dc846695759e370f9961391b15a94460c641844650f0f6'
   # https://github.com/emmanuelrosa/erosanix/blob/master/pkgs/amazon-kindle/default.nix
+  #sha256 = "1xpha1388hf6c12aj58v75hrj3rpkrsrarl4vjahs1r1zqqkjdih";
+  "1.39.65323" = {
+    src = builtins.fetchurl {
+      url = "https://kindleforpc.s3.amazonaws.com/65323/KindleForPC-installer-1.39.65323.exe";
+      sha256 = "sha256:30363931fe21070d95dc846695759e370f9961391b15a94460c641844650f0f6";
+    };
+  };
 
   # Kindle.1.39.65383.nupkg
   #url           = 'https://kindleforpc.s3.amazonaws.com/65383/KindleForPC-installer-1.39.65383.exe'

@@ -29,13 +29,17 @@ rec {
 
   # KindleForPC-installer-1.12.40996.exe
   # http://kindleforpc.amazon.com/40996/KindleForPC-installer-1.12.40996.exe
+  # amazon: HTTP/1.1 403 Forbidden
 
   # http://kindleforpc.amazon.com/43019/KindleForPC-installer-1.14.43019.exe
   # d92901bb2d62535922017bbd0f2b2378
+  # amazon: HTTP/1.1 403 Forbidden
 
+  # runtime error: unable to connect
   # Kindle.1.15.43061.nupkg
   # https://s3.amazonaws.com/kindleforpc/43061/KindleForPC-installer-1.15.43061.exe
   # a40840ae89a771892732e96685c22096
+  # amazon: HTTP/1.1 403 Forbidden
   "1.15.43061" = {
     src = builtins.fetchurl {
       # https://archive.org/details/kindleforpc-installer-1.15.43061_202102
@@ -51,12 +55,14 @@ rec {
   URLDownload = http://kindleforpc.amazon.com/44025/KindleForPC-installer-1.16.44025.exe
   SHA1 = c57d0a7d8cd5f1c3020536edf336c3187f3e051f
   SizeBytes = 65292192
+  # amazon: HTTP/1.1 403 Forbidden
   */
 
   # runtime error: unable to connect
   #"1.17.0" = "1.17.44170";
   #"1.17.0.44170" = "1.17.44170";
   # https://github.com/apprenticeharper/DeDRM_tools/blob/master/FAQs.md
+  # amazon: HTTP/1.1 403 Forbidden
   "1.17.44170" = {
     src = builtins.fetchurl {
       # https://archive.org/details/kindle-for-pc-1-17-44170
@@ -75,9 +81,13 @@ rec {
   */
 
   # runtime error: unable to connect
+  # FIXME install ssl cert https://bugs.winehq.org/show_bug.cgi?id=50471
+  # via https://forum.winehq.org/viewtopic.php?t=29102
+  # trace: WINEDEBUG=+file,+ntdll,+tid ./result/bin/kindle >wine.log 2>&1
   #"1.17.1" = "1.17.44183";
   #"1.17.1.44183" = "1.17.44183";
   # https://github.com/BenAAndrew/Voice-Cloning-App/blob/main/docs/dataset.md
+  # amazon: HTTP/1.1 403 Forbidden
   "1.17.44183" = {
     src = builtins.fetchurl {
       # https://archive.org/details/kindle-for-pc-installer-1.17.44183
@@ -87,12 +97,14 @@ rec {
   };
 
   # Kindle.1.20.nupkg
+  # amazon: HTTP/1.1 403 Forbidden
   #-Url 'https://s3.amazonaws.com/kindleforpc/47037/KindleForPC-installer-1.20.47037.exe' `
   #-Checksum 'CB20581D3455D458C7AC4BAFA5C67DCFC5186C7B35951168EFCF5A8263706B47' `
 
   # runtime error: deadloop
   # output is crazy verbose. workaround: kindle >/dev/null
   #"1.21.0" = "1.21.48017";
+  # amazon: HTTP/1.1 403 Forbidden
   "1.21.48017" = {
     src = builtins.fetchurl {
       # https://archive.org/details/kindle-for-pc-installer-1.21.48017
@@ -100,6 +112,8 @@ rec {
       sha256 = "sha256:a6ea9068fabcdfde6da3099fa242c19bede3e393f2c6d3cb24c859a5f4281ae7";
     };
   };
+
+
 
   # Kindle.1.23.50133.nupkg
   #-Url 'https://s3.amazonaws.com/kindleforpc/50133/KindleForPC-installer-1.23.50133.exe' `
@@ -117,6 +131,7 @@ rec {
   # runtime error: crashes on start
   #"1.28.0" = "1.28.57030";
   #"1.28.0.57030" = "1.28.57030";
+  # amazon: HTTP/1.1 403 Forbidden
   "1.28.57030" = {
     src = builtins.fetchurl {
       # https://archive.org/details/kindle-for-pc-installer-1.28.57030
@@ -125,6 +140,7 @@ rec {
     };
   };
 
+  # amazon: HTTP/1.1 403 Forbidden
   # Kindle.1.29.58059.nupkg
   #url           = 'https://s3.amazonaws.com/kindleforpc/58059/KindleForPC-installer-1.29.58059.exe'
   #checksum      = '09b4d9cab09b7d59384ac83436d0cbe22e6514ec373e02b315ad9a3ed6047d5e'
@@ -140,12 +156,13 @@ rec {
 
   # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
   # FIXME add dxkv vulkan, see pkgs/build-support/make-windows-app/make-windows-app.nix
+  #    # https://archive.org/details/kindle-for-pc-1-32-61109
+  #    name = "KindleForPC-installer-1.32.61109.exe";
+  #    url = "https://archive.org/download/kindle-for-pc-1-32-61109/kindle-for-pc-1-32-61109.exe";
   #"1.32.0"
   "1.32.61109" = {
     src = builtins.fetchurl {
-      # https://archive.org/details/kindle-for-pc-1-32-61109
-      name = "KindleForPC-installer-1.32.61109.exe";
-      url = "https://archive.org/download/kindle-for-pc-1-32-61109/kindle-for-pc-1-32-61109.exe";
+      url = "https://kindleforpc.s3.amazonaws.com/61109/KindleForPC-installer-1.32.61109.exe";
       sha256 = "sha256:1d027c1b73163d4d3c7ce0c731b6c1daeb4ba27accedd3578c798dad20c73c78";
     };
   };
@@ -155,17 +172,19 @@ rec {
   #checksum      = '6f5616d9ccf8b76ce394a71ef5313aacfa833ade4e3cfcb2a61b35193d2d6b38'
 
   # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
+  #    # https://archive.org/details/kindle-for-pc-installer-1.34.63103
+  #    url = "https://archive.org/download/kindle-for-pc-installer-1.34.63103/KindleForPC-installer-1.34.63103.exe";
   #"1.34.1"
   #"1.34.1.63103"
   "1.34.63103" = {
     src = builtins.fetchurl {
-      # https://archive.org/details/kindle-for-pc-installer-1.34.63103
-      url = "https://archive.org/download/kindle-for-pc-installer-1.34.63103/KindleForPC-installer-1.34.63103.exe";
+      url = "https://kindleforpc.s3.amazonaws.com/63103/KindleForPC-installer-1.34.63103.exe";
       sha256 = "sha256:3dc62b3895954fc171d4a3d08f2b7a1a503233e373c163adb7bc7fd34cdeff49";
     };
   };
 
   # Kindle.1.35.64251.nupkg
+  # amazon: HTTP/1.1 403 Forbidden
   #url           = 'https://kindleforpc.s3.amazonaws.com/64251/KindleForPC-installer-1.35.64251.exe'
   #checksum      = '48828d9cff9cc07d8725c9c20d4894fb50e0fc83e0391757bc552c403e4c436a'
 

@@ -226,6 +226,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
 
+  kaitai-struct-formats = callPackage ./pkgs/development/tools/parsing/kaitai-struct/kaitai-struct-formats.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

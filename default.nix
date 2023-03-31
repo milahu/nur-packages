@@ -224,6 +224,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   netgeartelnetenable-by-yoshac = callPackage ./pkgs/tools/networking/netgeartelnetenable/netgeartelnetenable-by-yoshac.nix { };
   netgeartelnetenable-by-pgebheim = callPackage ./pkgs/tools/networking/netgeartelnetenable/netgeartelnetenable-by-pgebheim.nix { };
 
+  cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

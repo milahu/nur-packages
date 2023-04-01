@@ -221,8 +221,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   lzturbo = callPackage ./pkgs/tools/compression/lzturbo/lzturbo.nix { };
 
-  netgeartelnetenable-by-yoshac = callPackage ./pkgs/tools/networking/netgeartelnetenable/netgeartelnetenable-by-yoshac.nix { };
-  netgeartelnetenable-by-pgebheim = callPackage ./pkgs/tools/networking/netgeartelnetenable/netgeartelnetenable-by-pgebheim.nix { };
+  netgear-telnetenable = callPackage ./pkgs/tools/networking/netgear-telnetenable/netgear-telnetenable.nix { };
 
   cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
 

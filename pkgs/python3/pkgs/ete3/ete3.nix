@@ -4,7 +4,8 @@
 , isPy3k
 , numpy
 , six
-, withTreeVisualization ? false
+# default true to fix: ImportError: cannot import name 'TextFace' from 'ete3'
+, withTreeVisualization ? true
 , lxml
 , withXmlSupport ? false
 , pyqt4

@@ -108,6 +108,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pysubs2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
 
+      ete3 = python3.pkgs.callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
+
     };
   };
 

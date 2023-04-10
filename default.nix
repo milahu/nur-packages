@@ -102,14 +102,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   python3 = pkgs.python3 // {
     pkgs = (pkgs.python3.pkgs or {}) // {
 
-      aalpy = callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+      aalpy = python3.pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
 
-      auditok = callPackage ./pkgs/python3/pkgs/auditok/auditok.nix {
-        # TODO better. scope?
-        inherit (pkgs.python3.pkgs) setuptools;
-      };
+      auditok = python3.pkgs.callPackage ./pkgs/python3/pkgs/auditok/auditok.nix { };
 
-      pysubs2 = callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
+      pysubs2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
 
     };
   };

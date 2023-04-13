@@ -15,6 +15,7 @@ python3.pkgs.buildPythonApplication {
     # fix: utf8 option fails to convert some subtitles
     # https://github.com/alexanderwink/subdl/issues/37
     ./libmagic.patch
+    ./libmagic-2.patch
   ];
   propagatedBuildInputs = [
     python3.pkgs.magic

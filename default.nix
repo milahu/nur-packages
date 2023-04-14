@@ -233,7 +233,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
 
-  kaitai-struct-compiler = callPackage ./pkgs/development/tools/parsing/kaitai-struct-compiler/kaitai-struct-compiler.nix { };
+  # already in nixpkgs
+  #kaitai-struct-compiler = callPackage ./pkgs/development/tools/parsing/kaitai-struct-compiler/kaitai-struct-compiler.nix { };
 
   ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 

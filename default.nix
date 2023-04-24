@@ -238,8 +238,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
-  hocr-editor = callPackage ./pkgs/applications/graphics/hocr-editor/hocr-editor.nix { };
-
 }
 
 # based on https://github.com/dtzWill/nur-packages

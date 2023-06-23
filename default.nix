@@ -246,6 +246,17 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   tribler = callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
 
+  # pocketsphinx was removed in https://github.com/NixOS/nixpkgs/pull/170124
+  # based on update in closed PR https://github.com/NixOS/nixpkgs/pull/169609
+
+  # pkgs/development/libraries/pocketsphinx/default.nix
+  # https://github.com/armeenm/nixpkgs/blob/5e826bad51e25f7b8e20e242964ec0e76e147f82/pkgs/development/libraries/pocketsphinx/default.nix
+  pocketsphinx = callPackage ./pkgs/development/libraries/pocketsphinx/pocketsphinx.nix { };
+
+  # pkgs/development/libraries/sphinxbase/default.nix
+  # https://github.com/armeenm/nixpkgs/blob/5e826bad51e25f7b8e20e242964ec0e76e147f82/pkgs/development/libraries/sphinxbase/default.nix
+  sphinxbase = callPackage ./pkgs/development/libraries/sphinxbase/sphinxbase.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

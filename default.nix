@@ -253,9 +253,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://github.com/armeenm/nixpkgs/blob/5e826bad51e25f7b8e20e242964ec0e76e147f82/pkgs/development/libraries/pocketsphinx/default.nix
   pocketsphinx = callPackage ./pkgs/development/libraries/pocketsphinx/pocketsphinx.nix { };
 
-  # pkgs/development/libraries/sphinxbase/default.nix
-  # https://github.com/armeenm/nixpkgs/blob/5e826bad51e25f7b8e20e242964ec0e76e147f82/pkgs/development/libraries/sphinxbase/default.nix
-  sphinxbase = callPackage ./pkgs/development/libraries/sphinxbase/sphinxbase.nix { };
+  # https://github.com/cmusphinx/sphinxbase
+  # SphinxBase has been integrated into PocketSphinx
+  #sphinxbase = callPackage ./pkgs/development/libraries/sphinxbase/sphinxbase.nix { };
 
 }
 

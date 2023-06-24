@@ -130,6 +130,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       update-checker = python3.pkgs.callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
 
+      pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+
     };
   };
 

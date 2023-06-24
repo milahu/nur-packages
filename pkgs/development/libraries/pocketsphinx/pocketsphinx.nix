@@ -1,53 +1,44 @@
 { lib, stdenv
 , fetchFromGitHub
-, sphinxbase
-, pkg-config
+, cmake
+#, pkg-config
 , python3
 , swig2 # 2.0
-, autoreconfHook
+#, autoreconfHook
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "pocketsphinx";
-  version = "unstable-2022-02-22";
+  version = "5.0.1";
 
   src = fetchFromGitHub {
     owner = "cmusphinx";
     repo = "pocketsphinx";
-    rev = "5da71f0a05350c923676b02a69423d1291825d5b";
-    hash = "sha256-YZwuVYg8Uqt1gOYXeYC8laRj+IObbuO9f/BjcQKRwkY=";
+    rev = "v${version}";
+    hash = "sha256-Oa2vVVpsB3Jj5KvLcKfMP5Vu9xSeO7g1qNC5cQE3F7Y=";
   };
 
-  propagatedBuildInputs = [ sphinxbase ];
+/*
+  configurePhase = ''
+    echo CMAKE_MODULE_PATH=$CMAKE_MODULE_PATH
+    exit 1
+  '';
+*/
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ python3 swig2 ];
-
-  preBuild = "gcc --version";
+  nativeBuildInputs = [
+    cmake
+    #pkg-config
+    #autoreconfHook
+  ];
+  buildInputs = [
+    python3
+    swig2
+  ];
 
   meta = {
-    description = "Voice recognition library written in C";
-    homepage = "https://cmusphinx.github.io";
+    description = "Speech recognition engine";
+    homepage = "https://github.com/cmusphinx/pocketsphinx";
     license = lib.licenses.free;
     platforms = lib.platforms.linux;
   };
 }
-
-/* Example usage:
-
-
-1.
-
-$ cat << EOF > vocabulary.txt
-oh mighty computer /1e-40/
-hello world /1e-30/
-EOF
-
-2.
-
-$ pocketsphinx_continuous -inmic yes -kws vocabulary.txt 2> /dev/null
-# after you say "hello world":
-hello world
-...
-
-*/

@@ -114,6 +114,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       faust-cchardet = python3.pkgs.callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
 
+      pocketsphinx = python3.pkgs.callPackage ./pkgs/python3/pkgs/pocketsphinx/pocketsphinx.nix {
+        pkgs = pkgs // {
+          # fix: error: pocketsphinx has been removed: unmaintained
+          inherit pocketsphinx;
+        };
+      };
+
     };
   };
 

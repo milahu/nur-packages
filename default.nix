@@ -132,6 +132,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
 
+      dcase-util = python3.pkgs.callPackage ./pkgs/python3/pkgs/dcase-util/dcase-util.nix {
+        # FIXME scope
+        pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+      };
+
     };
   };
 

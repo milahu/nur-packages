@@ -121,6 +121,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         };
       };
 
+      speechrecognition = python3.pkgs.callPackage ./pkgs/python3/pkgs/speechrecognition/speechrecognition.nix { };
+
     };
   };
 

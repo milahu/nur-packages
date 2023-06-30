@@ -280,6 +280,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # SphinxBase has been integrated into PocketSphinx
   #sphinxbase = callPackage ./pkgs/development/libraries/sphinxbase/sphinxbase.nix { };
 
+  mediawiki-scraper-2 = python3.pkgs.callPackage ./pkgs/tools/networking/mediawiki-scraper-2/mediawiki-scraper-2.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

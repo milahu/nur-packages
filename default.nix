@@ -282,6 +282,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   mediawiki-scraper-2 = python3.pkgs.callPackage ./pkgs/tools/networking/mediawiki-scraper-2/mediawiki-scraper-2.nix { };
 
+  mediawiki-scraper = python3.pkgs.callPackage ./pkgs/tools/networking/mediawiki-scraper/mediawiki-scraper.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

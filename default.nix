@@ -286,6 +286,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   mediawiki-dump2html = callPackage ./pkgs/development/tools/mediawiki-dump2html/mediawiki-dump2html.nix { };
 
+  mediawiki2html = python3.pkgs.callPackage ./pkgs/development/tools/mediawiki2html/mediawiki2html.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

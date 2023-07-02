@@ -158,6 +158,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
 
+  mvn2nix = callPackage ./pkgs/development/tools/mvn2nix/mvn2nix.nix { };
+
   # TODO
   #xi = callPackages ./pkgs/xi { };
 

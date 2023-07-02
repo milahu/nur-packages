@@ -292,6 +292,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   pandoc-bin = pkgs.haskellPackages.callPackage ./pkgs/development/tools/pandoc-bin/pandoc-bin.nix { };
 
+  mwdumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
+  mediawiki-dumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -296,6 +296,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   mediawiki-dumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
 
   pdfjam = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam.nix { };
+  pdfjam-extras = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam-extras.nix { };
 
 }
 

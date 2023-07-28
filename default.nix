@@ -295,6 +295,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   mwdumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
   mediawiki-dumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
 
+  pdfjam = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

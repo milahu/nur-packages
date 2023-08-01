@@ -314,6 +314,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     curl = curl-with-allow-dot-onion;
   });
 
+  radicle = callPackage ./pkgs/applications/version-management/radicle/radicle.nix { };
+
   radicle-bin = callPackage ./pkgs/applications/version-management/radicle/radicle-bin.nix { };
 
   cargo2nix = callPackage ./pkgs/development/tools/rust/cargo2nix/cargo2nix.nix { };

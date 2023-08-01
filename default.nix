@@ -314,6 +314,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     curl = curl-with-allow-dot-onion;
   });
 
+  radicle-bin = callPackage ./pkgs/applications/version-management/radicle/radicle-bin.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

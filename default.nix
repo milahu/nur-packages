@@ -153,6 +153,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
       };
 
+      # fix flask: ERROR: Could not find a version that satisfies the requirement blinker>=1.6.2
+      # nix-init ./pkgs/python3/pkgs/blinker/blinker.nix --url https://github.com/pallets-eco/blinker
+      blinker = python3.pkgs.callPackage ./pkgs/python3/pkgs/blinker/blinker.nix { };
+
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
     });

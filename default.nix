@@ -181,6 +181,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init pkgs/python3/pkgs/flask-session/flask-session.nix --url https://github.com/pallets-eco/flask-session
       flask-session = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
 
+      # nix-init pkgs/python3/pkgs/flask-babel/flask-babel.nix --url https://github.com/python-babel/flask-babel
+      flask-babel = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
+
       # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 

@@ -167,6 +167,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # FIXME use python3.pkgs.werkzeug from this scope
       flask = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
 
+      # nix-init pkgs/python3/pkgs/flask-caching/flask-caching.nix --url https://github.com/pallets-eco/flask-caching
+      # FIXME: ERROR: Could not find a version that satisfies the requirement Flask<3 (from flask-caching) (from versions: none)
+      # update?
+      flask-caching = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
+
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
     });

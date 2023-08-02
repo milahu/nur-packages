@@ -316,6 +316,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   radicle = callPackage ./pkgs/applications/version-management/radicle/radicle.nix { };
 
+  radicle-httpd = radicle.overrideAttrs (oldAttrs: {
+    pname = "radicle-httpd";
+    buildAndTestSubdir = "radicle-httpd";
+  });
+
   radicle-interface = callPackage ./pkgs/applications/version-management/radicle-interface/radicle-interface.nix { };
 
   radicle-bin = callPackage ./pkgs/applications/version-management/radicle/radicle-bin.nix { };

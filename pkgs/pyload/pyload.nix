@@ -138,11 +138,8 @@ in python3Packages.buildPythonApplication rec {
   */
 
   # relax versions
-  # fix: Could not find a version that satisfies the requirement cryptography~=3.0
-  # https://github.com/pyload/pyload/issues/4144
   postPatch = ''
-    sed -i 's/cryptography~=3.0/cryptography>=3.0/' setup.cfg
-    sed -i 's/Flask-Babel~=1.0/Flask-Babel>=1.0/' setup.cfg
+    sed -i -E 's/([a-zA-Z0-9_-]+)~=/\1>=/' setup.cfg
   '';
 
   # TODO add more deps, so we can use more features
@@ -158,7 +155,10 @@ in python3Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python3Packages; [
     pycurl
     jinja2
-    beaker
+    # fix: error: Package ‘python3.10-Beaker-1.11.0’ in /nix/store/qb3dg4cx5jzk3pa8szzi0ziwnqy33p50-source/pkgs/development/python-modules/beaker/default.nix:72 is marked as insecure, refusing to evaluate.
+    # also, beaker is not needed any more
+    # also, beaker depends on pycryptopp, which is broken for python3.10 (last binary release for python3.9)
+    #beaker
     thrift
     simplejson
     pycrypto

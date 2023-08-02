@@ -102,7 +102,16 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   libalf = callPackage ./pkgs/libalf/libalf.nix { };
 
   python3 = pkgs.python3 // {
-    pkgs = (pkgs.python3.pkgs or {}) // {
+    # FIXME scope with new callPackage
+    #pkgs = (pkgs.python3.pkgs or {}) // ({
+    # error: attribute 'buildPythonApplication' missing: python3.pkgs.buildPythonApplication
+    #pkgs = (pkgs.python3.pkgs or {}) // lib.makeScope pkgs.newScope (self: with self; {
+    # https://github.com/NixOS/nixpkgs/commit/632c4f2c9ba1f88cd5662da7bedf2ca5f0cda4a9 # add scope
+    pkgs = lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+
+      # fix recursion
+      python3.pkgs = self;
+      python3Packages = self;
 
       aalpy = python3.pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
 
@@ -139,7 +148,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
-    };
+    });
   };
 
   deno = pkgs.deno // {

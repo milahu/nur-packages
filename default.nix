@@ -327,6 +327,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cargo2nix = callPackage ./pkgs/development/tools/rust/cargo2nix/cargo2nix.nix { };
 
+  unarr = callPackage ./pkgs/tools/archivers/unarr/unarr.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

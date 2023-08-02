@@ -78,7 +78,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
 
-  pyload = callPackage ./pkgs/pyload/pyload.nix { };
+  pyload = python3.pkgs.pyload;
 
   rose = callPackage ./pkgs/rose/rose.nix { };
 
@@ -196,6 +196,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       pyjsparser = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
 
       js2py = python3.pkgs.callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
+
+      # python3.pkgs.pyload
+      pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
 
     });
   };

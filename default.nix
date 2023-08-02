@@ -172,6 +172,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # update?
       flask-caching = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
 
+      # no: nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://github.com/colour-science/flask-compress
+      # fix: LookupError: setuptools-scm was unable to detect version for /build/source.
+      # Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
+      # nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://pypi.org/project/flask-compress
+      flask-compress = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
+
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
     });

@@ -157,6 +157,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init ./pkgs/python3/pkgs/blinker/blinker.nix --url https://github.com/pallets-eco/blinker
       blinker = python3.pkgs.callPackage ./pkgs/python3/pkgs/blinker/blinker.nix { };
 
+      # fix flask: ERROR: Could not find a version that satisfies the requirement Werkzeug>=2.3.3
+      # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
+      werkzeug = python3.pkgs.callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
+
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
     });

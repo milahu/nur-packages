@@ -161,6 +161,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
       werkzeug = python3.pkgs.callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
 
+      # https://github.com/NixOS/nixpkgs/pull/245320
+      # python3Packages.flask: 2.2.5 -> 2.3.2
+      # nix-init pkgs/python3/pkgs/flask/flask.nix --url https://github.com/pallets/flask
+      # FIXME use python3.pkgs.werkzeug from this scope
+      flask = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
     });

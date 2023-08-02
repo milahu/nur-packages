@@ -192,6 +192,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pyjsparser = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
 
+      js2py = python3.pkgs.callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
+
     });
   };
 

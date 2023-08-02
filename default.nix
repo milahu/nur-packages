@@ -316,6 +316,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   radicle = callPackage ./pkgs/applications/version-management/radicle/radicle.nix { };
 
+  radicle-interface = callPackage ./pkgs/applications/version-management/radicle-interface/radicle-interface.nix { };
+
   radicle-bin = callPackage ./pkgs/applications/version-management/radicle/radicle-bin.nix { };
 
   cargo2nix = callPackage ./pkgs/development/tools/rust/cargo2nix/cargo2nix.nix { };

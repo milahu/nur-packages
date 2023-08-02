@@ -146,6 +146,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
       };
 
+      # nix-build . -A python3.pkgs.libarchive-c
+      # https://github.com/NixOS/nixpkgs/pull/241606
+      # python310Packages.libarchive-c: 4.0 -> 5.0
+      libarchive-c = python3.pkgs.callPackage ./pkgs/python3/pkgs/libarchive-c/libarchive-c.nix {
+        libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
+      };
+
       flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
     });

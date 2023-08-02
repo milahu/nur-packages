@@ -190,6 +190,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://pypi.org/project/Flask-Themes2/
       flask-themes2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-themes2/flask-themes2.nix { };
 
+      pyjsparser = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
+
     });
   };
 

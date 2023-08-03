@@ -107,6 +107,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
   python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
 
+    # fix: error: attribute 'sitePackages' missing: python3.sitePackages
+    sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
+
     # FIXME scope with new callPackage
     #pkgs = (pkgs.python3.pkgs or {}) // ({
     # error: attribute 'buildPythonApplication' missing: python3.pkgs.buildPythonApplication

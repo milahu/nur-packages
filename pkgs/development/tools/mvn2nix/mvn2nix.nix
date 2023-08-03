@@ -5,13 +5,13 @@
 
 { lib
 , pkgs
-, jdk11_headless
+, jdk_headless
 }:
 
 # create scope to override jdk
 lib.makeScope pkgs.newScope (self: with self; {
 
-  jdk = jdk11_headless;
+  jdk = jdk_headless;
 
   mvn2nix = self.callPackage ./src/mvn2nix/derivation.nix { };
 

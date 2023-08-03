@@ -144,6 +144,20 @@ Using repository /nix/store/yv6xxhagkclpsz13ivb1rgx717pdmxrf-mvn2nix-repository
 error: builder for '/nix/store/la3knfzgi4s7rcpipk4kfnn45lv91n16-mvn2nix-0.1.drv' failed with exit code 1;
 ```
 
+<blockquote>
+
+edit: updating dependencies in pom.xml could be simpler:
+
+```
+# update dependencies
+# https://www.baeldung.com/maven-dependency-latest-version
+mvn versions:use-latest-releases
+```
+
+see also: pkgs/mwdumper/update.sh
+
+</blockquote>
+
 mvn2nix-repository:
 
 pkgs/development/tools/mvn2nix/src/mvn2nix/derivation.nix

@@ -101,13 +101,21 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libalf = callPackage ./pkgs/libalf/libalf.nix { };
 
-  python3 = pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
+
     # FIXME scope with new callPackage
     #pkgs = (pkgs.python3.pkgs or {}) // ({
     # error: attribute 'buildPythonApplication' missing: python3.pkgs.buildPythonApplication
     #pkgs = (pkgs.python3.pkgs or {}) // lib.makeScope pkgs.newScope (self: with self; {
     # https://github.com/NixOS/nixpkgs/commit/632c4f2c9ba1f88cd5662da7bedf2ca5f0cda4a9 # add scope
-    pkgs = lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
 
       # fix recursion
       python3.pkgs = self;
@@ -200,8 +208,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # python3.pkgs.pyload
       pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
 
-    });
-  };
+    }))); # python3.pkgs
+
+  }))); # python3
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

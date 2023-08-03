@@ -58,6 +58,11 @@ npmlock2nix.v2.build rec {
   '';
 
   node_modules_attrs = {
+
+    # fix: error: path '/nix/store/683zi3g8a2qd490lyvgrbz94yccmsbkb-source.drv' is not valid
+    packageJson = ./package.json;
+    packageLockJson = ./package-lock.json;
+
     nativeBuildInputs = [
       jq
     ];

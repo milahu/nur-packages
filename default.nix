@@ -235,7 +235,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nix-gitignore = callPackage ./pkgs/build-support/nix-gitignore/nix-gitignore.nix { };
 
-  mvn2nix = callPackage ./pkgs/development/tools/mvn2nix/mvn2nix.nix { };
+  # mvn2nix
+  inherit (callPackage ./pkgs/development/tools/mvn2nix/mvn2nix.nix { })
+    mvn2nix
+    mvn2nix-bootstrap
+    buildMavenRepository
+    buildMavenRepositoryFromLockFile
+  ;
 
   # TODO
   #xi = callPackages ./pkgs/xi { };

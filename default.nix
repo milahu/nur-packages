@@ -105,10 +105,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
-  python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
 
     # fix: error: attribute 'sitePackages' missing: python3.sitePackages
-    sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
+    #sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
 
     # FIXME scope with new callPackage
     #pkgs = (pkgs.python3.pkgs or {}) // ({
@@ -118,11 +118,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
     #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
     #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
-    pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+
+  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
+  python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
 
       # fix recursion
-      python3.pkgs = self;
-      python3Packages = self;
+      #python3.pkgs = self;
+      #python3Packages = self;
 
       aalpy = python3.pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
 
@@ -211,9 +214,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # python3.pkgs.pyload
       pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
 
-    }))); # python3.pkgs
+    #}))); # python3.pkgs
 
-  }))); # python3
+  #}))); # python3
+
+  }))); # python3Packages
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

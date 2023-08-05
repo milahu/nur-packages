@@ -464,6 +464,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   git-filter-repo = python3.pkgs.git-filter-repo;
 
+  # nix-init ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix --url https://github.com/marakoss/tap-bpm-cli
+  tap-bpm-cli = callPackage ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -132,13 +132,23 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
   python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
 
+      # fix: error: attribute 'buildPythonPackage' missing: python3.pkgs.buildPythonPackage
+      #python3 = pkgs.python3;
+      python3 = pkgs.python3 // {
+        # fix recursion
+        #pkgs = self;
+        # fix: error: undefined variable 'setuptools'
+        pkgs = pkgs.python3.pkgs // self;
+      };
+
       # fix: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
-      # no:
-      #buildPythonPackage = self.buildPythonPackage;
+      buildPythonPackage = pkgs.python3.pkgs.buildPythonPackage;
+      # fix: error: attribute 'buildPythonApplication' missing
+      buildPythonApplication = pkgs.python3.pkgs.buildPythonApplication;
 
       # fix recursion
       #python3.pkgs = self;
-      #python3Packages = self;
+      python3Packages = self;
 
       # fix: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
       # no:
@@ -152,6 +162,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       auditok = callPackage ./pkgs/python3/pkgs/auditok/auditok.nix { };
 
       pysubs2 = callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
+
+      # TODO move
+      #ffsubsync = callPackage ./pkgs/python3/pkgs/ffsubsync/ffsubsync.nix { };
+      ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
       ete3 = callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
 
@@ -375,7 +389,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # already in nixpkgs
   #kaitai-struct-compiler = callPackage ./pkgs/development/tools/parsing/kaitai-struct-compiler/kaitai-struct-compiler.nix { };
 
-  ffsubsync = python3.pkgs.callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
+  ffsubsync = python3.pkgs.ffsubsync;
 
   surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
 

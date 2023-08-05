@@ -105,7 +105,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # alias: python3.pkgs -> python3Packages
   # no: error: attribute 'newScope' missing
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
-  python3 = pkgs.recurseIntoAttrs ((({
+  #python3 = pkgs.recurseIntoAttrs ((({
+  python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
     pkgs = python3Packages;
   })));
 

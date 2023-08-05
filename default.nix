@@ -252,6 +252,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       #pyload = callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
       pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
 
+      git-filter-repo = callPackage ./pkgs/development/python-modules/git-filter-repo/git-filter-repo.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -458,6 +460,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://github.com/NixOS/nixpkgs/pull/244713
   # libarchive: 3.6.2 -> 3.7.0
   libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
+
+  git-filter-repo = python3.pkgs.git-filter-repo;
 
 }
 

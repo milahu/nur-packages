@@ -467,6 +467,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # nix-init ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix --url https://github.com/marakoss/tap-bpm-cli
   tap-bpm-cli = callPackage ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix { };
 
+  # https://github.com/NixOS/nixpkgs/pull/158152 # gh2md: init at 2.0.0
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/backup/gh2md/default.nix
+  gh2md = callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

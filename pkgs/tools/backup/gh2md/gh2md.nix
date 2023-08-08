@@ -5,11 +5,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gh2md";
-  version = "2.0.0";
+  version = "2.3.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "7a277939d4781f4ca741eccb74fc70f0aa85811185da52219878129cba7f1d77";
+    sha256 = "sha256-vdbYPg9Lr0PN3bInFryhggvs8bsMOJVepRT+n8gPSuE=";
   };
 
   propagatedBuildInputs = with python3Packages; [ six requests python-dateutil ];

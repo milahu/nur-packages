@@ -35,13 +35,14 @@ rec {
       parts = builtins.split "[:#/@]" str;
       partsLen = builtins.length parts;
     in
+    # TODO why these numbers? use a better string parser?
     if partsLen == 7 || partsLen == 9 || partsLen == 15
     then
       (
         ((builtins.elemAt parts 0) == "github") ||
         ((builtins.elemAt parts 2) == "github.com") ||
         ((builtins.elemAt parts 2) == "github") ||
-        ((builtins.elemAt parts 8) == "github.com")
+        (partsLen > 7 && (builtins.elemAt parts 8) == "github.com")
       )
     else false;
 

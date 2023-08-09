@@ -34,7 +34,61 @@ rec {
     let
       parts = builtins.split "[:#/@]" str;
       partsLen = builtins.length parts;
+      # https://github.com/npm/hosted-git-info/blob/main/lib/from-url.js
+      # used by https://github.com/npm/cli
+      # look for github shorthand inputs, such as npm/cli
+      isGitHubShorthand = str:
+        let
+          # example: stringIndexOf "abbbc" "b" == 2
+          # https://github.com/milahu/nix-for-javascript-developers/blob/patch-1
+          # no: builtins.match does not support the non-greedy quantifier ".*?"
+          #stringIndexOf = string: needle:
+          #  let matches = builtins.match ("^(.*?)" + (lib.strings.escapeRegex needle) + ".*") string; in
+          #  if matches == null then -1 else builtins.stringLength (builtins.elemAt matches 0);
+          stringIndexOf = string: needle:
+            let parts = builtins.split needle string; in
+            if builtins.length parts == 1 then -1
+            else builtins.stringLength (builtins.elemAt parts 0);
+
+          # example: substringEnd 2 "abcde" == "cde"
+          substringEnd = start: string:
+            let length = builtins.stringLength string; in
+            builtins.substring start length string;
+
+          # example: stringIndexOfFirstSpace "a \n\tb c" == 1
+          stringIndexOfFirstSpace = string:
+            let matches = builtins.match "([^[:space:]]*)([[:space:]]).*" string; in
+            if matches == null then -1
+            else builtins.stringLength (builtins.elemAt matches 0);
+
+          # const firstHash = arg.indexOf('#')
+          firstHash = stringIndexOf str "#";
+          firstSlash = stringIndexOf str "/";
+          # const secondSlash = arg.indexOf('/', firstSlash + 1)
+          secondSlash = stringIndexOf (substringEnd (firstSlash + 1) str) "/";
+          firstColon = stringIndexOf str ":";
+          # const firstSpace = /\s/.exec(arg)
+          firstSpace = stringIndexOfFirstSpace str;
+          firstAt = stringIndexOf str "@";
+
+          spaceOnlyAfterHash = (firstSpace == -1) || (firstHash > -1 && firstSpace > firstHash);
+          atOnlyAfterHash = firstAt == -1 || (firstHash > -1 && firstAt > firstHash);
+          colonOnlyAfterHash = firstColon == -1 || (firstHash > -1 && firstColon > firstHash);
+          secondSlashOnlyAfterHash = secondSlash == -1 || (firstHash > -1 && secondSlash > firstHash);
+          hasSlash = firstSlash > 0;
+          # if a # is found, what we really want to know is that the character
+          # immediately before # is not a /
+          # const doesNotEndWithSlash = firstHash > -1 ? arg[firstHash - 1] !== '/' : !arg.endsWith('/')
+          doesNotEndWithSlash = if firstHash > -1 then (builtins.substring (firstHash - 1) 1 != "/") else (builtins.match ".*/" str == null);
+          # const doesNotStartWithDot = !arg.startsWith('.')
+          doesNotStartWithDot = (builtins.substring 0 1 str) != ".";
+        in (
+          spaceOnlyAfterHash && hasSlash && doesNotEndWithSlash &&
+          doesNotStartWithDot && atOnlyAfterHash && colonOnlyAfterHash &&
+          secondSlashOnlyAfterHash
+        );
     in
+    if isGitHubShorthand str then true else
     # TODO why these numbers? use a better string parser?
     if partsLen == 7 || partsLen == 9 || partsLen == 15
     then

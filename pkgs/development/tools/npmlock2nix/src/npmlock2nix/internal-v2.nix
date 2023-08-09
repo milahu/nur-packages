@@ -336,7 +336,20 @@ rec {
       # version.
       # We already pinned everything through the "resolved", we can
       # relax those.
-      patchDependencies = deps: lib.mapAttrs (_n: dep: if isGitHubRef dep || isGitHubRefWithoutRev dep then "*" else dep) deps;
+      patchDependencies = deps: lib.mapAttrs
+        (_n: dep:
+          if (
+            isGitHubRef dep ||
+            isGitHubRefWithoutRev dep ||
+            # fix: npm ERR! code ENOTCACHED
+            #   request to https://registry.npmjs.org/... failed:
+            #   cache mode is 'only-if-cached' but no cached response is available.
+            # similar issue: https://github.com/nix-community/npmlock2nix/issues/45
+            dep == "latest"
+          ) then "*" else
+          dep
+        ) deps;
+
       patchedResolved =
         if (!isGitHubRef spec.resolved)
         then makeUrlSource sourceOptions name spec.version spec.resolved defaultedIntegrity

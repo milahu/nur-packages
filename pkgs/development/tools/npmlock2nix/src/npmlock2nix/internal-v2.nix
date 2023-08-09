@@ -540,7 +540,7 @@ rec {
         buildPhase = ''
           runHook preBuild
           export HOME=.
-          npm ci --nodedir=${nodeSource nodejs} --ignore-scripts
+          npm ci --nodedir=${nodeSource nodejs} --ignore-scripts --offline
           test -d node_modules/.bin && patchShebangs node_modules/.bin
           npm rebuild --offline --nodedir=${nodeSource nodejs} ${builtins.concatStringsSep " " allDependenciesNames}
           npm install --no-save --offline --nodedir=${nodeSource nodejs}

@@ -31,6 +31,8 @@ rec {
   # Description: Checks if a string looks like a valid github reference
   # Type: String -> Boolean
   isGitHubRef = str:
+    # github:owner/repo
+    if builtins.substring 0 7 str == "github:" then true else
     let
       parts = builtins.split "[:#/@]" str;
       partsLen = builtins.length parts;

@@ -227,7 +227,10 @@ rec {
       unpackPhase = ''
         runHook preUnpack
         mkdir -p ${sourceRoot}
-        [[ -d ${src} ]] && cp -RT --reflink=auto ${src} ${sourceRoot}
+        if [ -d $src ]; then
+          cp -RT --reflink=auto $src $sourceRoot
+          chmod -R +w $sourceRoot
+        fi
         [[ -f ${src} ]] && tar --no-same-owner --strip-components=1 --warning=no-timestamp -xf ${src} -C ${sourceRoot}
         runHook postUnpack
       '';

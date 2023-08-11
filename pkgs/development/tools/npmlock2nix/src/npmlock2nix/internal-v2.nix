@@ -231,7 +231,9 @@ rec {
           cp -RT --reflink=auto $src $sourceRoot
           chmod -R +w $sourceRoot
         fi
-        [[ -f ${src} ]] && tar --no-same-owner --strip-components=1 --warning=no-timestamp -xf ${src} -C ${sourceRoot}
+        if [ -f $src ]; then
+          tar --no-same-owner --no-same-permissions --warning=no-unknown-keyword --warning=no-timestamp --delay-directory-restore --strip-components=1 -xf $src -C $sourceRoot
+        fi
         runHook postUnpack
       '';
 

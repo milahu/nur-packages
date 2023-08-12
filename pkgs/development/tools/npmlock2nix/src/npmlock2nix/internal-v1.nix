@@ -499,11 +499,11 @@ rec {
         '';
 
         buildPhase = ''
+          export HOME=$TMP
           runHook preBuild
           mkdir -p node_modules/.hooks
           declare -pf > $TMP/preinstall-env
           ln -s ${preinstall_node_modules}/node_modules/.hooks/prepare node_modules/.hooks/preinstall
-          export HOME=.
           npm ci --offline --nodedir=${nodeSource nodejs} --ignore-scripts
           test -d node_modules/.bin && patchShebangs node_modules/.bin
           rm -rf node_modules/.hooks
@@ -575,6 +575,7 @@ rec {
       preConfigure = add_node_modules_to_cwd nm node_modules_mode;
 
       buildPhase = ''
+        export HOME=$TMP
         runHook preBuild
         ${lib.concatStringsSep "\n" buildCommands}
         runHook postBuild

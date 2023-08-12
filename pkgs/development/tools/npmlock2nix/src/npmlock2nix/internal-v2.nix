@@ -549,7 +549,7 @@ rec {
         ];
 
         preConfigure = ''
-          export HOME=$(mktemp -d)
+          export HOME=$TMP
         '';
 
         postPatch = ''
@@ -559,7 +559,7 @@ rec {
 
         buildPhase = ''
           runHook preBuild
-          export HOME=.
+          export HOME=$TMP
           npm ci --nodedir=${nodeSource nodejs} --ignore-scripts --offline
           test -d node_modules/.bin && patchShebangs node_modules/.bin
           npm rebuild --offline --nodedir=${nodeSource nodejs} ${builtins.concatStringsSep " " allDependenciesNames}
@@ -633,6 +633,7 @@ rec {
       preConfigure = add_node_modules_to_cwd nm node_modules_mode;
 
       buildPhase = ''
+        export HOME=$TMP
         runHook preBuild
         ${lib.concatStringsSep "\n" buildCommands}
         runHook postBuild

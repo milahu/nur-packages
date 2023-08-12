@@ -386,19 +386,194 @@ rec {
   # Description: Takes a parsed lockfile and returns the patched version as an attribute set
   # Type: { sourceHashFunc :: Fn } -> parsedLockedFile :: Set -> { result :: Set, integrityUpdates :: List { path, file } }
   patchLockfile = sourceOptions: content:
+    if (content.lockfileVersion == 2 || content ? packages) then patchLockfileV2 sourceOptions content else
+    if (content.lockfileVersion == 1 || content ? dependencies) then patchLockfileV1 sourceOptions content else
+    if (content ? lockfileVersion) then throw "unknown lockfile version: ${content.lockfileVersion}" else
+    throw "unknown lockfile content: ${builtins.substring 0 2048 (builtins.toJSON content)} [...]";
+
+  patchLockfileV2 = sourceOptions: content:
     let
       contentWithoutDependencies = builtins.removeAttrs content [ "dependencies" ];
       packagesWithoutSelf = lib.filterAttrs (n: v: n != "") content.packages;
       topLevelPackage = content.packages."";
       patchedPackages = lib.mapAttrs (name: patchPackage sourceOptions name) packagesWithoutSelf;
     in
-    assert !(content ? packages) ->
-      throw "Missing the packages top-level key in your lockfile. Are you sure it is a npm lockfile v2?";
     {
       result = contentWithoutDependencies // {
         packages = patchedPackages // { "" = topLevelPackage; };
       };
     };
+
+  # Description: Takes a Path to a lockfile and returns the patched version as attribute set
+  # Type: { sourceHashFunc :: Fn } -> Path -> { result :: Set, integrityUpdates :: List { path, file } }
+  patchLockfileV1 = sourceOptions: content:
+    let
+      dependencies = lib.mapAttrs (name: patchDependencyV1 [ name ] sourceOptions name) content.dependencies;
+    in
+    {
+      result = content // {
+        dependencies = lib.mapAttrs (_: value: value.result) dependencies;
+      };
+      integrityUpdates = lib.concatMap (value: value.integrityUpdates) (lib.attrValues dependencies);
+    };
+
+  # Description: Patches a single lockfile dependency (recursively) by replacing the resolved URL with a store path
+  # Type: List String -> { sourceHashFunc :: Fn } -> String -> Set -> { result :: Set, integrityUpdates :: List { path, file } }
+  patchDependencyV1 = path: sourceOptions: name: spec:
+    assert (builtins.typeOf name != "string") ->
+      throw "Name of dependency ${toString name} must be a string";
+    assert (builtins.typeOf spec != "set") ->
+      throw "spec of dependency ${toString name} must be a set";
+    let
+      isBundled = spec ? bundled && spec.bundled == true;
+      hasGitHubRequires = spec: (spec ? requires) && (lib.any (x: lib.hasPrefix "github:" x) (lib.attrValues spec.requires));
+      patchSource = lib.optionalAttrs (!isBundled) (makeSourceV1 sourceOptions name spec);
+      patchRequiresSources = lib.optionalAttrs (hasGitHubRequires spec) { requires = (patchRequiresV1 sourceOptions name spec.requires); };
+      nestedDependencies = lib.mapAttrs (name: patchDependencyV1 (path ++ [ name ]) sourceOptions name) spec.dependencies;
+      patchDependenciesSources = lib.optionalAttrs (spec ? dependencies) { dependencies = lib.mapAttrs (_: value: value.result) nestedDependencies; };
+      nestedIntegrityUpdates = lib.concatMap (value: value.integrityUpdates) (lib.attrValues nestedDependencies);
+
+      # For our purposes we need a dependency with
+      # - `resolved` set to a path in the nix store (`patchSource`)
+      # - All `requires` entries of this dependency that are set to github URLs set to a path in the nix store (`patchRequiresSources`)
+      # - This needs to be done recursively for all `dependencies` in the lockfile (`patchDependenciesSources`)
+      result = spec // patchSource // patchRequiresSources // patchDependenciesSources;
+    in
+    {
+      result = result;
+      integrityUpdates = lib.optional (result ? resolved && result ? integrity && result.integrity == null) {
+        inherit path;
+        file = lib.removePrefix "file://" result.resolved;
+      };
+    };
+
+  # Description: Patch the `requires` attributes of a dependency spec to refer to paths in the store
+  # Type: { sourceHashFunc :: Fn } -> String -> Set -> Set
+  patchRequiresV1 = sourceOptions: name: requires:
+    let
+      patchReq = name: version: if lib.hasPrefix "github:" version then stringToTgzPathV1 sourceOptions name version else version;
+    in
+    lib.mapAttrs patchReq requires;
+
+  # Description: Turns an npm lockfile dependency into a fetchurl derivation
+  # Type: { sourceHashFunc :: Fn } -> String -> Set -> Derivation
+  makeSourceV1 = sourceOptions: name: dependency:
+    assert (builtins.typeOf name != "string") ->
+      throw "Name of dependency ${toString name} must be a string";
+    assert (builtins.typeOf dependency != "set") ->
+      throw "Specification of dependency ${toString name} must be a set";
+    if dependency ? resolved && dependency ? integrity then
+      makeUrlSourceV1 sourceOptions name dependency
+    else if dependency ? from && dependency ? version then
+      makeGithubSourceV1 sourceOptions name dependency
+    else if shouldUseVersionAsUrlV1 dependency then
+      makeSourceV1 sourceOptions name (dependency // { resolved = dependency.version; })
+    else throw (
+      "A valid dependency consists of at least the resolved and integrity field. " +
+      "Missing one or both of them for `${name}`. " +
+      "The object I got looks like this: ${builtins.toJSON dependency}"
+    );
+
+  # Description: Replaces the `resolved` field of a dependency with a
+  # prefetched version from the Nix store. Patches specified with sourceOverrides
+  # will be applied, in which case the `integrity` attribute is set to `null`,
+  # in order to be recomputer later
+  # Type: { sourceOverrides :: Fn, nodejs :: Package } -> String -> Set -> Set
+  makeUrlSourceV1 = { sourceOverrides ? { }, nodejs, ... }: name: dependency:
+    let
+      src = fetchurl (makeSourceAttrsV1 name dependency);
+      sourceInfo = {
+        inherit (dependency) version;
+      };
+      drv = packTgz nodejs name dependency.version src;
+      tgz =
+        if sourceOverrides ? ${name}
+        # If we have modification to this source, unpack the tgz, apply the
+        # patches and repack the tgz
+        then sourceOverrides.${name} sourceInfo drv
+        else src;
+      resolved = "file://" + toString tgz;
+    in
+    dependency // { inherit resolved; } // lib.optionalAttrs (sourceOverrides ? ${name}) {
+      # Integrity was tampered with due to the source attributes, so it needs
+      # to be recalculated, which is done in the node_modules builder
+      integrity = null;
+    };
+
+  # Description: Turns a dependency with a from field of the format
+  # `github:org/repo#revision` into a git fetcher. The fetcher can
+  # receive a hash value by calling 'sourceHashFunc' if a source hash
+  # map has been provided. Otherwise the function yields `null`. Patches
+  # specified with sourceOverrides will be applied
+  # Type: { sourceHashFunc :: Fn } -> String -> Set -> Path
+  makeGithubSourceV1 = sourceOptions@{ sourceHashFunc, ... }: name: dependency:
+    assert !(dependency ? version) ->
+      builtins.throw "version` attribute missing from `${name}`";
+    assert (lib.hasPrefix "github: " dependency.version) -> builtins.throw "invalid prefix for `version` field of `${name}` expected `github:`, got: `${dependency.version}`.";
+    let
+      v = parseGitHubRef dependency.version;
+      f = parseGitHubRef dependency.from;
+    in
+    assert v.org != f.org -> throw "version and from of `${name}` disagree on the GitHub org to fetch from: `${v.org}` vs `${f.org}`";
+    assert v.repo != f.repo -> throw "version and from of `${name}` disagree on the GitHub repo to fetch from: `${v.repo}` vs `${f.repo}`";
+    assert !isGitRevV1 v.rev -> throw "version of `${name}` does not specify a valid git rev: `${v.rev}`";
+    let
+      src = buildTgzFromGitHub {
+        name = "${name}.tgz";
+        ref = f.rev;
+        inherit (v) org repo rev;
+        hash = sourceHashFunc { type = "github"; value = v; };
+        inherit sourceOptions;
+      };
+    in
+    (builtins.removeAttrs dependency [ "from" ]) // {
+      version = "file://" + (toString src);
+    };
+
+  # Description: Checks the given dependency spec if its version field should
+  # be used as URL in absence of a resolved attribute. In some cases the
+  # resolved field is missing but the version field contains a valid URL.
+  # Type: Set -> Bool
+  shouldUseVersionAsUrlV1 = dependency:
+    dependency ? version && dependency ? integrity && ! (dependency ? resolved) && looksLikeUrlV1 dependency.version;
+
+  # Description: Turns a github string reference into a store path with a tgz of the reference
+  # Type: Fn -> String -> String -> Path
+  stringToTgzPathV1 = sourceOptions@{ sourceHashFunc, ... }: name: str:
+    let
+      gitAttrs = parseGitHubRef str;
+    in
+    buildTgzFromGitHub {
+      name = "${name}.tgz";
+      ref = gitAttrs.rev;
+      inherit (gitAttrs) org repo rev;
+      hash = sourceHashFunc { type = "github"; value = gitAttrs; };
+      inherit sourceOptions;
+    };
+
+  # Description: Turns an npm lockfile dependency into an attribute set as needed by fetchurl
+  # Type: String -> Set -> Set
+  makeSourceAttrsV1 = name: dependency:
+    assert !(dependency ? resolved) -> throw "Missing `resolved` attribute for dependency `${name}`.";
+    assert !(dependency ? integrity) -> throw "Missing `integrity` attribute for dependency `${name}`.";
+    {
+      url = dependency.resolved;
+      # FIXME: for backwards compatibility we should probably set the
+      #        `sha1`, `sha256`, `sha512` … attributes depending on the string
+      #        content.
+      hash = dependency.integrity;
+    };
+
+  # Description: Checks if a string looks like a valid git revision
+  # Type: String -> Boolean
+  isGitRevV1 = str:
+    (builtins.match "[0-9a-f]{40}" str) != null;
+
+  # Description: Checks if the given string looks like a vila HTTP or HTTPS url
+  # Type: String -> Bool
+  looksLikeUrlV1 = s:
+    assert (builtins.typeOf s != "string") -> throw "can only check strings if they are URL-like";
+    lib.hasPrefix "http://" s || lib.hasPrefix "https://" s;
 
   # Description: Rewrite all the `github:` references to wildcards.
   # Type: Path -> Set

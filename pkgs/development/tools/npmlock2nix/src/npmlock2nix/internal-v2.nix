@@ -402,7 +402,7 @@ rec {
 
   # Description: Rewrite all the `github:` references to wildcards.
   # Type: Path -> Set
-  patchPackagefile = sourceOptions: content:
+  patchPackagefile = sourceOptions: patchedLockfileData: content:
     let
       patchDep = (name: version:
         # If the dependency is of the form github:owner/repo#branch or
@@ -422,18 +422,15 @@ rec {
 
   # Description: Takes a parsed package file and returns the patched version as file in the Nix store
   # Type: { sourceHashFunc :: Fn } -> parsedPackageFile :: Set -> Derivation
-  patchedPackagefile = sourceOptions: parsedPackageFile: writeText "package.json"
-    (
-      builtins.toJSON (patchPackagefile sourceOptions parsedPackageFile)
-    );
+  # TODO add name + version to filename
+  patchedPackagefile = patchedPackagefileData:
+    writeText "package.json" (builtins.toJSON patchedPackagefileData);
 
   # Description: Takes a Path to a lockfile and returns the patched version as file in the Nix store
   # Type: { sourceHashFunc :: Fn } -> parsedLockFile :: Set -> Path
-  patchedLockfile = sourceOptions: parsedLockFile:
-    let
-      patched = patchLockfile sourceOptions parsedLockFile;
-    in
-    writeText "package-lock.json" (builtins.toJSON patched.result);
+  # TODO add name + version to filename
+  patchedLockfile = patchedLockfileData:
+    writeText "package-lock.json" (builtins.toJSON patchedLockfileData.result);
 
   # Description: Turn a derivation (with name & src attribute) into a directory containing the unpacked sources
   # Type: Derivation -> Derivation
@@ -527,8 +524,11 @@ rec {
 
         allDependenciesNames = builtins.attrNames (packagefile.dependencies // packagefile.devDependencies or { });
 
-        patchedLockfilePath = patchedLockfile sourceOptions lockfile;
-        patchedPackagefilePath = patchedPackagefile sourceOptions packagefile;
+        patchedLockfileData = patchLockfile sourceOptions lockfile;
+        patchedLockfilePath = patchedLockfile patchedLockfileData;
+
+        patchedPackagefileData = patchPackagefile sourceOptions patchedLockfileData packagefile;
+        patchedPackagefilePath = patchedPackagefile patchedPackagefileData;
       in
       assert lockfile.lockfileVersion == 2 && lib.versionOlder nodejs.version "15.0"
         -> throw "npm lockfile V2 require nodejs version >= 15, it is not supported by nodejs ${nodejs.version}";

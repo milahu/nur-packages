@@ -471,6 +471,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/backup/gh2md/default.nix
   gh2md = callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
 
+  nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in (pkgs.nodePackages // {
+
+    npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
+
+  })));
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

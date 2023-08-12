@@ -733,11 +733,27 @@ rec {
         buildPhase = ''
           runHook preBuild
           export HOME=$TMP
+
+          function patchShebangsInNodeModulesBin() {
+            if ! [ -d "$1" ]; then return; fi
+            echo "patching shebangs in $1"
+            find "$1" -mindepth 1 -maxdepth 1 -not -type d | while read binpath; do
+              binpath="$(readlink -f "$binpath")"
+              # FIXME make this work in a read-only node_modules/ -> use wrapper scripts like pnpm
+              chmod +x "$binpath"
+              patchShebangs "$binpath"
+            done
+            patchShebangs "$1"
+          }
+
           npm ci --nodedir=${nodeSource nodejs} --ignore-scripts --offline
-          test -d node_modules/.bin && patchShebangs node_modules/.bin
+          patchShebangsInNodeModulesBin node_modules/.bin
+
           npm rebuild --offline --nodedir=${nodeSource nodejs} ${builtins.concatStringsSep " " allDependenciesNames}
+
           npm install --no-save --offline --nodedir=${nodeSource nodejs}
-          test -d node_modules/.bin && patchShebangs node_modules/.bin
+          patchShebangsInNodeModulesBin node_modules/.bin
+
           runHook postBuild
         '';
         installPhase = ''

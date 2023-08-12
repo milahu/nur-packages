@@ -1,4 +1,17 @@
-{ nodejs, jq, openssl, coreutils, stdenv, mkShell, lib, fetchurl, writeText, writeShellScript, runCommand, fetchFromGitHub }:
+{ lib
+, nodejs
+, jq
+, openssl
+, coreutils
+, stdenv
+, mkShell
+, fetchurl
+, writeText
+, writeShellScript
+, runCommand
+, fetchFromGitHub
+}:
+
 rec {
   default_nodejs = nodejs;
 

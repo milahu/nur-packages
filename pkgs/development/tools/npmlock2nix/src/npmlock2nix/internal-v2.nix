@@ -333,8 +333,6 @@ rec {
       throw "Name of dependency ${toString raw_name} must be a string";
     assert !(spec ? resolved || (spec ? inBundle && spec.inBundle == true)) ->
       throw "Missing resolved field for dependency ${toString raw_name}";
-    assert !(spec ? version) ->
-      throw "Missing version field for dependency ${toString raw_name}";
     let
       name = genericPackageName raw_name;
       defaultedIntegrity = if spec ? integrity then spec.integrity else null;

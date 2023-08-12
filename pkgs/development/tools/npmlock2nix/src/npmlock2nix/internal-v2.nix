@@ -749,11 +749,6 @@ rec {
           npm ci --nodedir=${nodeSource nodejs} --ignore-scripts --offline
           patchShebangsInNodeModulesBin node_modules/.bin
 
-          npm rebuild --offline --nodedir=${nodeSource nodejs} ${builtins.concatStringsSep " " allDependenciesNames}
-
-          npm install --no-save --offline --nodedir=${nodeSource nodejs}
-          patchShebangsInNodeModulesBin node_modules/.bin
-
           runHook postBuild
         '';
         installPhase = ''

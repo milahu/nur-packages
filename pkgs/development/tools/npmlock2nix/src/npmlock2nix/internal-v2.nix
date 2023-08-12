@@ -389,14 +389,14 @@ rec {
     let
       contentWithoutDependencies = builtins.removeAttrs content [ "dependencies" ];
       packagesWithoutSelf = lib.filterAttrs (n: v: n != "") content.packages;
-      topLevelPackage = lib.filterAttrs (n: v: n == "") content.packages;
+      topLevelPackage = content.packages."";
       patchedPackages = lib.mapAttrs (name: patchPackage sourceOptions name) packagesWithoutSelf;
     in
     assert !(content ? packages) ->
       throw "Missing the packages top-level key in your lockfile. Are you sure it is a npm lockfile v2?";
     {
       result = contentWithoutDependencies // {
-        packages = patchedPackages // topLevelPackage;
+        packages = patchedPackages // { "" = topLevelPackage; };
       };
     };
 

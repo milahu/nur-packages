@@ -473,6 +473,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in (pkgs.nodePackages // {
 
+    cowsay = callPackage ./pkgs/node/pkgs/cowsay/cowsay.nix { };
+
     npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
 
   })));

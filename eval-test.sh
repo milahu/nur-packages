@@ -19,6 +19,18 @@ do
   esac
 done
 
+# parse repo_name from email of the most-common commit author
+# at least this works for me :D
+# the actual repo_name is stored in NUR's repos.json
+# https://github.com/nix-community/NUR/blob/master/repos.json
+# but this should work offline
+repo_name=$(git log --format=%ae | grep -v '^$' | cut -d@ -f1 | sort | uniq -c | sort -n --reverse | head -n1 | cut -c9-)
+if [ -z "$repo_name" ]; then
+  repo_name='your-name'
+fi
+
+echo "repo_name: $repo_name"
+
 source_repo_path=$(readlink -f .)
 source_repo_url="file://$source_repo_path"
 
@@ -97,8 +109,6 @@ in if usesCallPackage then throw ''
   '' else expr (builtins.intersectAttrs args passedArgs)
 EOF
 
-repo_name=my-nur-packages
-
 eval_path=$tempdir/default.nix
 cat >$eval_path <<EOF
 with import <nixpkgs> {};
@@ -164,6 +174,36 @@ if [[ "$rc" == "0" ]]; then
   echo
   echo your packages:
   echo "$packages_json" | jq -r 'to_entries[] | "\(.key)\n  \(.value.name)\n  \(.value.meta.position)\n  \(.value.meta.description)\n  \(.value.meta.homepage)"'
+
+  echo writing $tempdir/packages.html
+  (
+    echo '<!DOCTYPE html>'
+    echo '<html lang="en">'
+    echo '<head>'
+    echo '<meta charset="utf-8">'
+    echo '<title>NUR packages</title>'
+    echo '</head>'
+    echo '<body>'
+    echo '<table>'
+
+    echo '<thead>'
+    echo '<tr>'
+    echo '<td>name</td>'
+    echo '<td>attribute</td>'
+    echo '<td>description</td>'
+    echo '</tr>'
+    echo '</thead>'
+
+    echo '<tbody>'
+
+    echo "$packages_json" | jq -r 'to_entries[] | "<tr>\n<td>\(if .value.meta.homepage == null then "" else "<a href=\"\(.value.meta.homepage)\">" end)\(.value.name)\(if .value.meta.homepage == null then "" else "</a>" end)</td>\n<td><a href=\"file://\(.value.meta.position | sub(":(?<x>[0-9]+)$"; "#L\(.x)"))\">nur.repos.'"$repo_name"'.\(.key)</a></td>\n<td>\(.value.meta.description)</td>\n</tr>\n"'
+
+    echo '</tbody>'
+
+    echo '</table>'
+    echo '</body>'
+    echo '</html>'
+  ) >$tempdir/packages.html
 
   echo writing $tempdir/packages.json
   echo "$packages_json" >$tempdir/packages.json

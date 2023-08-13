@@ -171,6 +171,7 @@ if [[ "$rc" == "0" ]]; then
   echo hit enter to remove tempdir $tempdir
   read
 
+  echo removing tempdir
   rm -rf $tempdir
 else
   result=$?

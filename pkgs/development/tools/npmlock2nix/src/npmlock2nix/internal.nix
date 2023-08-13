@@ -10,6 +10,8 @@
 , writeShellScript
 , runCommand
 , fetchFromGitHub
+, pnpm-install-only ? null
+, nodejs-hide-symlinks ? null
 }:
 
 rec {
@@ -197,7 +199,7 @@ rec {
       sourceInfo = {
         github = { inherit org repo rev ref; };
       };
-      drv = packTgz sourceOptions.nodejs name ref src;
+      drv = packTgz sourceOptions name ref src;
     in
     if sourceOptions ? sourceOverrides.${name}
     then sourceOptions.sourceOverrides.${name} sourceInfo drv
@@ -206,7 +208,7 @@ rec {
   # Description: Packs a source directory into a .tgz tar archive. If the
   # source is an archive, it gets unpacked first.
   # Type: Path -> String -> String -> Path -> Path
-  packTgz = nodejs: pname: version: src: stdenv.mkDerivation (
+  packTgz = sourceOptions: pname: version: src: stdenv.mkDerivation (
     let
       preInstallLinks = writeShellScript "preInstallLinks" ''
         # preinstalled.links is a space separated text file in the
@@ -223,18 +225,18 @@ rec {
       '';
     in
     rec {
-      name = lib.strings.sanitizeDerivationName "${pname}-${version}.tgz";
+      name = lib.strings.sanitizeDerivationName "${pname}-${version}" + (if sourceOptions.symlinkNodeModules then "" else ".tgz");
       id = "id_" + (builtins.replaceStrings [ "-" "." ] [ "_" "_" ] name);
 
       phases = "unpackPhase patchPhase installPhase";
 
       inherit src;
       sourceRoot = "package";
-      outputs = [ "out" "hash" ];
+      outputs = [ "out" ] ++ (if sourceOptions.symlinkNodeModules then [ ] else [ "hash" ]);
       nativeBuildInputs = [ jq openssl ];
 
       propagatedBuildInputs = [
-        nodejs
+        sourceOptions.nodejs
       ];
 
       unpackPhase = ''
@@ -276,8 +278,14 @@ rec {
         patch_node_package_bin
 
         runHook preInstall
-        tar -C . -czf $out ./
-        echo sha512-$(openssl dgst -sha512 -binary $out | openssl base64 -A) > $hash
+        ${
+          if sourceOptions.symlinkNodeModules then ''
+            cp -r . $out
+          '' else ''
+            tar -C . -czf $out ./
+            echo sha512-$(openssl dgst -sha512 -binary $out | openssl base64 -A) > $hash
+          ''
+        }
         runHook postInstall
       '';
     }
@@ -288,9 +296,10 @@ rec {
   # will be applied, in which case the `integrity` attribute is set to `null`,
   # in order to be recomputer later
   # Type: { sourceOverrides :: Fn, nodejs :: Package } -> String -> String -> String -> String -> { resolved :: Path, integrity :: String }
-  makeUrlSource = { sourceOverrides ? { }, nodejs, ... }: name: version: resolved: integrity:
+  makeUrlSource = sourceOptions: name: version: resolved: integrity:
     let
-      src = fetchurl {
+      sourceOverrides = sourceOptions.sourceOverrides;
+      src-packed = fetchurl {
         # Npm strips the query strings when opening a "file://.*" name.
         # We need to make sure we strip the query string before adding
         # the file to the store.
@@ -298,11 +307,24 @@ rec {
         url = resolved;
         hash = integrity;
       };
+      src =
+        if sourceOptions.symlinkNodeModules
+        #then (builtins.trace "npmlock2nix: unpacking source: ${src-packed}") unpackNpmTgz src-packed
+        then unpackNpmTgz src-packed
+        else src-packed;
       sourceInfo = {
         version = version;
       };
-      drv = packTgz nodejs name version src;
+      drv = packTgz sourceOptions name version src;
       tgz = (
+        # If we have modification to this source, unpack the tgz, apply the
+        # patches and repack the tgz
+        if sourceOverrides ? ${name} then
+          sourceOverrides.${name} sourceInfo drv
+        else
+          if sourceOverrides.buildRequirePatchShebangs or false then drv else src
+      );
+      newResolved = (
         if sourceOverrides ? ${name} then
         # If we have modification to this source, unpack the tgz, apply the
         # patches and repack the tgz
@@ -312,14 +334,47 @@ rec {
       );
     in
     {
-      inherit integrity;
-      resolved = "file://" + (toString tgz);
-    } // lib.optionalAttrs (tgz != src) {
+      integrity = if sourceOptions.symlinkNodeModules then null else integrity;
+      resolved = (if sourceOptions.symlinkNodeModules then "" else "file://") + (toString newResolved);
+    } // lib.optionalAttrs (newResolved != src) {
       # Integrity was tampered with due to the source attributes, so it needs
       # to be recalculated, which is done in the node_modules builder
       integrity = null;
+    } // lib.optionalAttrs sourceOptions.symlinkNodeModules {
+      # package is unpacked, so it has no file integrity
+      integrity = null;
+      # TODO? npm would remove { "integrity: "...", "name": "...", "version": "..." } and add { "link": true }
+      # but pnpm-install-only does not need that (?)
+      #name = null;
+      #version = null;
+      #link = true;
     };
 
+  # TODO allow to override this builder in node_modules_attrs
+  unpackNpmTgz = src:
+    (stdenv.mkDerivation rec {
+      name =
+        let
+          s = builtins.baseNameOf src;
+          L = builtins.stringLength s;
+          base = builtins.substring 33 (L - 33) s;
+          baseNoExt = extLen: builtins.substring 33 (L - 33 - extLen) s;
+          ext = builtins.substring (L - 4) L s;
+        in
+        if ext == ".tgz" then (baseNoExt 4) else base;
+      inherit src;
+      phases = "unpackPhase installPhase";
+      # tar flags based on nixpkgs: pkgs/development/node-packages/node-env.nix
+      buildCommand = ''
+        mkdir -p $out
+        tar_args="tar --no-same-owner --no-same-permissions --warning=no-unknown-keyword --warning=no-timestamp --delay-directory-restore --strip-components=1 -xf $src -C $out"
+        if ! $tar_args; then
+          echo "error: unpacking failed: $tar_args"
+          exit 1
+        fi
+        patchShebangs $out | tail -n +2
+      '';
+    });
 
   # Description: Parses the lock file as json and returns an attribute set
   # Type: Path -> Set
@@ -341,7 +396,7 @@ rec {
   # URL stored in the integrity field with nix store path.
   # spec :: {version :: String, resolved :: String, integrity :: String }.
   # Type: { version :: String, resolved :: String, integrity :: String }
-  patchPackage = sourceOptions@{ sourceHashFunc, ... }: raw_name: spec:
+  patchPackage = sourceOptions: raw_name: spec:
     assert (builtins.typeOf raw_name != "string") ->
       throw "Name of dependency ${toString raw_name} must be a string";
     assert !(spec ? resolved || (spec ? inBundle && spec.inBundle == true)) ->
@@ -378,11 +433,11 @@ rec {
               inherit name sourceOptions;
               inherit (ghRef) org repo rev;
               ref = ghRef.rev;
-              hash = sourceHashFunc { type = "github"; value = { inherit (ghRef) org repo rev; }; };
+              hash = sourceOptions.sourceHashFunc { type = "github"; value = { inherit (ghRef) org repo rev; }; };
             };
           in
           {
-            resolved = "file://" + (toString ghTgz);
+            resolved = (if sourceOptions.symlinkNodeModules then "" else "file://") + (toString ghTgz);
             integrity = null;
           };
     in
@@ -492,20 +547,26 @@ rec {
   # will be applied, in which case the `integrity` attribute is set to `null`,
   # in order to be recomputer later
   # Type: { sourceOverrides :: Fn, nodejs :: Package } -> String -> Set -> Set
-  makeUrlSourceV1 = { sourceOverrides ? { }, nodejs, ... }: name: dependency:
+  makeUrlSourceV1 = sourceOptions: name: dependency:
     let
-      src = fetchurl (makeSourceAttrsV1 name dependency);
+      sourceOverrides = sourceOptions.sourceOverrides;
+      src-packed = fetchurl (makeSourceAttrsV1 name dependency);
+      src =
+        if sourceOptions.symlinkNodeModules
+        #then (builtins.trace "npmlock2nix: unpacking source: ${src-packed}") unpackNpmTgz src-packed
+        then unpackNpmTgz src-packed
+        else src-packed;
       sourceInfo = {
         inherit (dependency) version;
       };
-      drv = packTgz nodejs name dependency.version src;
+      drv = packTgz sourceOptions name dependency.version src;
       tgz =
         if sourceOverrides ? ${name}
         # If we have modification to this source, unpack the tgz, apply the
         # patches and repack the tgz
         then sourceOverrides.${name} sourceInfo drv
         else src;
-      resolved = "file://" + toString tgz;
+      resolved = (if sourceOptions.symlinkNodeModules then "" else "file://") + toString tgz;
     in
     dependency // { inherit resolved; } // lib.optionalAttrs (sourceOverrides ? ${name}) {
       # Integrity was tampered with due to the source attributes, so it needs
@@ -519,7 +580,7 @@ rec {
   # map has been provided. Otherwise the function yields `null`. Patches
   # specified with sourceOverrides will be applied
   # Type: { sourceHashFunc :: Fn } -> String -> Set -> Path
-  makeGithubSourceV1 = sourceOptions@{ sourceHashFunc, ... }: name: dependency:
+  makeGithubSourceV1 = sourceOptions: name: dependency:
     assert !(dependency ? version) ->
       builtins.throw "version` attribute missing from `${name}`";
     assert (lib.hasPrefix "github: " dependency.version) -> builtins.throw "invalid prefix for `version` field of `${name}` expected `github:`, got: `${dependency.version}`.";
@@ -535,7 +596,7 @@ rec {
         name = "${name}.tgz";
         ref = f.rev;
         inherit (v) org repo rev;
-        hash = sourceHashFunc { type = "github"; value = v; };
+        hash = sourceOptions.sourceHashFunc { type = "github"; value = v; };
         inherit sourceOptions;
       };
     in
@@ -552,7 +613,7 @@ rec {
 
   # Description: Turns a github string reference into a store path with a tgz of the reference
   # Type: Fn -> String -> String -> Path
-  stringToTgzPathV1 = sourceOptions@{ sourceHashFunc, ... }: name: str:
+  stringToTgzPathV1 = sourceOptions: name: str:
     let
       gitAttrs = parseGitHubRef str;
     in
@@ -560,7 +621,7 @@ rec {
       name = "${name}.tgz";
       ref = gitAttrs.rev;
       inherit (gitAttrs) org repo rev;
-      hash = sourceHashFunc { type = "github"; value = gitAttrs; };
+      hash = sourceOptions.sourceHashFunc { type = "github"; value = gitAttrs; };
       inherit sourceOptions;
     };
 
@@ -611,14 +672,14 @@ rec {
   # Description: Takes a parsed package file and returns the patched version as file in the Nix store
   # Type: { sourceHashFunc :: Fn } -> parsedPackageFile :: Set -> Derivation
   # TODO add name + version to filename
-  patchedPackagefile = patchedPackagefileData:
-    writeText "package.json" (builtins.toJSON patchedPackagefileData);
+  patchedPackagefile = pname: version: patchedPackagefileData:
+    writeText "${pname}-${version}-package.json" (builtins.toJSON patchedPackagefileData);
 
   # Description: Takes a Path to a lockfile and returns the patched version as file in the Nix store
   # Type: { sourceHashFunc :: Fn } -> parsedLockFile :: Set -> Path
   # TODO add name + version to filename
-  patchedLockfile = patchedLockfileData:
-    writeText "package-lock.json" (builtins.toJSON patchedLockfileData.result);
+  patchedLockfile = pname: version: patchedLockfileData:
+    writeText "${pname}-${version}-package-lock.json" (builtins.toJSON patchedLockfileData.result);
 
   # Description: Turn a derivation (with name & src attribute) into a directory containing the unpacked sources
   # Type: Derivation -> Derivation
@@ -694,11 +755,26 @@ rec {
     , preInstallLinks ? null
     , sourceOverrides ? { }
     , githubSourceHashMap ? { }
+    , symlinkNodeModules ? false
     , passthru ? { }
     , ...
     }@args:
+      #lib.traceSeqN 1 { inherit symlinkNodeModules pnpm-install-only; }
+      (
       assert (preInstallLinks != null) ->
         throw "`preInstallLinks` was removed use `sourceOverrides";
+      # TODO shorter?
+      assert !(
+        (symlinkNodeModules == true && pnpm-install-only != null) ||
+        (symlinkNodeModules == false)
+      ) ->
+        throw "(symlinkNodeModules == true) requires (pnpm-install-only != null)";
+      # TODO shorter?
+      assert !(
+        (symlinkNodeModules == true && nodejs-hide-symlinks != null) ||
+        (symlinkNodeModules == false)
+      ) ->
+        throw "(symlinkNodeModules == true) requires (nodejs-hide-symlinks != null)";
       let
         cleanArgs = builtins.removeAttrs args [ "src" "packageJson" "packageLockJson" "buildInputs" "nativeBuildInputs" "nodejs" "preBuild" "postBuild" "sourceOverrides" "githubSourceHashMap" ];
         lockfile = readPackageLikeFile packageLockJson;
@@ -706,28 +782,31 @@ rec {
 
         sourceOptions = {
           sourceHashFunc = sourceHashFunc githubSourceHashMap;
-          inherit nodejs sourceOverrides;
+          inherit sourceOverrides symlinkNodeModules;
+          nodejs = if symlinkNodeModules then (nodejs-hide-symlinks.override { inherit nodejs; }) else nodejs;
           packagesVersions = lockfile.packages or { };
         };
 
         allDependenciesNames = builtins.attrNames (packagefile.dependencies // packagefile.devDependencies or { });
 
         patchedLockfileData = patchLockfile sourceOptions lockfile;
-        patchedLockfilePath = patchedLockfile patchedLockfileData;
-
         patchedPackagefileData = patchPackagefile sourceOptions patchedLockfileData packagefile;
-        patchedPackagefilePath = patchedPackagefile patchedPackagefileData;
+
+        # TODO allow to override pname and version
+        pname = patchedLockfileData.result.name;
+        version = patchedLockfileData.result.version;
+
+        patchedLockfilePath = patchedLockfile pname version patchedLockfileData;
+        patchedPackagefilePath = patchedPackagefile pname version patchedPackagefileData;
       in
-      assert lockfile.lockfileVersion == 2 && lib.versionOlder nodejs.version "15.0"
-        -> throw "npm lockfile V2 require nodejs version >= 15, it is not supported by nodejs ${nodejs.version}";
       stdenv.mkDerivation ({
         pname = lib.strings.sanitizeDerivationName lockfile.name;
-        version = lockfile.version or "0";
+        version = (lockfile.version or "0") + "-node-modules";
         dontUnpack = true;
 
         inherit nativeBuildInputs buildInputs preBuild postBuild;
         propagatedBuildInputs = [
-          nodejs
+          sourceOptions.nodejs
         ];
 
         setupHooks = [
@@ -747,6 +826,24 @@ rec {
           runHook preBuild
           export HOME=$TMP
 
+          ${if sourceOptions.symlinkNodeModules then ''
+
+          echo "symlinkNodeModules=true -> using pnpm-install-only to populate node_modules/"
+
+          # FIXME store preInstallLinks in a file, pass as argument to index.js
+          export NODE_preInstallLinks='${builtins.toJSON preInstallLinks}'
+
+          echo '$' node --trace-uncaught --trace-warnings ${pnpm-install-only}/bin/pnpm-install-only
+
+          if ! node --trace-uncaught --trace-warnings ${pnpm-install-only}/bin/pnpm-install-only; then
+            echo "ERROR failed to install NPM packages with ${pnpm-install-only}/bin/pnpm-install-only"
+            exit 1
+          fi
+
+          '' else ''
+
+          echo "symlinkNodeModules=false -> using npm to populate node_modules/"
+
           function patchShebangsInNodeModulesBin() {
             if ! [ -d "$1" ]; then return; fi
             echo "patching shebangs in $1"
@@ -759,8 +856,10 @@ rec {
             patchShebangs "$1"
           }
 
-          npm ci --nodedir=${nodeSource nodejs} --ignore-scripts --offline
+          npm ci --nodedir=${nodeSource sourceOptions.nodejs} --ignore-scripts --offline
           patchShebangsInNodeModulesBin node_modules/.bin
+
+          ''}
 
           runHook postBuild
         '';
@@ -777,11 +876,12 @@ rec {
         '';
 
         passthru = passthru // {
-          inherit nodejs;
+          inherit (sourceOptions) nodejs;
           lockfile = patchedLockfilePath;
           packagesfile = patchedPackagefilePath;
         };
-      } // cleanArgs);
+      } // cleanArgs)
+      );
 
   shell =
     { src

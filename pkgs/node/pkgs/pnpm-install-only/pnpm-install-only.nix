@@ -2,31 +2,24 @@
 , pkgs
 , fetchFromGitHub
 , callPackage
-#, python3
-, git
 , npmlock2nix
 }:
 
-npmlock2nix.v2.build rec {
+npmlock2nix.build rec {
   pname = "pnpm-install-only";
-  version = "0.0.3";
+  version = "0.0.3-unstable-2023-08-13";
 
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "pnpm-install-only";
-    /*
-    rev = version;
-    hash = "sha256-g5PAHHpYYnNhgwyFdhUsSuBXqZHi1Q6zhWXwZd1iAG8=";
-    */
-    rev = "f90260de0cd3d078eefae669231de26e68e4a35b";
-    hash = "sha256-54WC6+/jG0fdVaKMOIU3A2GR0feeuPd7AYmaEflpZcM=";
+    #rev = version;
+    rev = "a92725b6ddf8650df673d86b0379971c1fb9c61a";
+    hash = "sha256-d81XqLMtWUMzlfCHegEZfnGRY8PEJbaSAmBpui+SXs0=";
   };
 
   # dont run "npm run build"
   buildCommands = [ ];
 
-  # FIXME
-  #  mv -v $out/bin/redis-commander.js $out/bin/redis-commander
   installPhase = ''
     mkdir -p $out/opt
     cp -r . $out/opt/$pname
@@ -34,31 +27,16 @@ npmlock2nix.v2.build rec {
     ln -sr $out/opt/$pname/src/index.js $out/bin/$pname
   '';
 
-  #node_modules_mode = "copy";
-
   node_modules_attrs = {
-    preBuild = ''
-      echo "node_modules preBuild"
-      set -x
 
-      # debug
-      set -x
-      command -v npm
-    '';
+    # bootstrap npmlock2nix: { symlinkNodeModules = true; } requires pnpm-install-only
+    symlinkNodeModules = false;
 
     packageJson = ./package.json;
     packageLockJson = ./package-lock.json;
 
-    #unpackNodePackages = true; # TODO implement
-
-    buildInputs = [
-      #python3 # for node-gyp
-
-      git # TODO remove
-    ];
-
     githubSourceHashMap = {
-      milahu.nodejs-lockfile-parser.b4ffaffa0872c4e40f38319b4ae76246de5cc4b3 = "sha256-C1BU5ei59htkc28b7l0eTMYrFIch2J1bberhuUGJTHU=";
+      milahu.nodejs-lockfile-parser.a5d37b98337284df432db75b2d2bd94f066c6b11 = "sha256-V2eT1SoIW96XV45RI8p2ZGqAl5PGrFGllXF07iJeHa8=";
     };
 
   };

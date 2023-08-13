@@ -54,6 +54,8 @@ npmlock2nix.build rec {
 
   node_modules_attrs = {
 
+    symlinkNodeModules = true;
+
     # force rebuild of node_packages
     #  set -x
     /*

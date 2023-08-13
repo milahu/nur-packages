@@ -148,7 +148,18 @@ export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
 # capture stdout with package list
 # show stderr with eval errors
 result=0
-if packages_json=$("${a[@]}"); then
+
+echo "evaluating packages..."
+
+# get eval time
+# NUR has eval timeout after 15 seconds
+time \
+packages_json=$("${a[@]}")
+
+rc=$?
+
+if [[ "$rc" == "0" ]]; then
+  echo
   echo eval ok
   echo
   echo your packages:

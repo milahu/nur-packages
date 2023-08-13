@@ -479,7 +479,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
 
-    pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix { };
+    pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
+      # bootstrap npmlock2nix without pnpm-install-only
+      npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+        pnpm-install-only = null;
+      };
+    };
 
   })));
 

@@ -471,9 +471,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/backup/gh2md/default.nix
   gh2md = callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
 
-  nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
-
   nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+
+  nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
 
     cowsay = callPackage ./pkgs/node/pkgs/cowsay/cowsay.nix { };
 

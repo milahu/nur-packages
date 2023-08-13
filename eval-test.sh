@@ -117,19 +117,25 @@ EOF
 
 nixpkgs_path=$(nix-instantiate --find-file nixpkgs)
 
+# nix-env --help
+# nix-env --help --query
+
 a=()
 a+=(nix-env)
-a+=(-f "$eval_path")
-a+=(-qa '*')
-a+=(--meta)
+a+=(--file "$eval_path") # Specifies  the Nix expression
+a+=(--query) # display information about packages
+a+=('.*') # names
+a+=(--available) # The query operates on the derivations that are available in the active Nix expression.
+a+=(--attr-path) # Print the attribute path of the derivation
+a+=(--meta) # Print all of the meta-attributes of the derivation.
 a+=(--json)
 a+=(--allowed-uris https://static.rust-lang.org)
 a+=(--option restrict-eval true)
 a+=(--option allow-import-from-derivation true)
-a+=(--drv-path)
+a+=(--drv-path) # Print the path of the store derivation.
 a+=(--show-trace)
 #a+=(--verbose)
-a+=(-I nixpkgs=$nixpkgs_path)
+a+=(-I nixpkgs=$nixpkgs_path) # Add a path to the Nix expression search path.
 a+=(-I "$repo_path")
 a+=(-I "$eval_path")
 a+=(-I "$EVALREPO_PATH")
@@ -146,7 +152,14 @@ if packages_json=$("${a[@]}"); then
   echo eval ok
   echo
   echo your packages:
-  echo "$packages_json" | jq -r 'values | .[].name'
+  echo "$packages_json" | jq -r 'to_entries[] | "\(.key)\n  \(.value.name)\n  \(.value.meta.position)\n  \(.value.meta.description)\n  \(.value.meta.homepage)"'
+
+  echo writing $tempdir/packages.json
+  echo "$packages_json" >$tempdir/packages.json
+
+  echo hit enter to remove tempdir $tempdir
+  read
+
   rm -rf $tempdir
 else
   result=$?

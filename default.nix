@@ -427,6 +427,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   pdfjam = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam.nix { };
   pdfjam-extras = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam-extras.nix { };
 
+  pdfselect = callPackage ./pkgs/tools/typesetting/pdfselect/pdfselect.nix { };
+
   curl-with-allow-dot-onion = (pkgs.curl.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or []) ++ [
       # add support for CURL_ALLOW_DOT_ONION=1

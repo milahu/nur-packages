@@ -467,6 +467,7 @@ rec {
   # Description: Takes a parsed lockfile and returns the patched version as an attribute set
   # Type: { sourceHashFunc :: Fn } -> parsedLockedFile :: Set -> { result :: Set, integrityUpdates :: List { path, file } }
   patchLockfile = sourceOptions: content:
+    if (content.lockfileVersion == 3 || content ? packages) then patchLockfileV2 sourceOptions content else # TODO verify
     if (content.lockfileVersion == 2 || content ? packages) then patchLockfileV2 sourceOptions content else
     if (content.lockfileVersion == 1 || content ? dependencies) then patchLockfileV1 sourceOptions content else
     if (content ? lockfileVersion) then throw "unknown lockfile version: ${content.lockfileVersion}" else

@@ -239,16 +239,23 @@ rec {
         sourceOptions.nodejs
       ];
 
+      # chmod -R +w $sourceRoot
+      #   make the source writable
+      # chmod -R +X $sourceRoot
+      #   fix permissions of directories
+      #   example: /nix/store/jb1wi55v5z2gzx2rjma0v5323fij6wjp-pngjs-6.0.0.tgz
+      #     lib/ has mode 0444 but should be 0555
+      #     fixed by "chmod -R +X ."
       unpackPhase = ''
         runHook preUnpack
         mkdir -p ${sourceRoot}
         if [ -d $src ]; then
           cp -RT --reflink=auto $src $sourceRoot
-          chmod -R +w $sourceRoot
         fi
         if [ -f $src ]; then
           tar --no-same-owner --no-same-permissions --warning=no-unknown-keyword --warning=no-timestamp --delay-directory-restore --strip-components=1 -xf $src -C $sourceRoot
         fi
+        chmod -R +wX $sourceRoot
         runHook postUnpack
       '';
 
@@ -365,6 +372,11 @@ rec {
       inherit src;
       phases = "unpackPhase installPhase";
       # tar flags based on nixpkgs: pkgs/development/node-packages/node-env.nix
+      # chmod -R +X $out
+      #   fix permissions of directories
+      #   example: /nix/store/jb1wi55v5z2gzx2rjma0v5323fij6wjp-pngjs-6.0.0.tgz
+      #     lib/ has mode 0444 but should be 0555
+      #     fixed by "chmod -R +X ."
       buildCommand = ''
         mkdir -p $out
         tar_args="tar --no-same-owner --no-same-permissions --warning=no-unknown-keyword --warning=no-timestamp --delay-directory-restore --strip-components=1 -xf $src -C $out"
@@ -372,6 +384,7 @@ rec {
           echo "error: unpacking failed: $tar_args"
           exit 1
         fi
+        chmod -R +X $out
         patchShebangs $out | tail -n +2
       '';
     });

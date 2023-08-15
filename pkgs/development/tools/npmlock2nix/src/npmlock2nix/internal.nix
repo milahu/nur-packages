@@ -405,6 +405,11 @@ rec {
     # set. This makes the consuming code eaiser.
     if json ? dependencies then json else json // { dependencies = { }; };
 
+  # fixme: this fails when the common value is null
+  listsHaveCommonValue = list1: list2:
+    # lib.lists.findFirst (v: builtins.elem v ["b" "c" "d"]) null ["a" "b" "c"] != null
+    lib.lists.findFirst (v: builtins.elem v list1) null list2 != null;
+
   # Description: Patch a lockfile v2 package entry. It'll replace the
   # URL stored in the integrity field with nix store path.
   # spec :: {version :: String, resolved :: String, integrity :: String }.
@@ -414,6 +419,28 @@ rec {
       throw "Name of dependency ${toString raw_name} must be a string";
     assert !(spec ? resolved || (spec ? inBundle && spec.inBundle == true)) ->
       throw "Missing resolved field for dependency ${toString raw_name}";
+    (
+    if (spec ? optional && spec.optional == true) then
+      # filter by cpu and os
+      let removedSpec = spec // { version = ""; resolved = ""; integrity = ""; }; in
+      if (spec ? cpu && spec ? os) then
+        if (
+          listsHaveCommonValue spec.cpu sourceOptions.nodeHostCpuNames &&
+          listsHaveCommonValue spec.os sourceOptions.nodeHostOsNames
+        )
+        then (x: x) else (x: removedSpec)
+      else
+      if (spec ? cpu) then
+        if listsHaveCommonValue spec.cpu sourceOptions.nodeHostCpuNames
+        then (x: x) else (x: removedSpec)
+      else
+      if (spec ? os) then
+        if listsHaveCommonValue spec.os sourceOptions.nodeHostOsNames
+        then (x: x) else (x: removedSpec)
+      else (x: x)
+    else (x: x)
+    )
+    (
     let
       name = genericPackageName raw_name;
       defaultedIntegrity = if spec ? integrity then spec.integrity else null;
@@ -459,10 +486,72 @@ rec {
       inherit (patchedResolved) resolved integrity;
     } // lib.optionalAttrs (spec ? dependencies) {
       dependencies = (patchDependencies spec.dependencies);
-    };
+    }
+    );
 
   genericPackageName = name:
     (lib.last (lib.strings.splitString "node_modules/" name));
+
+  # translate nix cpu name to node cpu names
+  # nix cpu names:
+  # nix-repl> lib.strings.concatStringsSep " " (lib.lists.naturalSort (lib.lists.unique (builtins.map (s: builtins.head (builtins.split "-" s)) lib.platforms.all)))
+  # "aarch64 aarch64_be arm armv5tel armv6l armv7a armv7l avr i686 javascript loongarch64 m68k microblaze microblazeel mips mips64 mips64el mipsel mmix msp430 or1k powerpc powerpc64 powerpc64le powerpcle riscv32 riscv64 rx s390 s390x vc4 wasm32 wasm64 x86_64"
+  # node cpu names: arm arm64 ia32 loong64 mips64el ppc64 riscv64 s390x x64 [TODO more]
+  nodeHostCpuNames = ({
+    "aarch64" = [ "aarch64" ];
+    "aarch64_be" = [ "aarch64_be" ];
+    "arm" = [ "arm" ];
+    #"arm64" = [ "arm64" ]; # TODO
+    "armv5tel" = [ "armv5tel" ];
+    "armv6l" = [ "armv6l" ];
+    "armv7a" = [ "armv7a" ];
+    "armv7l" = [ "armv7l" ];
+    "avr" = [ "avr" ];
+    "i686" = [ "i686" "ia32" ]; # TODO verify "ia32"
+    "javascript" = [ "javascript" ];
+    "loongarch64" = [ "loongarch64" "loong64" ]; # TODO verify "loong64"
+    "m68k" = [ "m68k" ];
+    "microblaze" = [ "microblaze" ];
+    "microblazeel" = [ "microblazeel" ];
+    "mips" = [ "mips" ];
+    "mips64" = [ "mips64" ];
+    "mips64el" = [ "mips64el" ];
+    "mipsel" = [ "mipsel" ];
+    "mmix" = [ "mmix" ];
+    "msp430" = [ "msp430" ];
+    "or1k" = [ "or1k" ];
+    "powerpc" = [ "powerpc" "ppc" ];
+    "powerpc64" = [ "powerpc64" "ppc64" ];
+    "powerpc64le" = [ "powerpc64le" "ppc64le" ];
+    "powerpcle" = [ "powerpcle" "ppcle" ];
+    "riscv32" = [ "riscv32" ];
+    "riscv64" = [ "riscv64" ];
+    "rx" = [ "rx" ];
+    "s390" = [ "s390" ];
+    "s390x" = [ "s390x" ];
+    "vc4" = [ "vc4" ];
+    "wasm32" = [ "wasm32" ];
+    "wasm64" = [ "wasm64" ];
+    "x86_64" = [ "x86_64" "x64" ];
+  }).${stdenv.hostPlatform.parsed.cpu.name};
+
+  # translate nix os name to node os names
+  # nix os names:
+  # nix-repl> lib.strings.concatStringsSep " " (lib.lists.naturalSort (lib.lists.unique (builtins.map (s: lib.lists.last (builtins.split "-" s)) lib.platforms.all)))
+  # "cygwin darwin freebsd13 genode ghcjs linux mmixware netbsd none openbsd redox solaris wasi windows"
+  # node os names: android darwin freebsd linux netbsd openbsd sunos win32 [TODO more]
+  nodeHostOsNames = ({
+    "android" = [ "android" ];
+    "cygwin" = [ "cygwin" ];
+    "darwin" = [ "darwin" ];
+    "freebsd13" = [ "freebsd" ];
+    "linux" = [ "linux" ];
+    "netbsd" = [ "netbsd" ];
+    "openbsd" = [ "openbsd" ];
+    "redox" = [ "redox" ];
+    "solaris" = [ "solaris" "sunos" ];
+    "windows" = [ "win32" ];
+  }).${stdenv.hostPlatform.parsed.kernel.name};
 
   # Description: Takes a parsed lockfile and returns the patched version as an attribute set
   # Type: { sourceHashFunc :: Fn } -> parsedLockedFile :: Set -> { result :: Set, integrityUpdates :: List { path, file } }
@@ -796,7 +885,7 @@ rec {
 
         sourceOptions = {
           sourceHashFunc = sourceHashFunc githubSourceHashMap;
-          inherit sourceOverrides symlinkNodeModules;
+          inherit sourceOverrides symlinkNodeModules nodeHostCpuNames nodeHostOsNames;
           nodejs = if symlinkNodeModules then (nodejs-hide-symlinks.override { inherit nodejs; }) else nodejs;
           packagesVersions = lockfile.packages or { };
         };

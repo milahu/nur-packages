@@ -1,9 +1,12 @@
 { lib
-, python3Packages
+, buildPythonApplication
 , fetchPypi
+, six
+, requests
+, python-dateutil
 }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "gh2md";
   version = "2.3.0";
 
@@ -12,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-vdbYPg9Lr0PN3bInFryhggvs8bsMOJVepRT+n8gPSuE=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ six requests python-dateutil ];
+  propagatedBuildInputs = [ six requests python-dateutil ];
 
   # uses network
   doCheck = false;

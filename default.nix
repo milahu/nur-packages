@@ -471,7 +471,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # https://github.com/NixOS/nixpkgs/pull/158152 # gh2md: init at 2.0.0
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/backup/gh2md/default.nix
-  gh2md = callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
+  gh2md = python3.pkgs.callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
 
   nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
 

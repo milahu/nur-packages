@@ -500,6 +500,19 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   })));
 
+  fontforge-dev = pkgs.fontforge.overrideAttrs (oldAttrs: {
+    version = oldAttrs.version + "-dev";
+    dontBuild = true;
+    # install fontforge-config.h and fontforge-version-extras.h
+    installPhase = ''
+      mkdir -p $out/include
+      cp inc/*.h $out/include
+    '';
+    meta = oldAttrs.meta // {
+      description = "fontforge include files: /include/fontforge-config.h and /include/fontforge-version-extras.h";
+    };
+  });
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

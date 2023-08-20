@@ -513,6 +513,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     };
   });
 
+  # https://github.com/NixOS/nixpkgs/commits/master/pkgs/tools/security/tor/torsocks.nix
+  torsocks = callPackage ./pkgs/tools/security/tor/torsocks.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

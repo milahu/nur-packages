@@ -398,7 +398,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
 
-  tribler = callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
+  tribler = python3.pkgs.callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
 
   # pocketsphinx was removed in https://github.com/NixOS/nixpkgs/pull/170124
   # based on update in closed PR https://github.com/NixOS/nixpkgs/pull/169609

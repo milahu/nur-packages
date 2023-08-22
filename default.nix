@@ -255,6 +255,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       git-filter-repo = callPackage ./pkgs/development/python-modules/git-filter-repo/git-filter-repo.nix { };
 
+      some = callPackage ./pkgs/python3/pkgs/some/some.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

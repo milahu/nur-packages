@@ -7,6 +7,7 @@
 , fetchFromGitHub
 , jq
 , makeWrapper
+, gclient
 }:
 
 stdenv.mkDerivation rec {
@@ -20,10 +21,6 @@ stdenv.mkDerivation rec {
     hash = "sha256-e0FQimVtSwgnZ6KmpQ+76ovsNIBhKd+qJE9HCiKe+XM=";
   };
 
-  buildInputs = [
-    jq
-  ];
-
   nativeBuildInputs = [
     makeWrapper
   ];
@@ -33,7 +30,10 @@ stdenv.mkDerivation rec {
     cp -r $src/src $out/bin
     chmod -R +w $out/bin
     wrapProgram $out/bin/gclient2nix \
-      --prefix PATH : ${lib.makeBinPath [ jq ]}
+      --prefix PATH : ${lib.makeBinPath [
+        jq
+        gclient
+      ]}
   '';
 
   meta = with lib; {

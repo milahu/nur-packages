@@ -257,11 +257,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       some = callPackage ./pkgs/python3/pkgs/some/some.nix { };
 
+      chromium-depot-tools = callPackage ./pkgs/build-support/chromium-depot-tools/chromium-depot-tools.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
 
   }))); # python3Packages
+
+  chromium-depot-tools = python3Packages.chromium-depot-tools;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

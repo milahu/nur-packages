@@ -518,6 +518,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gclient2nix = callPackage ./pkgs/build-support/gclient2nix/gclient2nix.nix { };
 
+  gclient = callPackage ./pkgs/build-support/gclient/gclient.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

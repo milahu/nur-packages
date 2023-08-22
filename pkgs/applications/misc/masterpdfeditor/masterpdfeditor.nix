@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "masterpdfeditor";
-  version = "5.9.50";
+  version = "5.9.35";
 
   src = fetchurl {
     url = "https://code-industry.net/public/master-pdf-editor-${version}-qt5.x86_64.tar.gz";
-    sha256 = "sha256-YsYknwGVumoJoY8kHSkKrvn4Z4rhOx5zCoB64dLAfOA=";
+    sha256 = "sha256-c5DYS0PQemZ8Sql2KjnuMspCLDJzU95rsbuIdoxWDM0=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook wrapQtAppsHook ];
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     install -Dm644 -t $out/share/pixmaps      masterpdfeditor5.png
     install -Dm644 -t $out/share/applications masterpdfeditor5.desktop
     install -Dm755 -t $p                      masterpdfeditor5
-    install -Dm644 license_en.txt $out/share/$name/LICENSE
+    install -Dm644 license.txt $out/share/$name/LICENSE
     ln -s $p/masterpdfeditor5 $out/bin/masterpdfeditor5
     cp -v -r stamps templates lang fonts $p
 

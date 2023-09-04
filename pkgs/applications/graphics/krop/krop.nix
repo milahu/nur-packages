@@ -14,6 +14,8 @@ python3Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python3Packages; [
     pyqt5
     pypdf2
+    pikepdf # krop --use-pikepdf
+    pymupdf # krop --use-pymupdf
     poppler-qt5
     ghostscript
   ];

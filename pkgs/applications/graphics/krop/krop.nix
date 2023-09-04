@@ -2,14 +2,21 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "krop";
-  version = "0.6.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "arminstraub";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "1ygzc7vlwszqmsd3v1dsqp1dpsn6inx7g8gck63alvf88dbn8m3s";
+    #rev = "v${version}";
+    #sha256 = "1ygzc7vlwszqmsd3v1dsqp1dpsn6inx7g8gck63alvf88dbn8m3s";
+    rev = "e96d42b2f1ab4317efe37cab498b708663bc104c";
+    sha256 = "sha256-TYR214ZQsAhf6P1Mw6zjRyopPxs4f3RhPa9rKA0cK8w=";
   };
+
+  patches = [
+    # https://github.com/arminstraub/krop/pull/40
+    ./fix-import-pypdf2.patch
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pyqt5

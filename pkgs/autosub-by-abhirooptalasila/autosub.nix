@@ -60,6 +60,11 @@ buildPythonPackage rec {
     sed -i '/python_requires=/d' setup.py
   '';
 
+  postInstall = ''
+    patchShebangs getmodels.sh
+    cp getmodels.sh $out/bin/autosub-getmodels
+  '';
+
   # fix: WARNING: Testing via this command is deprecated and will be removed in a future version.
   checkPhase = ''
     runHook preCheck

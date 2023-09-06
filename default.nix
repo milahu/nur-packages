@@ -74,7 +74,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gaupol = python3.pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
 
-  autosub-by-abhirooptalasila = callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
+  autosub-by-abhirooptalasila = python3.pkgs.callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
 
   proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
 

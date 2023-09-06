@@ -32,6 +32,26 @@ buildPythonPackage rec {
     sha256 = "sha256-bRwa0YYkWGe45aQjpXauS6Pf1UvGQs2LAGjrW4fcZmM=";
   };
 
+  # https://github.com/milahu/autosub-by-abhirooptalasila
+  # fix: ModuleNotFoundError: No module named 'logger'
+  # fix: ModuleNotFoundError: No module named 'utils'
+  # fix: ModuleNotFoundError: No module named 'writeToFile'
+  # ...
+  # these were fixed by https://github.com/abhirooptalasila/AutoSub/pull/54
+  # but pull/75  causes regression
+  # https://github.com/abhirooptalasila/AutoSub/pull/75/files#r1317124605
+  postPatch = ''
+    sed -i '
+      s/^import logger/from . import logger/;
+      s/^import trainAudio/from . import trainAudio/;
+      s/^import featureExtraction/from . import featureExtraction/;
+      s/^from utils import/from .utils import/;
+      s/^from writeToFile import/from .writeToFile import/;
+      s/^from audioProcessing import/from .audioProcessing import/;
+      s/^from segmentAudio import/from .segmentAudio import/;
+    ' autosub/*.py
+  '';
+
   # relax requirements
   # fix: ERROR: Package 'autosub' requires a different Python: 3.10.12 not in '<=3.10'
   # setup.py:    python_requires='<=3.10',

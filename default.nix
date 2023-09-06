@@ -270,6 +270,16 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   }))); # python3Packages
 
+  bazel_2 = callPackage ./pkgs/development/tools/build-managers/bazel/bazel_2/bazel_2.nix {
+    inherit (pkgs.darwin) cctools;
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation CoreFoundation CoreServices;
+    buildJdk = pkgs.jdk11_headless;
+    buildJdkName = "java11";
+    runJdk = pkgs.jdk11_headless;
+    stdenv = if pkgs.stdenv.cc.isClang then pkgs.llvmPackages.stdenv else pkgs.gcc10StdenvCompat;
+    bazel_self = bazel_2;
+  };
+
   chromium-depot-tools = python3Packages.chromium-depot-tools;
 
   deno = pkgs.deno // {

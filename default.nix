@@ -264,6 +264,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pdfium = pdfium-bin;
       };
 
+      stt = callPackage ./pkgs/python3/pkgs/stt/stt.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

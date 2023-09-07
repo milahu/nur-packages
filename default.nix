@@ -521,7 +521,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       };
     };
 
+    gittorrent = callPackage ./pkgs/node-pkgs/gittorrent/gittorrent.nix { };
+
   })));
+
+  inherit (nodePackages)
+    npmlock2nix
+    gittorrent
+  ;
 
   fontforge-dev = pkgs.fontforge.overrideAttrs (oldAttrs: {
     version = oldAttrs.version + "-dev";

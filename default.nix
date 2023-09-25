@@ -566,6 +566,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   #krop = callPackage ./pkgs/applications/graphics/krop/krop.nix { };
   krop = pkgs.callPackage ./pkgs/applications/graphics/krop/krop.nix { };
 
+  p7zip = callPackage ./pkgs/tools/archivers/p7zip/p7zip.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

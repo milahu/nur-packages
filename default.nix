@@ -300,8 +300,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   brother-hll5100dn = callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
 
-  npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
-
   nix-gitignore = callPackage ./pkgs/build-support/nix-gitignore/nix-gitignore.nix { };
 
   # mvn2nix

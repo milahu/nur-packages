@@ -23,6 +23,8 @@ NIXPKGS_ROOT="$(realpath "$DRV_DIR/../../../..")"
 # debug
 echo "NIXPKGS_ROOT: $NIXPKGS_ROOT"
 
+set -x
+
 echo "getting free source hash"
 OLD_FREE_HASH="$(nix-instantiate --eval --strict -E "with import $NIXPKGS_ROOT {}; $attr_path.src.drvAttrs.outputHash" | tr -d '"')"
 echo "getting unfree source hash"
@@ -31,10 +33,13 @@ OLD_UNFREE_HASH="$(nix-instantiate --eval --strict -E "with import $NIXPKGS_ROOT
 NEW_VERSION_FORMATTED="$(echo "$NEW_VERSION" | tr -d '.')"
 URL="https://7-zip.org/a/7z${NEW_VERSION_FORMATTED}-src.tar.xz"
 
+# fix: nix-prefetch fails on nur-packages repo
+# error: Could not find Nixpkgs path: /tmp/nur-packages/pkgs/top-level
+#NEW_FREE_HASH=$(nix-prefetch -f "$NIXPKGS_ROOT" -E "$attr_path.src" --url "$URL")
+NEW_FREE_HASH=$(nix-prefetch -f "<nixpkgs>" -E "(import $NIXPKGS_ROOT {}).$attr_path.src" --url "$URL")
 
-NEW_FREE_HASH=$(nix-prefetch -f "$NIXPKGS_ROOT" -E "$attr_path.src" --url "$URL")
-
-NEW_UNFREE_OUT=$(nix-prefetch -f "$NIXPKGS_ROOT" -E "($attr_path.override { enableUnfree = true; }).src" --url "$URL" --output raw --print-path)
+#NEW_UNFREE_OUT=$(nix-prefetch -f "$NIXPKGS_ROOT" -E "($attr_path.override { enableUnfree = true; }).src" --url "$URL" --output raw --print-path)
+NEW_UNFREE_OUT=$(nix-prefetch -f "<nixpkgs>" -E "((import $NIXPKGS_ROOT {}).$attr_path.override { enableUnfree = true; }).src" --url "$URL" --output raw --print-path)
 # first line of raw output is the hash
 NEW_UNFREE_HASH="$(echo "$NEW_UNFREE_OUT" | sed -n 1p)"
 # second line of raw output is the src path

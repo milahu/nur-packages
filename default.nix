@@ -568,6 +568,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   p7zip = callPackage ./pkgs/tools/archivers/p7zip/p7zip.nix { };
 
+  sevenzip = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

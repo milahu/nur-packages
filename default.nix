@@ -564,8 +564,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   #krop = callPackage ./pkgs/applications/graphics/krop/krop.nix { };
   krop = pkgs.callPackage ./pkgs/applications/graphics/krop/krop.nix { };
 
-  p7zip = throw "p7zip has been removed in favor of sevenzip";
-
   sevenzip = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip.nix { };
 
 }

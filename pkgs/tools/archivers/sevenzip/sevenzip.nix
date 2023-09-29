@@ -140,9 +140,6 @@ stdenv.mkDerivation rec {
     # 7za 7zz 7zr
     install -Dm755 -t $out/bin CPP/7zip/Bundles/*/_o/*
 
-    # provide the command "7z" like p7zip
-    ln -sT 7zz $out/bin/7z
-
     install -Dm644 -t $out/share/licenses/${pname} \
       DOC/{copying.txt,License.txt}
     rm DOC/{copying.txt,License.txt}

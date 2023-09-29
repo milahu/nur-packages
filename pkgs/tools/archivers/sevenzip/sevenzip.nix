@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   src = fetchurl rec {
     name = "7z${lib.replaceStrings [ "." ] [ "" ] version}-src.tar.xz";
     urls = [
-      "https://sourceforge.net/projects/sevenzip/files/7-Zip/${version}/${name}/download"
+      "https://downloads.sourceforge.net/project/sevenzip/7-Zip/${version}/${name}"
       "https://7-zip.org/a/${name}"
     ];
     hash = {

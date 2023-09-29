@@ -78,7 +78,9 @@ stdenv.mkDerivation rec {
       "CC=${stdenv.cc.targetPrefix}cc"
       "CXX=${stdenv.cc.targetPrefix}c++"
     ]
-    ++ lib.optionals useUasm [ "MY_ASM=uasm" ]
+    # fix: asmc: command not found
+    #++ lib.optionals useUasm [ "MY_ASM=uasm" ]
+    ++ [ "MY_ASM=${if useUasm then "uasm" else ""}" ]
     # We need at minimum 10.13 here because of utimensat, however since
     # we need a bump anyway, let's set the same minimum version as the one in
     # aarch64-darwin so we don't need additional changes for it

@@ -1,3 +1,5 @@
+# based on https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/archivers/7zz/default.nix
+
 { stdenv
 , lib
 , fetchurl
@@ -15,24 +17,24 @@
 , testers
 }:
 
-let
-  makefile = {
-    aarch64-darwin = "../../cmpl_mac_arm64.mak";
-    x86_64-darwin = "../../cmpl_mac_x64.mak";
-    aarch64-linux = "../../cmpl_gcc_arm64.mak";
-    i686-linux = "../../cmpl_gcc_x86.mak";
-    x86_64-linux = "../../cmpl_gcc_x64.mak";
-  }.${stdenv.hostPlatform.system} or "../../cmpl_gcc.mak"; # generic build
-in
 stdenv.mkDerivation rec {
-  pname = "sevenzip";
-  version = "22.01";
 
-  src = fetchurl {
-    url = "https://7-zip.org/a/7z${lib.replaceStrings [ "." ] [ "" ] version}-src.tar.xz";
+  # TODO what is better?
+  #pname = "sevenzip";
+  #pname = "7zip";
+  pname = "7z";
+
+  version = "23.01";
+
+  src = fetchurl rec {
+    name = "7z${lib.replaceStrings [ "." ] [ "" ] version}-src.tar.xz";
+    urls = [
+      "https://sourceforge.net/projects/sevenzip/files/7-Zip/${version}/${name}/download"
+      "https://7-zip.org/a/${name}"
+    ];
     hash = {
-      free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
-      unfree = "sha256-OTCYcwxwBCOSr4CJF+dllF3CQ33ueq48/MSWbrkg+8U=";
+      free = "sha256-7xMTG+kYMwbu6s7cdNgQYYMFig6sp/4KBSVIXw1VanM=";
+      unfree = "sha256-NWBxAHNg5aGCTZkEmT6LJIC1G1cOjJ+vfA9Y6+S/n3Q=";
     }.${if enableUnfree then "unfree" else "free"};
     downloadToTemp = (!enableUnfree);
     # remove the unRAR related code from the src drv
@@ -51,8 +53,17 @@ stdenv.mkDerivation rec {
     '';
   };
 
+  # the build does not produce any manpages
+  # the debian version of 7zip has some manpages
+  # https://salsa.debian.org/debian/7zip/-/tree/master/debian/man
+  # https://manpages.debian.org/unstable/7zip/7zz.1
+  # but they contain the same info as "7z --help" etc
+
+  # fix: unpacker produced multiple directories
   sourceRoot = ".";
 
+  # FIXME patches fail
+  /*
   patches = [
     ./fix-build-on-darwin.patch
     ./fix-cross-mingw-build.patch
@@ -63,23 +74,40 @@ stdenv.mkDerivation rec {
     substituteInPlace CPP/7zip/7zip_gcc.mak C/7zip_gcc_c.mak \
       --replace windres.exe ${stdenv.cc.targetPrefix}windres
   '';
+  */
 
+  # TODO remove?
+  /*
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
     "-Wno-deprecated-copy-dtor"
   ] ++ lib.optionals stdenv.hostPlatform.isMinGW [
     "-Wno-conversion"
     "-Wno-unused-macros"
   ]);
+  */
 
-  inherit makefile;
+  makeBundleNames = [
+    "Alone"
+    "Alone2"
+    "Alone7z"
+    "Format7zF"
+  ];
 
   makeFlags =
     [
       "CC=${stdenv.cc.targetPrefix}cc"
       "CXX=${stdenv.cc.targetPrefix}c++"
+      "PLATFORM=${
+        if stdenv.hostPlatform.isx86_64 then "x64" else
+        if stdenv.hostPlatform.isx86_32 then "x86" else
+        if stdenv.hostPlatform.isAarch64 then "arm64" else
+        if stdenv.hostPlatform.isArmv7 then "arm" else
+        ""
+      }"
+      "IS_X64=${if stdenv.hostPlatform.isx86_64 then "1" else ""}"
+      "IS_X86=${if stdenv.hostPlatform.isx86_32 then "1" else ""}"
+      "IS_ARM64=${if stdenv.hostPlatform.isAarch64 then "1" else ""}"
     ]
-    # fix: asmc: command not found
-    #++ lib.optionals useUasm [ "MY_ASM=uasm" ]
     ++ [ "MY_ASM=${if useUasm then "uasm" else ""}" ]
     # We need at minimum 10.13 here because of utimensat, however since
     # we need a bump anyway, let's set the same minimum version as the one in
@@ -87,19 +115,44 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ "MACOSX_DEPLOYMENT_TARGET=10.16" ]
     # it's the compression code with the restriction, see DOC/License.txt
     ++ lib.optionals (!enableUnfree) [ "DISABLE_RAR_COMPRESS=true" ]
-    ++ lib.optionals (stdenv.hostPlatform.isMinGW) [ "IS_MINGW=1" "MSYSTEM=1" ];
+    ++ lib.optionals (stdenv.hostPlatform.isMinGW) [ "IS_MINGW=1" "MSYSTEM=1" ]
+  ;
 
   nativeBuildInputs = lib.optionals useUasm [ uasm ];
 
   enableParallelBuilding = true;
 
-  preBuild = "cd CPP/7zip/Bundles/Alone2";
+  buildPhase = ''
+    for bundle in $makeBundleNames; do
+      make -C CPP/7zip/Bundles/$bundle -f makefile.gcc $makeFlags
+    done
+  '';
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm555 -t $out/bin b/*/7zz${stdenv.hostPlatform.extensions.executable}
-    install -Dm444 -t $out/share/doc/${pname} ../../../../DOC/*.txt
+    rm CPP/7zip/Bundles/*/_o/*.o
+
+    # 7z.so
+    install -Dm755 -t $out/lib CPP/7zip/Bundles/*/_o/*.so
+    rm CPP/7zip/Bundles/*/_o/*.so
+
+    # 7za 7zz 7zr
+    install -Dm755 -t $out/bin CPP/7zip/Bundles/*/_o/*
+
+    # provide the command "7z" like p7zip
+    ln -sT 7zz $out/bin/7z
+
+    install -Dm644 -t $out/share/licenses/${pname} \
+      DOC/{copying.txt,License.txt}
+    rm DOC/{copying.txt,License.txt}
+
+    ${if enableUnfree then ''
+      install -Dm644 -t $out/share/licenses/${pname} DOC/unRarLicense.txt
+      rm DOC/unRarLicense.txt
+    '' else ""}
+
+    install -Dm644 -t $out/share/doc/${pname} DOC/*
 
     runHook postInstall
   '';

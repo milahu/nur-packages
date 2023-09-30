@@ -268,6 +268,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       webdataset = callPackage ./pkgs/python3/pkgs/webdataset/webdataset.nix { };
 
+      plasma-disassembler = python3.pkgs.callPackage ./pkgs/development/tools/analysis/plasma-disassembler/plasma-disassembler.nix {
+        capstone-system = pkgs.capstone;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -283,6 +287,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     stdenv = if pkgs.stdenv.cc.isClang then pkgs.llvmPackages.stdenv else pkgs.gcc10StdenvCompat;
     bazel_self = bazel_2;
   };
+
+  plasma-disassembler = python3Packages.plasma-disassembler;
 
   chromium-depot-tools = python3Packages.chromium-depot-tools;
 

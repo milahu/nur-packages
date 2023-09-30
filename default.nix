@@ -568,6 +568,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nmake2msbuild = callPackage ./pkgs/development/tools/nmake2msbuild/nmake2msbuild.nix { };
 
+  fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

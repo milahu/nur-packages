@@ -566,6 +566,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   sevenzip = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip.nix { };
 
+  nmake2msbuild = callPackage ./pkgs/development/tools/nmake2msbuild/nmake2msbuild.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

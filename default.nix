@@ -266,6 +266,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       stt = callPackage ./pkgs/python3/pkgs/stt/stt.nix { };
 
+      webdataset = callPackage ./pkgs/python3/pkgs/webdataset/webdataset.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

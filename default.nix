@@ -572,7 +572,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   #krop = callPackage ./pkgs/applications/graphics/krop/krop.nix { };
   krop = pkgs.callPackage ./pkgs/applications/graphics/krop/krop.nix { };
 
-  sevenzip = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip.nix { };
+  sevenzip = sevenzip_23_01;
+
+  sevenzip_23_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_23_01.nix { };
 
   nmake2msbuild = callPackage ./pkgs/development/tools/nmake2msbuild/nmake2msbuild.nix { };
 

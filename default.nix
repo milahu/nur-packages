@@ -576,6 +576,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   sevenzip_23_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_23_01.nix { };
 
+  sevenzip_22_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_22_01.nix { };
+
   nmake2msbuild = callPackage ./pkgs/development/tools/nmake2msbuild/nmake2msbuild.nix { };
 
   fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };

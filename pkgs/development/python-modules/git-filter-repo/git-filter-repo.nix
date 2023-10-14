@@ -18,6 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-/hdT4Y8L1tPJtXhoyAEa59BWpuurcGcGOWoV71MScl4=";
   };
 
+  postPatch = ''
+    # fix: FileExistsError: File already exists: /bin/git-filter-repo
+    substituteInPlace setup.cfg \
+      --replace "scripts = git-filter-repo" ""
+  '';
+
   # TODO build manpage from source with asciidoc
   # https://github.com/newren/git-filter-repo/issues/495
   /*

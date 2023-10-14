@@ -465,7 +465,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # https://github.com/curl/curl/discussions/11125
       (pkgs.fetchurl {
         url = "https://github.com/curl/curl/pull/11236.patch";
-        sha256 = "sha256-Ma5pOVLTAz/bbdmo4s5QH3UFDlpVr7DZ9xSMcUy98B8=";
+        sha256 = "sha256-7UMLiUJEZglACu5oF4A5CTKbFyJptmpulYGJmIgP/Wc=";
       })
     ];
   }));

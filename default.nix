@@ -272,6 +272,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         capstone-system = pkgs.capstone;
       };
 
+      argostranslate_2 = callPackage ./pkgs/python3/pkgs/argostranslate/argostranslate_2.nix {
+        ctranslate2-cpp = pkgs.ctranslate2;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

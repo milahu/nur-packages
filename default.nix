@@ -272,6 +272,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         capstone-system = pkgs.capstone;
       };
 
+      argostranslatehtml = callPackage ./pkgs/python3/pkgs/argostranslatehtml/argostranslatehtml.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

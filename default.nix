@@ -276,6 +276,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         ctranslate2-cpp = pkgs.ctranslate2;
       };
 
+      gnumake-tokenpool = callPackage ./pkgs/python3/pkgs/gnumake-tokenpool { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

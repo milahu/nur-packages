@@ -10,6 +10,10 @@
 # user: pyload
 # password: pyload
 
+# to solve captchas, you also need these browser extensions
+# https://github.com/RemiRigal/Yape
+# https://github.com/Tampermonkey/tampermonkey
+
 { lib
 , fetchFromGitHub
 , fetchpatch

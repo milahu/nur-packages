@@ -588,6 +588,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };
 
+  ffmpeg-full = callPackage ./pkgs/development/libraries/ffmpeg/6.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks)
+      Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
+      VideoDecodeAcceleration VideoToolbox;
+    ffmpegVariant = "full";
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

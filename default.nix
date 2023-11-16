@@ -595,6 +595,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     ffmpegVariant = "full";
   };
 
+  dtmfdial = callPackage ./pkgs/tools/networking/dtmfdial/dtmfdial.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

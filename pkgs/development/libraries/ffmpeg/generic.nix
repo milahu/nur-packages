@@ -70,6 +70,7 @@
 , withPulse ? withSmallDeps && !stdenv.isDarwin # Pulseaudio input support
 , withRav1e ? withFullDeps # AV1 encoder (focused on speed and safety)
 , withRtmp ? false # RTMP[E] support
+, withRubberband ? withFullDeps # rubberband audio filter (timestretch, pitch)
 , withSamba ? withFullDeps && !stdenv.isDarwin # Samba protocol
 , withSdl2 ? withSmallDeps
 , withSoxr ? withHeadlessDeps # Resampling via soxr
@@ -241,6 +242,7 @@
 , rav1e
 , svt-av1
 , rtmpdump
+, rubberband
 , samba
 , SDL2
 , soxr
@@ -504,6 +506,7 @@ stdenv.mkDerivation (finalAttrs: {
     (enableFeature withRav1e "librav1e")
     (enableFeature withSvtav1 "libsvtav1")
     (enableFeature withRtmp "librtmp")
+    (enableFeature withRubberband "librubberband")
     (enableFeature withSdl2 "sdl2")
     (enableFeature withSoxr "libsoxr")
     (enableFeature withSpeex "libspeex")
@@ -594,6 +597,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withPulse [ libpulseaudio ]
   ++ optionals withRav1e [ rav1e ]
   ++ optionals withRtmp [ rtmpdump ]
+  ++ optionals withRubberband [ rubberband ]
   ++ optionals withSamba [ samba ]
   ++ optionals withSdl2 [ SDL2 ]
   ++ optionals withSoxr [ soxr ]

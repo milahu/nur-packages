@@ -48,6 +48,15 @@ npmlock2nix.build rec {
   '';
 
   node_modules_attrs = {
+
+    # fix: error: path '/nix/store/ccc5plqjf5fc8dg7077azhm58is9q4yq-source.drv' is not valid
+    # pkgs/development/tools/npmlock2nix/src/npmlock2nix/internal.nix
+    # packageLockJson ? src + "/package-lock.json"
+    # this works locally, but fails at update NUR in github CI
+    # nix fails to parse the package version from the lockfile
+    packageJson = ./package.json;
+    packageLockJson = ./package-lock.json;
+
     symlinkNodeModules = true;
     githubSourceHashMap = {
       dzdidi.ut_gittorrent."38b17be0fd02c62d3574a8158e6fabe123852d23" = "sha256-cKuFv1ErmskatAt/Ja796ppnlTQz2KMcJnU3sL2wgNw=";

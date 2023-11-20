@@ -603,6 +603,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cortile = callPackage ./pkgs/applications/window-managers/cortile/cortile.nix { };
 
+  ragnar = callPackage ./pkgs/applications/window-managers/ragnar/ragnar.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

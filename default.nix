@@ -601,6 +601,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # the library is called "fdk_aac", so better rename that to "libfdk_aac"
   fdkaac = pkgs.fdk-aac-encoder;
 
+  cortile = callPackage ./pkgs/applications/window-managers/cortile/cortile.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -605,6 +605,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ragnar = callPackage ./pkgs/applications/window-managers/ragnar/ragnar.nix { };
 
+  #wingo = callPackage ./pkgs/applications/window-managers/wingo/wingo.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

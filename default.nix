@@ -282,6 +282,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       browser-debugger-tools = callPackage ./pkgs/python3/pkgs/browser-debugger-tools/browser-debugger-tools.nix { };
 
+      pychrome = callPackage ./pkgs/python3/pkgs/pychrome/pychrome.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

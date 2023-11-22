@@ -278,6 +278,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       gnumake-tokenpool = callPackage ./pkgs/python3/pkgs/gnumake-tokenpool { };
 
+      chromecontroller = callPackage ./pkgs/python3/pkgs/chromecontroller/chromecontroller.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

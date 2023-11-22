@@ -280,6 +280,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       chromecontroller = callPackage ./pkgs/python3/pkgs/chromecontroller/chromecontroller.nix { };
 
+      browser-debugger-tools = callPackage ./pkgs/python3/pkgs/browser-debugger-tools/browser-debugger-tools.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

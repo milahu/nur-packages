@@ -284,6 +284,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pychrome = callPackage ./pkgs/python3/pkgs/pychrome/pychrome.nix { };
 
+      pychromedevtools = callPackage ./pkgs/python3/pkgs/pychromedevtools/pychromedevtools.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

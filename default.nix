@@ -615,6 +615,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   #wingo = callPackage ./pkgs/applications/window-managers/wingo/wingo.nix { };
 
+  buster-client = callPackage ./pkgs/tools/X11/buster-client/buster-client.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

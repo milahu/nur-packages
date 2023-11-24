@@ -617,6 +617,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   buster-client = callPackage ./pkgs/tools/X11/buster-client/buster-client.nix { };
 
+  buster-client-setup = callPackage ./pkgs/tools/X11/buster-client/buster-client-setup.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

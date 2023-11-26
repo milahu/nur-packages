@@ -1,18 +1,32 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
+, setuptools
+, wheel
 }:
 
 # cannot be built as pythonApplication because the library functions are
 # required for home-assistant
 buildPythonPackage rec {
   pname = "speedtest-cli";
-  version = "2.1.3";
+  version = "2.1.4";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "1w4h7m0isbvfy4zx6m5j4594p5y4pjbpzsr0h4yzmdgd7hip69sy";
+  pyproject = true;
+
+  # https://github.com/sivel/speedtest-cli/pull/800
+  # Set secure connection as default
+  # fix: ERROR: HTTP Error 403: Forbidden
+  src = fetchFromGitHub {
+    owner = "sivel";
+    repo = "speedtest-cli";
+    rev = "74d662e1e00de05779c71717626bb7ec299bdf3c";
+    hash = "sha256-wv9TI8AFjHKkcav4InM7DG+PJfN25tMgLkmu+pw9lO0=";
   };
+
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
   # tests require working internet connection
   doCheck = false;

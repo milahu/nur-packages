@@ -633,6 +633,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   wzshiming-socks5 = callPackage ./pkgs/tools/networking/wzshiming/wzshiming-socks5.nix { };
 
+  undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

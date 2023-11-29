@@ -290,6 +290,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       speedtest-cli = callPackage ./pkgs/python3/pkgs/speedtest-cli/speedtest-cli.nix { };
 
+      cdp-socket = callPackage ./pkgs/python3/pkgs/cdp-socket/cdp-socket.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

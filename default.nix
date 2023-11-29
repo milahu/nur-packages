@@ -625,6 +625,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   buster-client-setup-cli = callPackage ./pkgs/tools/X11/buster-client/buster-client-setup-cli.nix { };
 
+  wzshiming-bridge = callPackage ./pkgs/tools/networking/wzshiming/wzshiming-bridge.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

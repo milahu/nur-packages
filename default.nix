@@ -292,6 +292,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       cdp-socket = callPackage ./pkgs/python3/pkgs/cdp-socket/cdp-socket.nix { };
 
+      selenium-driverless = callPackage ./pkgs/python3/pkgs/selenium-driverless/selenium-driverless.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

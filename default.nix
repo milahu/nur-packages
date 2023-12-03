@@ -300,6 +300,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pkgs-undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
       };
 
+      flaresolverr = callPackage ./pkgs/python3/pkgs/flaresolverr/flaresolverr.nix {
+        chromium = pkgs.ungoogled-chromium;
+        #chromium = pkgs.google-chrome;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -319,6 +324,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   plasma-disassembler = python3Packages.plasma-disassembler;
 
   chromium-depot-tools = python3Packages.chromium-depot-tools;
+
+  flaresolverr = python3Packages.flaresolverr;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

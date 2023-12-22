@@ -662,6 +662,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     perlPackages = pkgs.perlPackages; # // { perl = pkgs.perl; };
   };
 
+  apt-init-config = callPackage ./pkgs/tools/package-management/apt-init-config/apt-init-config.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

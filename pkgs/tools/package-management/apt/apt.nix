@@ -76,6 +76,36 @@ stdenv.mkDerivation rec {
     "-DWITH_DOC=${if withDocs then "ON" else "OFF"}"
   ];
 
+  # dont use /nix/store for these paths
+  # dont create these paths: /etc/apt/apt.conf.d ...
+  # TODO substituteInPlace with regex? or perl regex?
+  # TODO allow to pass multiple paths instead of $out/libexec/apt
+  # so we can use more handlers than /libexec/apt/methods/http etc
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace '"''${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/lib/apt"' '"/var/lib/apt"' \
+      --replace '"''${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/cache/apt"' '/var/cache/apt' \
+      --replace '"''${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/log/apt"' '/var/log/apt' \
+      --replace '"''${CMAKE_INSTALL_FULL_SYSCONFDIR}/apt"' '/etc/apt' \
+      --replace '"''${CMAKE_INSTALL_FULL_LIBEXECDIR}/apt"' "$out/libexec/apt" \
+      --replace $'  ''${CONF_DIR}/apt.conf.d\n' "" \
+      --replace $'  ''${CONF_DIR}/auth.conf.d\n' "" \
+      --replace $'  ''${CONF_DIR}/preferences.d\n' "" \
+      --replace $'  ''${CONF_DIR}/sources.list.d\n' "" \
+      --replace $'  ''${CONF_DIR}/trusted.gpg.d\n' "" \
+      --replace $'  ''${CACHE_DIR}/archives/partial\n' "" \
+      --replace $'  ''${STATE_DIR}/lists/partial\n' "" \
+      --replace $'  ''${STATE_DIR}/mirrors/partial\n' "" \
+      --replace $'  ''${STATE_DIR}/periodic\n' "" \
+      --replace $'  ''${LOG_DIR}\n' "" \
+      --replace $'\n# Create our directories.\ninstall_empty_directories(\n)\n' ""
+
+    substituteInPlace apt-pkg/init.cc \
+      --replace \
+        'Cnf.CndSet("APT::Sandbox::User", "_apt");' \
+        'Cnf.CndSet("APT::Sandbox::User", "nobody");'
+  '';
+
   meta = with lib; {
     homepage = "https://salsa.debian.org/apt-team/apt";
     description = "Command-line package management tools used on Debian-based systems";

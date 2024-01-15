@@ -307,6 +307,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       aeneas = callPackage ./pkgs/python3/pkgs/aeneas/aeneas.nix { };
 
+      javascript = callPackage ./pkgs/python3/pkgs/javascript/javascript.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

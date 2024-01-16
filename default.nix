@@ -309,6 +309,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       javascript = callPackage ./pkgs/python3/pkgs/javascript/javascript.nix { };
 
+      botasaurus-proxy-authentication = callPackage ./pkgs/python3/pkgs/botasaurus-proxy-authentication/botasaurus-proxy-authentication.nix {
+        # FIXME scope
+        npmlock2nix = nodePackages.npmlock2nix;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

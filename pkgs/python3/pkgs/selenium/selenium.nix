@@ -1,7 +1,10 @@
 { lib
 , fetchFromGitHub
 , fetchPypi
+, fetchurl
 , buildPythonPackage
+, setuptools
+, wheel
 , certifi
 , geckodriver
 , pytestCheckHook
@@ -9,6 +12,7 @@
 , trio
 , trio-websocket
 , urllib3
+, typing-extensions
 , pytest-trio
 , nixosTests
 , stdenv
@@ -17,8 +21,8 @@
 
 buildPythonPackage rec {
   pname = "selenium";
-  version = "4.14.0";
-  format = "setuptools";
+  version = "4.17.0";
+  pyproject = true;
 
   disabled = pythonOlder "3.7";
 
@@ -27,7 +31,7 @@ buildPythonPackage rec {
     repo = "selenium";
     # check if there is a newer tag with or without -python suffix
     rev = "refs/tags/selenium-${version}";
-    hash = "sha256-cTMCKfFLUlJDbTUQA3Z/pKCE1RQQRMb4K8hKKn9HqvU=";
+    hash = "sha256-3kbg91TMEXY5qVQAM2thT65AZFnsd758rKDXisTk8x8=";
   };
 
   # also add selenium.webdriver.common.devtools.* packages
@@ -35,7 +39,16 @@ buildPythonPackage rec {
 
   src-pypi = fetchPypi {
     inherit pname version;
-    hash = "sha256-DRSw2YQjZvOPtfj4Qs98BCvPoGKv/GoKhuTWNL3Q/lQ=";
+    hash = "sha256-Wdl2tpffN+EddX3x5nmPFGfsGYFFbKf/mphJT1CPbro=";
+  };
+
+  # based on https://github.com/SeleniumHQ/selenium/blob/trunk/common/selenium_manager.bzl
+  # see also https://github.com/SeleniumHQ/selenium/blob/trunk/scripts/selenium_manager.py
+  # FIXME build selenium-manager from source
+
+  src-selenium-manager-bin = let version = "03637c4"; in fetchurl {
+    url = "https://github.com/SeleniumHQ/selenium_manager_artifacts/releases/download/selenium-manager-${version}/selenium-manager-linux";
+    sha256 = "b417e4faad5ab781102f6ba83f0bfc39b60343fbc43455a2732cab82420dcd0e";
   };
 
   # relax versions
@@ -55,6 +68,8 @@ buildPythonPackage rec {
 
   postPatch = ''
     cd py
+    # fix typo
+    sed -i 's/typing_extension~=/typing_extensions~=/' setup.py
     sed -i 's/[~>]=.*"/"/' setup.py
     substituteInPlace setup.py \
       --replace \
@@ -87,14 +102,21 @@ buildPythonPackage rec {
     cp ../common/manager/macos/selenium-manager $DST_PREFIX/common/macos
   '' + lib.optionalString stdenv.isLinux ''
     mkdir -p $DST_PREFIX/common/linux/
-    cp ../common/manager/linux/selenium-manager $DST_PREFIX/common/linux/
+    cp -v ${src-selenium-manager-bin} $DST_PREFIX/common/linux/selenium-manager
+    chmod +x $DST_PREFIX/common/linux/selenium-manager
   '';
+
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
   propagatedBuildInputs = [
     certifi
     trio
     trio-websocket
     urllib3
+    typing-extensions
   ] ++ urllib3.optional-dependencies.socks;
 
   nativeCheckInputs = [

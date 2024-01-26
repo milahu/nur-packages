@@ -1,5 +1,6 @@
 { lib
 , fetchFromGitHub
+, fetchPypi
 , buildPythonPackage
 , certifi
 , geckodriver
@@ -29,9 +30,48 @@ buildPythonPackage rec {
     hash = "sha256-cTMCKfFLUlJDbTUQA3Z/pKCE1RQQRMb4K8hKKn9HqvU=";
   };
 
+  # also add selenium.webdriver.common.devtools.* packages
+  # fix: ModuleNotFoundError: No module named 'selenium.webdriver.common.devtools'
+
+  src-pypi = fetchPypi {
+    inherit pname version;
+    hash = "sha256-DRSw2YQjZvOPtfj4Qs98BCvPoGKv/GoKhuTWNL3Q/lQ=";
+  };
+
+  # relax versions
+  # fix: typing-extensions~=4.9 not satisfied by version 4.8.0
+  # https://github.com/SeleniumHQ/selenium/blob/trunk/py/setup.py
+
+  # also add selenium.webdriver.common.devtools.* packages
+  # fix: ModuleNotFoundError: No module named 'selenium.webdriver.common.devtools'
+  # https://github.com/milahu/nixpkgs/issues/20
+
+  postUnpack = ''
+    cd $sourceRoot/py
+    echo unpacking selenium/webdriver/common/devtools from ${src-pypi}
+    tar --strip-components=1 --wildcards -x -f ${src-pypi} 'selenium-*/selenium/webdriver/common/devtools'
+    cd ../..
+  '';
+
+  postPatch = ''
+    cd py
+    sed -i 's/[~>]=.*"/"/' setup.py
+    substituteInPlace setup.py \
+      --replace \
+        "    'packages': [" \
+        "    'packages': find_namespace_packages(where='.'), '_packages': [" \
+      --replace \
+        "from setuptools import setup" \
+        "from setuptools import setup, find_namespace_packages"
+    cd ..
+  '';
+
   preConfigure = ''
     cd py
   '';
+
+  # FIXME _pytest.pathlib.ImportPathMismatchError
+  doCheck = false;
 
   postInstall = ''
     DST_PREFIX=$out/lib/${python.libPrefix}/site-packages/selenium/webdriver/

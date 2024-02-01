@@ -51,6 +51,13 @@ python3.pkgs.buildPythonPackage rec {
     sed -i.bak -E "s/[~>]=[0-9.]+([\"'])/\1/g" setup.py
     diff -u setup.py.bak setup.py || true
     rm setup.py.bak
+
+    # fix: find_elements returns wrong number of elements
+    # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/162
+    substituteInPlace src/selenium_driverless/types/deserialize.py \
+      --replace \
+        "int(description[-2])" \
+        "int(description[len(class_name)+1:-1])"
   '';
 
   pythonImportsCheck = [ "selenium_driverless" ];

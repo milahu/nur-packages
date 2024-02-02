@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, enableNLS ? false, libnatspec ? null, libiconv }:
+{ lib, stdenv, fetchurl, enableNLS ? false, libnatspec ? null, libiconv, bzip2 }:
 
 assert enableNLS -> libnatspec != null;
 
@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (enableNLS && !stdenv.isCygwin) [ ./natspec-gentoo.patch.bz2 ];
 
   buildInputs = lib.optional enableNLS libnatspec
-    ++ lib.optional stdenv.isCygwin libiconv;
+    ++ lib.optional stdenv.isCygwin libiconv
+    ++ [ bzip2 ];
 
   meta = with lib; {
     description = "Compressor/archiver for creating and modifying zipfiles";

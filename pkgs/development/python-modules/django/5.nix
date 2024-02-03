@@ -16,6 +16,7 @@
 
 # propagates
 , asgiref
+, platformdirs
 , sqlparse
 
 # extras
@@ -53,6 +54,14 @@ buildPythonPackage rec {
     hash = "sha256-jIZZZlvG46RP7+GrCikeWj+zl5+agjC+Kd6XXlfo+FQ=";
   };
 
+  # fix: 1 out of 1 hunk FAILED -- saving rejects to file setup.cfg.rej
+  # convert tab-indent to space-indent
+  # https://github.com/pypa/setuptools/issues/3672
+
+  prePatch = ''
+    sed -i 's/\t/    /g' setup.cfg
+  '';
+
   patches = [
     (substituteAll {
       src = ./django_5_set_zoneinfo_dir.patch;
@@ -67,6 +76,12 @@ buildPythonPackage rec {
     (fetchurl {
       url = "https://github.com/milahu/django/commit/d765cd349e6371a2d1e3277e1b8db550776a681b.patch";
       hash = "sha256-oad4HKiKKAe5By0En2W7TCH6e/wt7roMlOhBUXOKFy4=";
+    })
+    # https://github.com/django/django/pull/17816
+    # fix: PermissionError: Permission denied: site-packages
+    (fetchurl {
+      url = "https://github.com/milahu/django/commit/8eab1178f218b8dc3f4ce9c498811a37617a2365.patch";
+      hash = "sha256-C6rW2pKvtJEt9FkxolS3W9kpuOkSGKoZrJPzJrDwml0=";
     })
   ] ++ lib.optionals withGdal [
     (substituteAll {
@@ -88,6 +103,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     asgiref
+    platformdirs
     sqlparse
   ];
 

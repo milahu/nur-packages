@@ -1,44 +1,8 @@
-# FIXME use parser binaries from tree-sitter-grammars
-# compiling all grammars into one binary is a waste of build time
-
 { lib
 , python3
 , fetchFromGitHub
 , tree-sitter-grammars
 }:
-
-/*
-# debug: build faster
-let old-tree-sitter-grammars = tree-sitter-grammars; in
-let
-  tree-sitter-grammars = {
-    tree-sitter-html = old-tree-sitter-grammars.tree-sitter-html;
-  };
-in
-*/
-
-# update grammars to fix build errors: multiple definition of ...
-# helper functions must be declared as "static"
-# see also
-# https://github.com/tree-sitter/tree-sitter-html/pull/64
-# https://github.com/grantjenks/py-tree-sitter-languages/issues/55
-let old-tree-sitter-grammars = tree-sitter-grammars; in
-let
-  tree-sitter-grammars = old-tree-sitter-grammars // {
-    # https://github.com/Himujjal/tree-sitter-svelte/issues/56
-    tree-sitter-svelte = null;
-    # https://github.com/ikatyang/tree-sitter-vue/issues/27
-    tree-sitter-vue = null;
-    tree-sitter-rst = old-tree-sitter-grammars.tree-sitter-rst.overrideAttrs (oldAttrs: {
-      src = fetchFromGitHub {
-        owner = "stsewd";
-        repo = "tree-sitter-rst";
-        rev = "3ba9eb9b5a47aadb1f2356a3cab0dd3d2bd00b4b";
-        hash = "sha256-0w11mtDcIc2ol9Alg4ukV33OzXADOeJDx+3uxV1hGfs=";
-      };
-    });
-  };
-in
 
 python3.pkgs.buildPythonPackage rec {
   pname = "tree-sitter-languages";
@@ -51,6 +15,14 @@ python3.pkgs.buildPythonPackage rec {
     rev = "v${version}";
     hash = "sha256-AuPK15xtLiQx6N2OATVJFecsL8k3pOagrWu1GascbwM=";
   };
+
+  patches = [
+    # this has 2 benefits:
+    # 1. this package builds 1000x faster
+    # 2. no more symbol conflicts between parsers
+    #    https://github.com/grantjenks/py-tree-sitter-languages/issues/55
+    ./use-prebuilt-grammars.patch
+  ];
 
   buildInputs = [
     python3.pkgs.cython
@@ -65,62 +37,26 @@ python3.pkgs.buildPythonPackage rec {
     python3.pkgs.tree-sitter
   ];
 
-  postUnpack = ''
-    cd $sourceRoot
-    mkdir vendor
-    ${
-      builtins.concatStringsSep "" (
-        builtins.attrValues (
-          builtins.mapAttrs
-          (n: p:
-            "ln -v -s ${p.src.outPath} vendor/${n}\n"
-          )
-          (lib.filterAttrs (k: v: v ? src) tree-sitter-grammars)
-        )
-      )
-    }
-    cd ..
-  '';
-
   postBuild = ''
-    echo creating $out/${python3.sitePackages}/tree_sitter_languages/languages.so
-
-    repo_paths=(
+    languages=$out/${python3.sitePackages}/tree_sitter_languages/languages
+    echo creating $languages
+    mkdir -p $languages
     ${
       builtins.concatStringsSep "" (
         builtins.attrValues (
           builtins.mapAttrs
-          (n: p:
-            "  'vendor/${n}'\n"
+          (_n: p:
+            # 12 == builtins.stringLength "tree-sitter-"
+            let n = builtins.substring 12 999 _n; in
+            ''
+              echo adding language ${n}
+              ln -s ${p.outPath}/parser $languages/${n}
+            ''
           )
-          (lib.filterAttrs (k: v: v ? src) tree-sitter-grammars)
+          (lib.filterAttrs (k: v: v ? outPath) tree-sitter-grammars)
         )
       )
     }
-    )
-    # get actual repo paths
-    # fix: No such file or directory: 'vendor/tree-sitter-markdown/src/parser.c
-    for idx in ''${!repo_paths[@]}; do
-      dir=''${repo_paths[$idx]}
-      [ -e $dir/src/parser.c ] && continue
-      parser=$(find $dir -path '*/src/parser.c')
-      dir=''${parser%/src/parser.c}
-      repo_paths[$idx]=$dir
-    done
-
-    #mkdir -p $out/${python3.sitePackages}/tree_sitter_languages
-    build_py=$(
-      echo "import tree_sitter"
-      echo "repo_paths = ["
-      for dir in ''${repo_paths[@]}; do
-        echo "  '$dir',"
-      done
-      echo "]"
-      echo "output_path = '$out/${python3.sitePackages}/tree_sitter_languages/languages.so'"
-      echo "tree_sitter.Language.build_library(output_path, repo_paths)"
-    )
-    echo "$build_py" | grep -n "" # debug
-    python3 -c "$build_py"
   '';
 
   pythonImportsCheck = [ "tree_sitter_languages" ];

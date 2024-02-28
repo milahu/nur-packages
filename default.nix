@@ -705,6 +705,18 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
 
+  sqlite = callPackage ./pkgs/development/libraries/sqlite { };
+
+  inherit (callPackage ./pkgs/development/libraries/sqlite/tools.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
+  }) sqlite-analyzer sqldiff;
+
+  sqlar = callPackage ./pkgs/development/libraries/sqlite/sqlar.nix { };
+
+  sqlitecpp = callPackage ./pkgs/development/libraries/sqlitecpp { };
+
+  sqlite-interactive = (sqlite.override { interactive = true; }).bin;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

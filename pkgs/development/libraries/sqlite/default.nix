@@ -1,10 +1,18 @@
 { lib, stdenv, fetchurl, zlib, readline, ncurses
+, tcl
 
 # for tests
 , python3Packages, sqldiff, sqlite-analyzer, tracker
 
 # uses readline & ncurses for a better interactive experience if set to true
 , interactive ? false
+
+# https://sqlite.org/cgi/src/doc/reuse-schema/doc/shared_schema.md
+# The shared-schema patch allows databases to share in-memory schema objects
+# with other databases in the same process in order to save memory.
+#, sqliteBranch ? "reuse-schema"
+
+, sqliteBranch ? null
 
 , gitUpdater
 }:
@@ -13,21 +21,75 @@ let
   archiveVersion = import ./archive-version.nix lib;
 in
 
-stdenv.mkDerivation rec {
-  pname = "sqlite${lib.optionalString interactive "-interactive"}";
-  version = "3.44.2";
-
-  # nixpkgs-update: no auto update
-  # NB! Make sure to update ./tools.nix src (in the same directory).
-  src = fetchurl {
-    url = "https://sqlite.org/2023/sqlite-autoconf-${archiveVersion version}.tar.gz";
-    hash = "sha256-HGcZoUi8Qc8PK7vjkm184/XKCdh48SRvzCB2exdbtAc=";
+let
+  fetchSqliteTarball = { rev, hash }: fetchurl {
+    name = "SQLite.tar.gz";
+    url = "https://sqlite.org/cgi/src/tarball/${rev}/SQLite.tar.gz";
+    inherit hash;
+    # the download can hang, so make it verbose
+    curlOpts = "--verbose";
   };
+in
+
+let
+  versionAttrs = (
+    if sqliteBranch == null then
+      rec {
+        # nixpkgs-update: no auto update
+        # NB! Make sure to update ./tools.nix src (in the same directory).
+        version = "3.45.1";
+        hash = "sha256-lP2afdRDHXIEwfdv4eXs0tZ+R6suSzWJFbN0u1jPNn4=";
+        rev = "version-${version}";
+      }
+    else if sqliteBranch == "reuse-schema" then
+      rec {
+        #rev = "reuse-schema-3.45"; # not constant
+        # https://sqlite.org/cgi/src/timeline?r=reuse-schema
+        # 2024-01-30
+        version = "3.45-${builtins.substring 0 16 rev}";
+        rev = "f98a99fce5dc0aa5dd90e53f764e1b19b71c3a80632817b566dd241ce584beff";
+        hash = "sha256-UwytcxfVS4tHyod/VyIGyolY82j/1T9+kElrWUIw7L8=";
+      }
+    else throw "unknown sqliteBranch ${sqliteBranch}"
+  );
+
+  pnameSuffix = if sqliteBranch == null then "" else "-${sqliteBranch}";
+in
+
+stdenv.mkDerivation rec {
+  pname = "sqlite${lib.optionalString interactive "-interactive"}${pnameSuffix}";
+
+  inherit (versionAttrs) version;
+
+  src = fetchSqliteTarball {
+    inherit (versionAttrs) rev hash;
+  };
+
+  # fossil rev 087b8b41c6ed76b55c11315e7e95679d67590be20ae21108b593d00bb7d1c57a
+  # git rev b419452c7e5718d4151ed845d5b2ddd0e6ac0d05
+  # # define utf8_printf fprintf
+  # # define raw_printf fprintf
+
+  postPatch = ''
+    sed -i 's|/usr/bin/file|file|' configure
+    # fix: implicit declaration of function raw_printf
+    # fix: implicit declaration of function utf8_printf
+    substituteInPlace src/shell.c.in \
+      --replace-warn raw_printf fprintf \
+      --replace-warn utf8_printf fprintf
+    # dont install to $tcl/lib/tcl8.6/sqlite3
+    substituteInPlace Makefile.in \
+      --replace-warn "\''${HAVE_TCL:1=tcl_install}" ""
+  '';
 
   outputs = [ "bin" "dev" "out" ];
   separateDebugInfo = stdenv.isLinux;
 
   buildInputs = [ zlib ] ++ lib.optionals interactive [ readline ncurses ];
+
+  nativeBuildInputs = [
+    tcl
+  ];
 
   # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
@@ -52,6 +114,8 @@ stdenv.mkDerivation rec {
     "-DSQLITE_SECURE_DELETE"
     "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
     "-DSQLITE_MAX_EXPR_DEPTH=10000"
+  ] ++ lib.optionals (sqliteBranch == "reuse-schema") [
+    "-DSQLITE_ENABLE_SHARED_SCHEMA"
   ]);
 
   # Test for features which may not be available at compile time
@@ -94,7 +158,7 @@ stdenv.mkDerivation rec {
     };
 
     updateScript = gitUpdater {
-      # No nicer place to look for patest version.
+      # No nicer place to look for latest version.
       url = "https://github.com/sqlite/sqlite.git";
       # Expect tags like "version-3.43.0".
       rev-prefix = "version-";

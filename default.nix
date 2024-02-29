@@ -717,6 +717,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   sqlite-interactive = (sqlite.override { interactive = true; }).bin;
 
+  sqlite-reuse-schema = sqlite.override { sqliteBranch = "reuse-schema"; };
+
+  sqlite-interactive-reuse-schema = sqlite.override { interactive = true; sqliteBranch = "reuse-schema"; };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

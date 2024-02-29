@@ -342,6 +342,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tree-sitter-languages = callPackage ./pkgs/python3/pkgs/tree-sitter-languages/tree-sitter-languages.nix { };
 
+      stream-zip = callPackage ./pkgs/python3/pkgs/stream-zip/stream-zip.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

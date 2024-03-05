@@ -723,6 +723,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   sqlite-interactive-reuse-schema = sqlite.override { interactive = true; sqliteBranch = "reuse-schema"; };
 
+  tree-sitter = pkgs.makeOverridable (callPackage ./pkgs/development/tools/parsing/tree-sitter) {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

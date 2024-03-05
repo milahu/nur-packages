@@ -22,16 +22,15 @@ let
   # 2) nix-build -A tree-sitter.updater.update-all-grammars
   # 3) Set GITHUB_TOKEN env variable to avoid api rate limit (Use a Personal Access Token from https://github.com/settings/tokens It does not need any permissions)
   # 4) run the ./result script that is output by that (it updates ./grammars)
-  version = "0.20.8";
-  sha256 = "sha256-278zU5CLNOwphGBUa4cGwjBqRJ87dhHMzFirZB09gYM=";
-  cargoSha256 = "sha256-0avy53pmR7CztDrL+5WAmlqpZwd/EA3Fh10hfPXyXZc=";
+  version = "0.21.0";
+  sha256 = "sha256-reW4R3s5uwsdjxzxt313Wii1gXUIFyJ9AECvpBXI37c=";
+  cargoSha256 = "sha256-/ydaZMJ93xua17oRKfqieAd2VXq8q+4LGYSKJkTJ9T0=";
 
   src = fetchFromGitHub {
     owner = "tree-sitter";
     repo = "tree-sitter";
     rev = "v${version}";
     inherit sha256;
-    fetchSubmodules = true;
   };
 
   update-all-grammars = callPackage ./update.nix { };
@@ -112,13 +111,19 @@ rustPlatform.buildRustPackage {
     [ which ]
     ++ lib.optionals webUISupport [ emscripten ];
 
+  # use tree_sitter_cli::{
+  #     playground,
+  # };
+
+  # playground::serve(&grammar_path, open_in_browser)?;
+
   postPatch = lib.optionalString (!webUISupport) ''
     # remove web interface
-    sed -e '/pub mod playground/d' \
-        -i cli/src/lib.rs
-    sed -e 's/playground,//' \
-        -e 's/playground::serve(&current_dir.*$/println!("ERROR: web-ui is not available in this nixpkgs build; enable the webUISupport"); std::process::exit(1);/' \
-        -i cli/src/main.rs
+    substituteInPlace cli/src/lib.rs \
+      --replace-fail "pub mod playground;" ""
+    substituteInPlace cli/src/main.rs \
+      --replace-fail "playground," "" \
+      --replace-fail " playground::serve(" 'println!("ERROR: web-ui is not available in this nixpkgs build; enable the webUISupport"); std::process::exit(1); //'
   '';
 
   # Compile web assembly with emscripten. The --debug flag prevents us from

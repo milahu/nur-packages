@@ -727,6 +727,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;
   };
 
+  vdhcoapp = callPackage ./pkgs/tools/video/vdhcoapp { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -861,7 +861,7 @@ rec {
       throw "sourceHashFunc: spec.type '${spec.type}' is not supported. Supported types: 'github'";
 
   node_modules =
-    { src
+    { src ? /var/empty
     , packageJson ? src + "/package.json"
     , packageLockJson ? src + "/package-lock.json"
     , buildInputs ? [ ]

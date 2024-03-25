@@ -177,7 +177,7 @@ if [[ "$rc" == "0" ]]; then
 
   echo writing $tempdir/packages.html
   (
-    echo '<!doctype html>'
+    echo '<!DOCTYPE html>'
     echo '<html lang="en">'
     echo '<head>'
     echo '<meta charset="utf-8">'

@@ -715,8 +715,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   sqlar = callPackage ./pkgs/development/libraries/sqlite/sqlar.nix { };
 
-  sqlitecpp = callPackage ./pkgs/development/libraries/sqlitecpp { };
-
   sqlite-interactive = (sqlite.override { interactive = true; }).bin;
 
   sqlite-reuse-schema = sqlite.override { sqliteBranch = "reuse-schema"; };

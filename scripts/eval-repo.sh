@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p bash git jq
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")"/..
 
 keep_tempdir=false
 

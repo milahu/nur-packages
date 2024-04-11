@@ -749,6 +749,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent { };
 
+  qaac-unwrapped = callPackage ./pkgs/applications/audio/qaac/unwrapped.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

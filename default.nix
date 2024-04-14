@@ -737,6 +737,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   writable-nix-store = callPackage ./pkgs/development/tools/misc/writable-nix-store { };
 
+  s2e = callPackage ./pkgs/development/libraries/s2e { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

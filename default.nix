@@ -739,8 +739,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   stp = callPackage ./pkgs/applications/science/logic/stp { };
 
-  klee = callPackage ./pkgs/applications/science/logic/klee { };
-
 }
 
 # based on https://github.com/dtzWill/nur-packages

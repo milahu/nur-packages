@@ -739,6 +739,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   s2e = callPackage ./pkgs/development/libraries/s2e { };
 
+  fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -350,6 +350,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pkg-metadata = callPackage ./pkgs/python3/pkgs/pkg-metadata { };
 
+      get-pip = callPackage ./pkgs/python3/pkgs/get-pip { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

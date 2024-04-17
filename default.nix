@@ -352,6 +352,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       get-pip = callPackage ./pkgs/python3/pkgs/get-pip { };
 
+      wenv = callPackage ./pkgs/python3/pkgs/wenv { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

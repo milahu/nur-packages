@@ -363,8 +363,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         inherit spiral;
       };
 
-      spdx = callPackage ./pkgs/development/python-modules/spdx { };
-
     #}))); # python3.pkgs
 
   #}))); # python3

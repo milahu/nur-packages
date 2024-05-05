@@ -772,6 +772,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     etcDir = "/etc/ssh";
   };
 
+  fritzbox-reconnect = python3.pkgs.callPackage ./pkgs/tools/networking/fritzbox-reconnect { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

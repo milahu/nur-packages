@@ -766,6 +766,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
 
+  opensshPackages = pkgs.dontRecurseIntoAttrs (callPackage ./pkgs/tools/networking/openssh {});
+
+  openssh = opensshPackages.openssh.override {
+    etcDir = "/etc/ssh";
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

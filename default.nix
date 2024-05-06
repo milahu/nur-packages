@@ -774,6 +774,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fritzbox-reconnect = python3.pkgs.callPackage ./pkgs/tools/networking/fritzbox-reconnect { };
 
+  nix-build-debug = callPackage ./pkgs/development/tools/nix-build-debug { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

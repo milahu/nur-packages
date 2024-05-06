@@ -776,6 +776,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nix-build-debug = callPackage ./pkgs/development/tools/nix-build-debug { };
 
+  courgette = callPackage ./pkgs/tools/compression/courgette { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

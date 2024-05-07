@@ -778,6 +778,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   courgette = callPackage ./pkgs/tools/compression/courgette { };
 
+  advanced-microcode-patching-shiva = callPackage ./pkgs/development/tools/analysis/advanced-microcode-patching-shiva { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

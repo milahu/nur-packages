@@ -786,6 +786,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42561
   tor-browser_13_0_13 = callPackage ./pkgs/applications/networking/browsers/tor-browser { };
 
+  bash2py = callPackage ./pkgs/development/tools/bash2py { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

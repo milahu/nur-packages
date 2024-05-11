@@ -365,6 +365,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       vncdotool = callPackage ./pkgs/python3/pkgs/vncdotool { };
 
+      guibot = callPackage ./pkgs/python3/pkgs/guibot { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

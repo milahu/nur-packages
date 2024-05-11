@@ -363,6 +363,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         inherit spiral;
       };
 
+      vncdotool = callPackage ./pkgs/python3/pkgs/vncdotool { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

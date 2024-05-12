@@ -1,0 +1,3 @@
+[submodule "pkgs/development/tools/js2nix/src/js2nix"]
+	path = pkgs/development/tools/js2nix
+	url = https://github.com/canva-public/js2nix

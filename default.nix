@@ -367,6 +367,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       guibot = callPackage ./pkgs/python3/pkgs/guibot { };
 
+      noisereduce = callPackage ./pkgs/python3/pkgs/noisereduce { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

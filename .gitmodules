@@ -4,3 +4,6 @@
 [submodule "pkgs/development/tools/npmlock2nix/src/npmlock2nix"]
 	path = pkgs/development/tools/npmlock2nix/src/npmlock2nix
 	url = https://github.com/milahu/npmlock2nix
+[submodule "lib/src/nix-yaml"]
+	path = lib/src/nix-yaml
+	url = https://github.com/milahu/nix-yaml

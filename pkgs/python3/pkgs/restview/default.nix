@@ -7,6 +7,7 @@
 , pygments
 , pytestCheckHook
 , pythonOlder
+, pythonRelaxDepsHook
 }:
 
 buildPythonPackage rec {
@@ -20,6 +21,15 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-jBoXHBWdRtFdVWn3cCGCiIOhIdb5uvdY1kH8HlSwWuU=";
   };
+
+  # fix: ERROR Missing dependencies: readme-renderer<37
+  pythonRelaxDeps = [
+    "readme-renderer"
+  ];
+
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     docutils

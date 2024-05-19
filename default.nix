@@ -373,6 +373,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       restview = callPackage ./pkgs/python3/pkgs/restview { };
 
+      stpl = callPackage ./pkgs/python3/pkgs/stpl { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

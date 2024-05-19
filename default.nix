@@ -375,6 +375,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       stpl = callPackage ./pkgs/python3/pkgs/stpl { };
 
+      syncstart = callPackage ./pkgs/python3/pkgs/syncstart { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

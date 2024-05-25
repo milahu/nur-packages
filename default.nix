@@ -811,6 +811,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cert-chain-resolver = callPackage ./pkgs/tools/networking/cert-chain-resolver { };
 
+  cert-chain-resolver-bash = callPackage ./pkgs/tools/networking/cert-chain-resolver/bash.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -819,6 +819,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   yt-dlp = python3.pkgs.callPackage ./pkgs/tools/misc/yt-dlp { };
 
+  swissfileknife = callPackage ./pkgs/tools/misc/swissfileknife { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

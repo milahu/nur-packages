@@ -821,6 +821,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   swissfileknife = callPackage ./pkgs/tools/misc/swissfileknife { };
 
+  # https://github.com/milahu/nixpkgs/issues/57
+  # squashfsTools: rename to squashfs-tools
+  squashfs-tools = pkgs.squashfsTools;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

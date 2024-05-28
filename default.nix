@@ -824,6 +824,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   lunzip = callPackage ./pkgs/tools/archivers/lunzip { };
 
+  kconfig = callPackage ./pkgs/development/tools/kconfig { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

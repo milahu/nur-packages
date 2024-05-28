@@ -826,6 +826,52 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   kconfig = callPackage ./pkgs/development/tools/kconfig { };
 
+  freetz-tools = freetzPackages.freetz-tools;
+
+  freetz = {
+    pkgs = freetzPackages;
+  };
+
+  freetzPackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (freetzPackagesSelf: let inherit (freetzPackagesSelf) callPackage; in ({
+
+    freetz = callPackage ./pkgs/tools/misc/freetz/pkgs/freetz { };
+
+    freetz-tools = callPackage ./pkgs/tools/misc/freetz/pkgs/freetz-tools {
+      # FIXME scope
+      pseudo = callPackage ./pkgs/tools/virtualization/pseudo { };
+      lunzip = callPackage ./pkgs/tools/archivers/lunzip { };
+    };
+
+    kconfig = callPackage ./pkgs/tools/misc/freetz/pkgs/kconfig { };
+
+    imagename2id = callPackage ./pkgs/tools/misc/freetz/pkgs/imagename2id { };
+
+    visualise-make = callPackage ./pkgs/tools/misc/freetz/pkgs/visualise-make { };
+
+    swissfileknife = self.swissfileknife;
+
+    tichksum = callPackage ./pkgs/tools/misc/freetz/pkgs/tichksum { };
+
+    lzma2eva = callPackage ./pkgs/tools/misc/freetz/pkgs/lzma2eva { };
+
+    find-squashfs = callPackage ./pkgs/tools/misc/freetz/pkgs/find-squashfs { };
+
+    squashfs-tools-avm-le = callPackage ./pkgs/tools/misc/freetz/pkgs/squashfs-tools-avm {
+      targetEndianness = "LE";
+      # FIXME scope
+      squashfs-tools = pkgs.squashfsTools;
+    };
+
+    squashfs-tools-avm-be = callPackage ./pkgs/tools/misc/freetz/pkgs/squashfs-tools-avm {
+      targetEndianness = "BE";
+      # FIXME scope
+      squashfs-tools = pkgs.squashfsTools;
+    };
+
+    yf-akcarea = callPackage ./pkgs/tools/misc/freetz/pkgs/yf-akcarea { };
+
+  }))); # freetzPackages
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

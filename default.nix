@@ -749,19 +749,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
 
-  sqlite = callPackage ./pkgs/development/libraries/sqlite { };
+  sqlite-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {
+    sqliteBranch = "reuse-schema";
+  };
 
-  inherit (callPackage ./pkgs/development/libraries/sqlite/tools.nix {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
-  }) sqlite-analyzer sqldiff;
-
-  sqlar = callPackage ./pkgs/development/libraries/sqlite/sqlar.nix { };
-
-  sqlite-interactive = (sqlite.override { interactive = true; }).bin;
-
-  sqlite-reuse-schema = sqlite.override { sqliteBranch = "reuse-schema"; };
-
-  sqlite-interactive-reuse-schema = sqlite.override { interactive = true; sqliteBranch = "reuse-schema"; };
+  sqlite-interactive-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {
+    interactive = true;
+    sqliteBranch = "reuse-schema";
+  };
 
   tree-sitter = pkgs.makeOverridable (callPackage ./pkgs/development/tools/parsing/tree-sitter) {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;

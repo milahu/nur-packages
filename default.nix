@@ -820,6 +820,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # squashfsTools: rename to squashfs-tools
   squashfs-tools = pkgs.squashfsTools;
 
+  pseudo = callPackage ./pkgs/tools/virtualization/pseudo { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

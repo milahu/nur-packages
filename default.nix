@@ -822,6 +822,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   pseudo = callPackage ./pkgs/tools/virtualization/pseudo { };
 
+  lunzip = callPackage ./pkgs/tools/archivers/lunzip { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

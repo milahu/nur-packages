@@ -383,6 +383,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       aia = callPackage ./pkgs/python3/pkgs/aia { };
 
+      decord = callPackage ./pkgs/python3/pkgs/decord { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

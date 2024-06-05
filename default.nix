@@ -385,6 +385,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       decord = callPackage ./pkgs/python3/pkgs/decord { };
 
+      vidgear = callPackage ./pkgs/python3/pkgs/vidgear { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

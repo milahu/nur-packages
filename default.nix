@@ -389,6 +389,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       bencode2 = callPackage ./pkgs/python3/pkgs/bencode2 { };
 
+      rtorrent-rpc = callPackage ./pkgs/python3/pkgs/rtorrent-rpc { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

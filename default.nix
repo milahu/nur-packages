@@ -387,6 +387,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       vidgear = callPackage ./pkgs/python3/pkgs/vidgear { };
 
+      bencode2 = callPackage ./pkgs/python3/pkgs/bencode2 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

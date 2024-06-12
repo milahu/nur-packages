@@ -399,6 +399,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ovld = callPackage ./pkgs/python3/pkgs/ovld { };
 
+      jurigged = callPackage ./pkgs/python3/pkgs/jurigged { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

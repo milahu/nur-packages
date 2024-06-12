@@ -391,6 +391,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       rtorrent-rpc = callPackage ./pkgs/python3/pkgs/rtorrent-rpc { };
 
+      codefind = callPackage ./pkgs/python3/pkgs/codefind { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

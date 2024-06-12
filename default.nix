@@ -395,6 +395,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       varname = callPackage ./pkgs/python3/pkgs/varname { };
 
+      giving = callPackage ./pkgs/python3/pkgs/giving { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

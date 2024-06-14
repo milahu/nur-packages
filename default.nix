@@ -401,6 +401,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       jurigged = callPackage ./pkgs/python3/pkgs/jurigged { };
 
+      reloading = callPackage ./pkgs/python3/pkgs/reloading { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

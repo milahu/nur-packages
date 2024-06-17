@@ -78,6 +78,12 @@ buildPythonPackage rec {
       --replace \
         "from setuptools import setup" \
         "from setuptools import setup, find_namespace_packages"
+    # fix: ValueError: ZIP does not support timestamps before 1980
+    # https://github.com/SeleniumHQ/selenium/issues/14143
+    substituteInPlace selenium/webdriver/firefox/firefox_profile.py \
+      --replace-warn \
+        'with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED) as zipped:' \
+        'with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED, strict_timestamps=False) as zipped:'
     cd ..
   '';
 

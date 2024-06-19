@@ -403,6 +403,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       reloading = callPackage ./pkgs/python3/pkgs/reloading { };
 
+      tbselenium = callPackage ./pkgs/python3/pkgs/tbselenium { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

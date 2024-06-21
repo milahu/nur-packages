@@ -896,6 +896,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   crawlab = callPackage ./pkgs/tools/networking/crawlab { };
 
+  audioalign = callPackage ./pkgs/applications/audio/audioalign { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

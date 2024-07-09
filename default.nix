@@ -908,6 +908,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # binary build
   grpc-java-bin = callPackage ./pkgs/development/tools/grpc-java/bin.nix { };
 
+  haveno = callPackage ./pkgs/applications/blockchains/haveno { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -898,6 +898,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   audioalign = callPackage ./pkgs/applications/audio/audioalign { };
 
+  gradle2nix = callPackage ./pkgs/development/tools/gradle2nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

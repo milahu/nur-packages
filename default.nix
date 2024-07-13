@@ -900,6 +900,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gradle2nix = callPackage ./pkgs/development/tools/gradle2nix { };
 
+  grpc-java = grpc-java-bin;
+
+  # source build
+  grpc-java-src = callPackage ./pkgs/development/tools/grpc-java { };
+
+  # binary build
+  grpc-java-bin = callPackage ./pkgs/development/tools/grpc-java/bin.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -910,6 +910,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   haveno = callPackage ./pkgs/applications/blockchains/haveno { };
 
+  basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

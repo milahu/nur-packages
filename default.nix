@@ -914,6 +914,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   asmr = callPackage ./pkgs/applications/blockchains/asmr { };
 
+  cpptoml-cryptocode = callPackage ./pkgs/development/libraries/cpptoml-cryptocode { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

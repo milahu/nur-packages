@@ -910,6 +910,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap { };
 
+  asmr = callPackage ./pkgs/applications/blockchains/asmr { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

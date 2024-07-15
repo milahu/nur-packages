@@ -916,6 +916,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cpptoml-cryptocode = callPackage ./pkgs/development/libraries/cpptoml-cryptocode { };
 
+  nano-node = pkgs.libsForQt5.callPackage ./pkgs/applications/blockchains/nano-node {
+    # FIXME scope
+    inherit cpptoml-cryptocode;
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

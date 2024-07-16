@@ -919,6 +919,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     inherit cpptoml-cryptocode;
   };
 
+  imagemagick-scripts = callPackage ./pkgs/applications/graphics/imagemagick-scripts { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

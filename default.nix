@@ -921,6 +921,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     inherit cpptoml-cryptocode;
   };
 
+  nano-node_26_0 = callPackage ./pkgs/applications/blockchains/nano-node/26.0.nix { };
+
   diskhash = callPackage ./pkgs/applications/blockchains/diskhash { };
 
   imagemagick-scripts = callPackage ./pkgs/applications/graphics/imagemagick-scripts { };

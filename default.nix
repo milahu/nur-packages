@@ -921,6 +921,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     inherit cpptoml-cryptocode;
   };
 
+  diskhash = callPackage ./pkgs/applications/blockchains/diskhash { };
+
   imagemagick-scripts = callPackage ./pkgs/applications/graphics/imagemagick-scripts { };
 
   trusearch = callPackage ./pkgs/applications/networking/p2p/trusearch { };

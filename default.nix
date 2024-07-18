@@ -407,6 +407,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       python-bidi = callPackage ./pkgs/python3/pkgs/python-bidi { };
 
+      hocr-tools = callPackage ./pkgs/python3/pkgs/hocr-tools { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -428,6 +430,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   chromium-depot-tools = python3Packages.chromium-depot-tools;
 
   flaresolverr = python3Packages.flaresolverr;
+
+  hocr-tools = python3Packages.hocr-tools;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

@@ -405,6 +405,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tbselenium = callPackage ./pkgs/python3/pkgs/tbselenium { };
 
+      python-bidi = callPackage ./pkgs/python3/pkgs/python-bidi { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

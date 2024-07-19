@@ -414,6 +414,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       archive-hocr-tools = callPackage ./pkgs/python3/pkgs/archive-hocr-tools { };
 
+      archive-pdf-tools = callPackage ./pkgs/python3/pkgs/archive-pdf-tools { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

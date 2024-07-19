@@ -409,6 +409,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       hocr-tools = callPackage ./pkgs/python3/pkgs/hocr-tools { };
 
+      # roman in nixpkgs is outdated
+      roman = callPackage ./pkgs/python3/pkgs/roman { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

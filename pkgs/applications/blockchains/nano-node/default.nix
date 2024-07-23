@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
   fetchFromGitHub {
     owner = "milahu";
     repo = "nano-node";
-    rev = "d7aabcbee868ca19efee5f02113ede3597d09566";
-    hash = "sha256-tjBjwmVIVC+rkLk/yHM05JoTterwnyKiOq/4ZqYEgxM=";
+    rev = "d8d564bfdb79195caaf9e420a3c14f952fd6783a";
+    hash = "sha256-rGieXfsk0NN2QWaC8X3iI+1FJDFS1v3Q47VhTXNpYAs=";
   }
   else
   fetchFromGitHub {

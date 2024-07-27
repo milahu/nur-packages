@@ -422,6 +422,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       openapi-python-client = callPackage ./pkgs/python3/pkgs/openapi-python-client { };
 
+      gitea-client = callPackage ./pkgs/python3/pkgs/gitea-client { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

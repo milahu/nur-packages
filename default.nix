@@ -420,6 +420,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pkgs-ruff = pkgs.ruff;
       };
 
+      openapi-python-client = callPackage ./pkgs/python3/pkgs/openapi-python-client { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

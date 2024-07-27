@@ -416,6 +416,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       archive-pdf-tools = callPackage ./pkgs/python3/pkgs/archive-pdf-tools { };
 
+      ruff = callPackage ./pkgs/python3/pkgs/ruff {
+        pkgs-ruff = pkgs.ruff;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

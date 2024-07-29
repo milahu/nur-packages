@@ -2,6 +2,8 @@
 , stdenv
 , rustPlatform
 , fetchFromGitHub
+, makeDesktopItem
+, copyDesktopItems
 , spotify # unfree
 , curl
 , wrapSpotify ? true # set to false if you need only lib/libspotifyadblock.so
@@ -112,7 +114,7 @@ let
   '';
 in
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   inherit (spotify-adblock) pname version meta;
   buildInputs = [ spotify-adblock spotify curl ];
   buildCommand = ''
@@ -122,5 +124,30 @@ stdenv.mkDerivation {
     # add code before "exec"
     substituteInPlace $out/bin/spotify-adblock \
       --replace-fail "exec -a" ${lib.escapeShellArg preExec}"exec -a"
+
+    # add spotify-client.png
+    mkdir -p $out/share
+    ln -s ${spotify}/share/icons $out/share/icons
   '';
+
+  nativeBuildInputs = [
+    copyDesktopItems
+  ];
+
+  # based on spotify.desktop
+  desktopItems = [
+    (makeDesktopItem {
+      name = "Spotify Adblock";
+      tryExec = "spotify-adblock";
+      exec = "spotify-adblock %U";
+      icon = "spotify-client";
+      desktopName = "Spotify Adblock ${version}";
+      genericName = "Music Player";
+      categories = [ "Audio" "Music" "Player" "AudioVideo" ];
+      mimeTypes = [ "x-scheme-handler/spotify" ];
+      terminal = false;
+      type = "Application";
+      startupWMClass = "spotify";
+    })
+  ];
 }

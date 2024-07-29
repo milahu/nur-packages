@@ -424,6 +424,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       gitea-client = callPackage ./pkgs/python3/pkgs/gitea-client { };
 
+      webvtt-py = callPackage ./pkgs/python3/pkgs/webvtt-py { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

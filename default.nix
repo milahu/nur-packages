@@ -426,6 +426,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       webvtt-py = callPackage ./pkgs/python3/pkgs/webvtt-py { };
 
+      vtt2clean-srt = callPackage ./pkgs/python3/pkgs/vtt2clean-srt { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -449,6 +451,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   flaresolverr = python3Packages.flaresolverr;
 
   hocr-tools = python3Packages.hocr-tools;
+
+  vtt2clean-srt = python3Packages.vtt2clean-srt;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

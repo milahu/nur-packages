@@ -430,6 +430,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       flatbencode = callPackage ./pkgs/python3/pkgs/flatbencode { };
 
+      torf = callPackage ./pkgs/python3/pkgs/torf { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

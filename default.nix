@@ -428,6 +428,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       vtt2clean-srt = callPackage ./pkgs/python3/pkgs/vtt2clean-srt { };
 
+      flatbencode = callPackage ./pkgs/python3/pkgs/flatbencode { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

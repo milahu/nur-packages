@@ -432,6 +432,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       torf = callPackage ./pkgs/python3/pkgs/torf { };
 
+      torrentool = callPackage ./pkgs/python3/pkgs/torrentool { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -965,6 +965,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   trusearch = callPackage ./pkgs/applications/networking/p2p/trusearch { };
 
+  nano-vanity = callPackage ./pkgs/applications/blockchains/nano-vanity { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

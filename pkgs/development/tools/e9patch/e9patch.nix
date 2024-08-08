@@ -2,7 +2,6 @@
 , stdenv
 , fetchFromGitHub
 , zydis
-, zycore
 , elfutils
 , zlib
 , xxd
@@ -51,7 +50,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     zydis
-    zycore
     elfutils
     zlib
   ];

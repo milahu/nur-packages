@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
   ];
 
   # TODO fix CMakeLists.txt
+  # https://github.com/zyantific/zycore-c/issues/74
   postInstall = ''
     sed -i "s|\''${PACKAGE_PREFIX_DIR}/$out|$out|" $out/lib/cmake/zycore/zycore-config.cmake
   '';

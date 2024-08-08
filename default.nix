@@ -804,8 +804,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   zycore = callPackage ./pkgs/development/libraries/zycore { };
 
-  zydis = callPackage ./pkgs/development/libraries/zydis { };
-
   e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
 
   sqlite-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {

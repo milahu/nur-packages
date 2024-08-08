@@ -802,8 +802,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   apt-file = perlPackages.callPackage ./pkgs/tools/package-management/apt-file/apt-file.nix { };
 
-  zycore = callPackage ./pkgs/development/libraries/zycore { };
-
   e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
 
   sqlite-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {

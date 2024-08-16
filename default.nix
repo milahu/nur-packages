@@ -971,6 +971,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   pdfio = callPackage ./pkgs/applications/printing/pdfio { };
 
+  ppm2pwg = callPackage ./pkgs/applications/printing/ppm2pwg { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -967,6 +967,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nano-vanity = callPackage ./pkgs/applications/blockchains/nano-vanity { };
 
+  libcups = callPackage ./pkgs/applications/printing/libcups { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

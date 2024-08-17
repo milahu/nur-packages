@@ -969,6 +969,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libcups = callPackage ./pkgs/applications/printing/libcups { };
 
+  pdfio = callPackage ./pkgs/applications/printing/pdfio { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

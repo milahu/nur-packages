@@ -973,6 +973,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ppm2pwg = callPackage ./pkgs/applications/printing/ppm2pwg { };
 
+  prometheus-qbittorrent-exporter = callPackage ./pkgs/servers/monitoring/prometheus/qbittorrent-exporter.nix {
+    # FIXME scope
+    # fix: error: attribute 'pdm-backend' missing @ python3.pkgs.pdm-backend
+    python3 = pkgs.python3;
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

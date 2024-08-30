@@ -10,6 +10,7 @@
 , litecoind
 , namecoind
 , monero-cli
+, nano-node
 , wownero
 }:
 
@@ -39,6 +40,7 @@ let
     namecoin = namecoind;
     monero = monero-cli;
     wownero = wownero;
+    nano = nano-node;
     #TODO: add pivx after it's not broken
   });
 in
@@ -78,6 +80,10 @@ python3Packages.buildPythonApplication {
   '';
 
   doCheck = false;
+
+  passthru = {
+    inherit bindir;
+  };
 
   meta = with lib; {
     description = "Basic Atomic Swap Proof of Concept";

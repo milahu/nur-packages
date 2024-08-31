@@ -827,7 +827,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   s2e = callPackage ./pkgs/development/libraries/s2e { };
 
-  fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent { };
+  fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent {
+    # this was removed from nixpkgs
+    # TODO how is this solved now in nixpkgs
+    transmission_noSystemd = pkgs.transmission.override { enableSystemd = false; };
+  };
 
   fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
 

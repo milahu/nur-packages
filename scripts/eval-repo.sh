@@ -71,6 +71,8 @@ git -C $repo_path checkout --quiet $repo_commit
 # error: getting status of '/nix/store/...': No such file or directory
 #git -C $repo_path submodule update --init --depth=1 --recursive --recommend-shallow
 
+git -C $repo_path submodule update --init --recursive --recommend-shallow
+
 # the actual value of repo.file is stored in
 # https://github.com/nix-community/NUR/blob/master/repos.json
 repo_file=default.nix

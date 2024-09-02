@@ -58,4 +58,4 @@ nano-node.overrideAttrs (attrs: {
     diskhash
   ];
 
-}
+})

@@ -117,7 +117,8 @@ in
 stdenv.mkDerivation rec {
   inherit (spotify-adblock) pname version meta;
   buildInputs = [ spotify-adblock spotify curl ];
-  buildCommand = ''
+  dontUnpack = true;
+  buildPhase = ''
     mkdir -p $out/bin
     cp ${spotify}/bin/spotify $out/bin/spotify-adblock
     chmod +w $out/bin/spotify-adblock

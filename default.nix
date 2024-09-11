@@ -983,6 +983,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     python3 = pkgs.python3;
   };
 
+  log4c = callPackage ./pkgs/development/libraries/log4c { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

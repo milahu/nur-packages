@@ -326,6 +326,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       crx3 = callPackage ./pkgs/python3/pkgs/crx3/crx3.nix { };
 
+      /*
       # LTS in extended support phase
       django_3 = callPackage ./pkgs/development/python-modules/django/3.nix { };
 
@@ -335,6 +336,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       # Pre-release
       django_5 = callPackage ./pkgs/development/python-modules/django/5.nix { };
+      */
 
       fritap = callPackage ./pkgs/python3/pkgs/fritap/fritap.nix { };
 

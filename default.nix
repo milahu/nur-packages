@@ -434,6 +434,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       torrentool = callPackage ./pkgs/python3/pkgs/torrentool { };
 
+      django-avatar = callPackage ./pkgs/python3/pkgs/django-avatar { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

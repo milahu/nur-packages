@@ -446,6 +446,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       django-channels-presence-4_0 = callPackage ./pkgs/python3/pkgs/django-channels-presence-4_0 { };
 
+      prosemirror = callPackage ./pkgs/python3/pkgs/prosemirror { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -442,6 +442,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       django-npm-mjs = callPackage ./pkgs/python3/pkgs/django-npm-mjs { };
 
+      django-loginas = callPackage ./pkgs/python3/pkgs/django-loginas { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

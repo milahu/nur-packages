@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Audio Synchronization and Analysis Tool [binary build]";
     homepage = "https://github.com/protyposis/AudioAlign";
-    changelog = "https://github.com/protyposis/AudioAlign/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/protyposis/AudioAlign/raw/v${version}/CHANGELOG.md";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "audioalign";

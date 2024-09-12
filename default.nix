@@ -444,6 +444,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       django-loginas = callPackage ./pkgs/python3/pkgs/django-loginas { };
 
+      django-channels-presence-4_0 = callPackage ./pkgs/python3/pkgs/django-channels-presence-4_0 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

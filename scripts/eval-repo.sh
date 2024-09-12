@@ -51,7 +51,7 @@ echo "repo_name: $repo_name"
 source_repo_path=$(readlink -f .)
 source_repo_url="file://$source_repo_path"
 
-tempdir=$(mktemp -d --suffix=-nur-eval-test)
+tempdir=$(mktemp -d -p /run/user/$UID --suffix=-nur-eval-test)
 
 # create a local clone, so we use only committed files
 repo_path=$tempdir/repo

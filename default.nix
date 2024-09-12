@@ -440,6 +440,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       django-js-error-hook = callPackage ./pkgs/python3/pkgs/django-js-error-hook { };
 
+      django-npm-mjs = callPackage ./pkgs/python3/pkgs/django-npm-mjs { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

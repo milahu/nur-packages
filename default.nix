@@ -999,6 +999,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   log4c = callPackage ./pkgs/development/libraries/log4c { };
 
+  streamtuner2 = callPackage ./pkgs/applications/audio/streamtuner2 {
+    # FIXME scope
+    inherit (pkgs) python3;
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

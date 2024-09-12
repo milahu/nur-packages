@@ -29,7 +29,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Distributed web crawler admin platform for spiders management regardless of languages and frameworks";
     homepage = "https://github.com/crawlab-team/crawlab";
-    changelog = "https://github.com/crawlab-team/crawlab/blob/${src.rev}/CHANGELOG-zh.md";
+    changelog = "https://github.com/crawlab-team/crawlab/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
     mainProgram = "crawlab";

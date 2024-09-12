@@ -393,6 +393,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       codefind = callPackage ./pkgs/python3/pkgs/codefind { };
 
+      varname = callPackage ./pkgs/python3/pkgs/varname { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

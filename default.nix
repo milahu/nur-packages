@@ -438,6 +438,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       django-avatar = callPackage ./pkgs/python3/pkgs/django-avatar { };
 
+      django-js-error-hook = callPackage ./pkgs/python3/pkgs/django-js-error-hook { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

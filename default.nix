@@ -1004,6 +1004,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     inherit (pkgs) python3;
   };
 
+  waydroid = callPackage ./pkgs/os-specific/linux/waydroid {
+    # FIXME scope
+    inherit (pkgs) python3Packages;
+  };
+
   parsyncfp2 = callPackage ./pkgs/applications/networking/sync/parsyncfp2 {
     # FIXME scope
     perlPackages = pkgs.perlPackages;

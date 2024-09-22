@@ -35,6 +35,8 @@ unset __help
 
 export WINEPREFIX="$HOME"/.cache/qaac/wine
 
+mkdir -p "$WINEPREFIX"
+
 bwrap_args=(
   --tmpfs /tmp
   --ro-bind /nix/store /nix/store

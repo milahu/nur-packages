@@ -1014,6 +1014,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     perlPackages = pkgs.perlPackages;
   };
 
+  vanitygpg = callPackage ./pkgs/tools/security/vanitygpg { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

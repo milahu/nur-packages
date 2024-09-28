@@ -1016,6 +1016,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   vanitygpg = callPackage ./pkgs/tools/security/vanitygpg { };
 
+  vineflower = callPackage ./pkgs/development/tools/analysis/vineflower { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

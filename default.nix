@@ -1020,6 +1020,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cudominer = callPackage ./pkgs/applications/blockchains/cudominer { };
 
+  progminer = callPackage ./pkgs/applications/blockchains/progminer { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

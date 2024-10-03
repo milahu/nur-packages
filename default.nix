@@ -1018,6 +1018,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   vineflower = callPackage ./pkgs/development/tools/analysis/vineflower { };
 
+  cudominer = callPackage ./pkgs/applications/blockchains/cudominer { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

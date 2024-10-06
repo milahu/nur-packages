@@ -72,6 +72,7 @@ let
     "process"
     "pve"
     "py-air-control"
+    "qbittorrent"
     "redis"
     "restic"
     "rspamd"
@@ -439,6 +440,16 @@ in
       deluge-exported.text = ''
       mkdir -p /etc/deluge-exporter
       echo "DELUGE_PASSWORD=$(cat ${config.services.prometheus.exporters.deluge.delugePasswordFile})" > /etc/deluge-exporter/password
+      '';
+    };
+  })] ++ [(mkIf (
+    config.services.prometheus.exporters.qbittorrent.enable &&
+    config.services.prometheus.exporters.qbittorrent.qbittorrentPasswordFile != null
+  ) {
+    system.activationScripts = {
+      qbittorrent-exported.text = ''
+      mkdir -p /etc/qbittorrent-exporter
+      echo "QBITTORRENT_PASS=$(cat ${config.services.prometheus.exporters.qbittorrent.qbittorrentPasswordFile})" > /etc/qbittorrent-exporter/password
       '';
     };
   })] ++ (mapAttrsToList (name: conf:

@@ -1364,6 +1364,7 @@ let
     '';
   };
 
+  # https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.scrape/
   promTypes.static_config = types.submodule {
     options = {
       targets = mkOption {
@@ -1377,6 +1378,20 @@ let
         default = { };
         description = ''
           Labels assigned to all metrics scraped from the targets.
+        '';
+      };
+      metrics_path = mkOption {
+        type = types.str;
+        default = "/metrics";
+        description = ''
+          The HTTP resource path on which to fetch metrics from targets.
+        '';
+      };
+      params = mkOption {
+        type = types.attrsOf types.listOf types.str;
+        default = { };
+        description = ''
+          A set of query parameters with which the target is scraped.
         '';
       };
     };

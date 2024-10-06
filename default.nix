@@ -1022,6 +1022,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   progminer = callPackage ./pkgs/applications/blockchains/progminer { };
 
+  prometheus-script-exporter = callPackage ./pkgs/servers/monitoring/prometheus/script-exporter.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

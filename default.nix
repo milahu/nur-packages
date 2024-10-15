@@ -1024,6 +1024,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   prometheus-script-exporter = callPackage ./pkgs/servers/monitoring/prometheus/script-exporter.nix { };
 
+  git-bug = callPackage ./pkgs/applications/version-management/git-bug { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

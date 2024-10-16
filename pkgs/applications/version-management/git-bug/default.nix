@@ -2,16 +2,21 @@
 
 buildGoModule rec {
   pname = "git-bug";
-  version = "0.8.0";
+  # version 0.8.0 was 2022-11-20
+  version = "0.8.0-unstable-2024-09-05";
 
   src = fetchFromGitHub {
     owner = "git-bug";
     repo = "git-bug";
+    /*
     rev = "v${version}";
     sha256 = "12byf6nsamwz0ssigan1z299s01cyh8bhgj86bibl90agd4zs9n8";
+    */
+    rev = "b0cc690854e501af9d91e2f09366263d629ceeaa";
+    hash = "sha256-VWopJ7FyJyN1PD5mN/1c7VZRcDhPn3rvpM9TS8+7zIw=";
   };
 
-  vendorHash = "sha256-32kNDoBE50Jx1Ef9YwhDk7nd3CaTSnHPlu7PgWPUGfE=";
+  vendorHash = "sha256-wux4yOc5OV0b7taVvUy/LIDqEgf5NoyfGV6DVOlczPU=";
 
   nativeBuildInputs = [ installShellFiles ];
 

@@ -1026,6 +1026,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   git-bug = callPackage ./pkgs/applications/version-management/git-bug { };
 
+  gns3Packages = pkgs.dontRecurseIntoAttrs (pkgs.callPackage ./pkgs/applications/networking/gns3 { });
+  gns3-gui = gns3Packages.guiStable;
+  gns3-server = gns3Packages.serverStable;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

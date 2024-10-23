@@ -9,17 +9,19 @@ let
 
   mkServer = args: callPackage (import ./server.nix (args)) { };
 in
-{
+rec {
   guiStable = mkGui {
     channel = "stable";
     version = "2.2.49";
     hash = "sha256-hvLJ4VilcgtpxHeboeSUuGAco9LEnUB8J6vy/ZPajbU=";
+    gns3-server = serverStable;
   };
 
   guiPreview = mkGui {
     channel = "stable";
     version = "2.2.49";
     hash = "sha256-hvLJ4VilcgtpxHeboeSUuGAco9LEnUB8J6vy/ZPajbU=";
+    gns3-server = serverPreview;
   };
 
   serverStable = mkServer {

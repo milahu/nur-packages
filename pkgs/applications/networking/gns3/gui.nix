@@ -2,6 +2,7 @@
   channel,
   version,
   hash,
+  gns3-server,
 }:
 
 {
@@ -13,6 +14,8 @@
   testers,
   wrapQtAppsHook,
 }:
+
+assert version != gns3-server.version -> throw "gns3-gui.version != gns3-server.version: ${version} != ${gns3-server.version}";
 
 python3Packages.buildPythonApplication rec {
   pname = "gns3-gui";
@@ -45,6 +48,16 @@ python3Packages.buildPythonApplication rec {
   ];
 
   dontWrapQtApps = true;
+
+  postPatch = ''
+    # hardcode path to gns3server
+    # fix: Error when connecting to the GNS3 server: Client version x is not the same as server version y
+    # https://github.com/GNS3/gns3-gui/issues/2726
+    substituteInPlace gns3/local_server.py \
+      --replace-fail \
+        'local_server_path = shutil.which(settings["path"].strip())' \
+        'local_server_path = "${gns3-server}/bin/gns3server"' \
+  '';
 
   preFixup = ''
     wrapQtApp "$out/bin/gns3"

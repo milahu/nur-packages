@@ -57,6 +57,13 @@ python3Packages.buildPythonApplication rec {
       --replace-fail \
         'local_server_path = shutil.which(settings["path"].strip())' \
         'local_server_path = "${gns3-server}/bin/gns3server"' \
+
+    # disable "check for update" by default
+    # installing a new version from pypi would fail
+    substituteInPlace gns3/settings.py \
+      --replace-fail \
+        '"check_for_update": True,' \
+        '"check_for_update": False,' \
   '';
 
   preFixup = ''

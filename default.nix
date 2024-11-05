@@ -1030,6 +1030,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   gns3-gui = gns3Packages.guiStable;
   gns3-server = gns3Packages.serverStable;
 
+  fuse-nfs = callPackage ./pkgs/tools/filesystems/fuse-nfs { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

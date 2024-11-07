@@ -1032,6 +1032,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fuse-nfs = callPackage ./pkgs/tools/filesystems/fuse-nfs { };
 
+  stream-unrar = callPackage ./pkgs/tools/archivers/stream-unrar { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

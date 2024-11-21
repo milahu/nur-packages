@@ -448,6 +448,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       prosemirror = callPackage ./pkgs/python3/pkgs/prosemirror { };
 
+      rs-chardet = callPackage ./pkgs/python3/pkgs/rs-chardet { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

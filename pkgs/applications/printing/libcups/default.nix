@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "OpenPrinting CUPS Library Sources";
+    description = "OpenPrinting CUPS library and tools: ippevepcl ippeveprinter ippeveps ippfind ipptool ipptransform";
     homepage = "https://github.com/OpenPrinting/libcups";
     changelog = "https://github.com/OpenPrinting/libcups/blob/${src.rev}/CHANGES.md";
     license = licenses.asl20;

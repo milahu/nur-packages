@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Misc printing utilities";
+    description = "Misc printing utilities: baselinify bsplit hexdump ippclient ippdecode pdf2printable ppm2pwg pwg2ppm";
     homepage = "https://github.com/attah/ppm2pwg";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];

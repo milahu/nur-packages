@@ -842,7 +842,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   writable-nix-store = callPackage ./pkgs/development/tools/misc/writable-nix-store { };
 
-  s2e = callPackage ./pkgs/development/libraries/s2e { };
+  # FIXME Function called without required argument "llvmPackages_10"
+  # s2e = callPackage ./pkgs/development/libraries/s2e { };
 
   fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent {
     # this was removed from nixpkgs

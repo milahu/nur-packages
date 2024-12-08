@@ -35,7 +35,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ricochet-refresh = pkgs.libsForQt5.callPackage ./pkgs/ricochet-refresh/default.nix { };
 
-  aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
+  # FIXME Function called without required argument "electron_11"
+  # aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
 
   archive-org-downloader = python3.pkgs.callPackage ./pkgs/archive-org-downloader/default.nix { };
 

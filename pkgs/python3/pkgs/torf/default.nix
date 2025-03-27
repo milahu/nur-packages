@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchurl
 , setuptools
 , wheel
 , flatbencode
@@ -18,14 +19,22 @@
 
 buildPythonPackage rec {
   pname = "torf";
-  version = "4.2.7";
+  version = "4.3.0";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/rndusr/torf/archive/refs/tags/v${version}.tar.gz";
+    hash = "sha256-gZQGi6mJrdH/2H6Mzvkke2XN5uSDzAXeeO2GiSJfUqo=";
+  }
+  else
+  # error
+  fetchFromGitHub {
     owner = "rndusr";
     repo = "torf";
     rev = "v${version}";
-    hash = "sha256-xc/jObrGmiBQG6gl/G/ht+3iPf47LN5n3u7TRbMzRp4=";
+    hash = "";
   };
 
   nativeBuildInputs = [

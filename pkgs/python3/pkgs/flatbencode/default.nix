@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchurl
 , setuptools
 , wheel
 }:
@@ -10,7 +11,15 @@ buildPythonPackage rec {
   version = "0.2.1";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/acatton/flatbencode/archive/refs/tags/v${version}.tar.gz";
+    hash = "sha256-hn2nv1EGkJ3BbMbGtKmaLUKw9XcGAKhBFe0Ev97J5E0=";
+  }
+  else
+  # error
+  fetchFromGitHub {
     owner = "acatton";
     repo = "flatbencode";
     rev = "v${version}";

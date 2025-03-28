@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchurl
 , poetry-core
 }:
 
@@ -9,7 +10,15 @@ buildPythonPackage rec {
   version = "0.1.6";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/breuleux/codefind/archive/refs/tags/v${version}.tar.gz";
+    hash = "sha256-OlPLhPwGG1eZ1dxU2EFlEP5TLUYSdnGjOdbV2ZaKC7c=";
+  }
+  else
+  # error
+  fetchFromGitHub {
     owner = "breuleux";
     repo = "codefind";
     rev = "v${version}";

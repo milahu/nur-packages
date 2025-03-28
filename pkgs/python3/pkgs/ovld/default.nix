@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchurl
 , poetry-core
 }:
 
@@ -9,7 +10,15 @@ buildPythonPackage rec {
   version = "0.3.5";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/breuleux/ovld/archive/refs/tags/v${version}.tar.gz";
+    hash = "sha256-B0PGCMQX2VzH0kIwMqGKG5wkvMuEShllKMFeIhxfU7U=";
+  }
+  else
+  # error
+  fetchFromGitHub {
     owner = "breuleux";
     repo = "ovld";
     rev = "v${version}";

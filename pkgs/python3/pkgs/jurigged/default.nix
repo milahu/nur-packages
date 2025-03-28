@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, fetchurl
 , poetry-core
 , blessed
 , codefind
@@ -15,7 +16,15 @@ buildPythonPackage rec {
   version = "0.5.8";
   pyproject = true;
 
-  src = fetchFromGitHub {
+  src =
+  if true then
+  fetchurl {
+    url = "https://github.com/breuleux/jurigged/archive/refs/tags/v${version}.tar.gz";
+    hash = "sha256-slyQjduoeVMRQErjEAt0nLyxHtFwmaGT+OfFemZsaFQ=";
+  }
+  else
+  # error
+  fetchFromGitHub {
     owner = "breuleux";
     repo = "jurigged";
     rev = "v${version}";

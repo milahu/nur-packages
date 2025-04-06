@@ -451,6 +451,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       rs-chardet = callPackage ./pkgs/python3/pkgs/rs-chardet { };
 
+      ffmpegio = callPackage ./pkgs/python3/pkgs/ffmpegio { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

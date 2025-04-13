@@ -1040,6 +1040,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   stream-unrar = callPackage ./pkgs/tools/archivers/stream-unrar { };
 
+  libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

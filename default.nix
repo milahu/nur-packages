@@ -962,7 +962,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # source build
   # lockfile is missing
   #grpc-java-src = callPackage ./pkgs/development/tools/grpc-java { };
-  grpc-java-src-lockfile = callPackage ./pkgs/development/tools/grpc-java/lockfile.nix { };
+  # requires grpc-java-src
+  #grpc-java-src-lockfile = callPackage ./pkgs/development/tools/grpc-java/lockfile.nix { };
 
   # binary build
   grpc-java-bin = callPackage ./pkgs/development/tools/grpc-java/bin.nix { };

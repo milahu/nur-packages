@@ -54,7 +54,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Hot reloading for Python";
     homepage = "https://github.com/breuleux/jurigged";
-    changelog = "https://github.com/breuleux/jurigged/blob/${src.rev}/CHANGELOG.md";
+    #changelog = "https://github.com/breuleux/jurigged/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

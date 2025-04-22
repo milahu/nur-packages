@@ -973,6 +973,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   grpc-java-bin = callPackage ./pkgs/development/tools/grpc-java/bin.nix { };
 
   haveno = callPackage ./pkgs/applications/blockchains/haveno { };
+  haveno-lockfile = callPackage ./pkgs/applications/blockchains/haveno/lockfile.nix { };
 
   protobuf3_20 = callPackage ./pkgs/development/libraries/protobuf/3.20.nix {
     abseil-cpp = pkgs.abseil-cpp_202103;

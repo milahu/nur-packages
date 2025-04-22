@@ -979,6 +979,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     abseil-cpp = pkgs.abseil-cpp_202103;
   };
 
+  protobuf3_19_1 = callPackage ./pkgs/development/libraries/protobuf/3.19.1.nix {
+    abseil-cpp = pkgs.abseil-cpp_202103;
+  };
+
   basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap {
     # FIXME scope
     inherit nano-node;

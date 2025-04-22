@@ -293,16 +293,6 @@
       "hash": "sha256-Nup9rcsQxxU+9lp14Wmxt/k33tCaGEUODxD+IC3yrc0="
     }
   },
-  "com.github.JesusMcCloud:jtorctl:9b5ba2036b": {
-    "jtorctl-9b5ba2036b.jar": {
-      "url": "https://jitpack.io/com/github/JesusMcCloud/jtorctl/9b5ba2036b/jtorctl-9b5ba2036b.jar",
-      "hash": "sha256-sr3+l1jkyC/xsQ58MJiYG/Veo+XxYe55kKwSUAOmzb4="
-    },
-    "jtorctl-9b5ba2036b.pom": {
-      "url": "https://jitpack.io/com/github/JesusMcCloud/jtorctl/9b5ba2036b/jtorctl-9b5ba2036b.pom",
-      "hash": "sha256-IY+8N6V7z4iK+RciDDGs6jkZeFnMR1GcEvEVH6SieBI="
-    }
-  },
   "com.github.bisq-network:bitcoinj:2a80db4": {
     "bitcoinj-2a80db4.jar": {
       "url": "https://jitpack.io/com/github/bisq-network/bitcoinj/2a80db4/bitcoinj-2a80db4.jar",
@@ -347,96 +337,106 @@
       "hash": "sha256-1OpxEljHg+Csy4/qqiBPBBR4FVGwFZ+hfl8YaSAPlvc="
     }
   },
-  "com.github.haveno-dex.netlayer:parent:e2ce2a142c": {
-    "parent-e2ce2a142c.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/parent/e2ce2a142c/parent-e2ce2a142c.pom",
-      "hash": "sha256-0ms0GsHlNGwBoDFKoXAKZ84r5ibxEQpvyp+c3Yz5zBs="
+  "com.github.haveno-dex.netlayer:parent:d9c60be46d": {
+    "parent-d9c60be46d.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/parent/d9c60be46d/parent-d9c60be46d.pom",
+      "hash": "sha256-8z2y8gs9zIek+PVfgWwcb3r6FLo9VycXpzpIxuCQTcg="
     }
   },
-  "com.github.haveno-dex.netlayer:tor:e2ce2a142c": {
-    "tor-e2ce2a142c.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor/e2ce2a142c/tor-e2ce2a142c.jar",
-      "hash": "sha256-TDwge7RkSJEXDPq9oP1Py6NUrH5lJ8WU2jn3yRDNOxU="
+  "com.github.haveno-dex.netlayer:tor:d9c60be46d": {
+    "tor-d9c60be46d.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor/d9c60be46d/tor-d9c60be46d.jar",
+      "hash": "sha256-41878WD5apklW6PECPCW5lwAkmWMX6wYJWHggdl8Rjg="
     },
-    "tor-e2ce2a142c.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor/e2ce2a142c/tor-e2ce2a142c.pom",
-      "hash": "sha256-/kb7Joz/8IGK3aRNUwRkEsFcqYK3PQklIOsz0Lp8vQA="
+    "tor-d9c60be46d.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor/d9c60be46d/tor-d9c60be46d.pom",
+      "hash": "sha256-p62ySbXnDcg0tNlD34LEjDSB6vBZAvKwIGA3kFOROAA="
     }
   },
-  "com.github.haveno-dex.netlayer:tor.external:e2ce2a142c": {
-    "tor.external-e2ce2a142c.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.external/e2ce2a142c/tor.external-e2ce2a142c.jar",
-      "hash": "sha256-5SO3etu0GeXtOCoWieHZpT7ES2JvwBbm32dq37SkWEY="
+  "com.github.haveno-dex.netlayer:tor.external:d9c60be46d": {
+    "tor.external-d9c60be46d.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.external/d9c60be46d/tor.external-d9c60be46d.jar",
+      "hash": "sha256-LLkmhHKD3qFKy3MqqN+AQsWaWoA7GoDhcau97qRKfrA="
     },
-    "tor.external-e2ce2a142c.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.external/e2ce2a142c/tor.external-e2ce2a142c.pom",
-      "hash": "sha256-jO47rbQSZsi6SMjD0zkLHckoKwQlKCyD6qvWxxRKBLM="
+    "tor.external-d9c60be46d.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.external/d9c60be46d/tor.external-d9c60be46d.pom",
+      "hash": "sha256-E1/qH4xID9eqDzS2za6oa1+ndvyfW+IjdbeSZQix+MM="
     }
   },
-  "com.github.haveno-dex.netlayer:tor.native:e2ce2a142c": {
-    "tor.native-e2ce2a142c.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.native/e2ce2a142c/tor.native-e2ce2a142c.jar",
-      "hash": "sha256-aRJ77j/5hjyD37A9furSfrVCR/6vtm4mIPiE1Tiwc1o="
+  "com.github.haveno-dex.netlayer:tor.native:d9c60be46d": {
+    "tor.native-d9c60be46d.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.native/d9c60be46d/tor.native-d9c60be46d.jar",
+      "hash": "sha256-LMMc2a7T0zaKD96qUp1/qD9zLRcPMx7EcaN6RcMMgMs="
     },
-    "tor.native-e2ce2a142c.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.native/e2ce2a142c/tor.native-e2ce2a142c.pom",
-      "hash": "sha256-nIqvhdlEIwyWbYVNpqwtFY9LaoXH/yy9GP/FK4hJr7U="
+    "tor.native-d9c60be46d.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/netlayer/tor.native/d9c60be46d/tor.native-d9c60be46d.pom",
+      "hash": "sha256-SOzymYIXq/+5kzZSDdo7f27waabihz4HhZcI764PH0s="
     }
   },
-  "com.github.haveno-dex.tor-binary:tor-binary:4e38c9d5cc22266fe06cc42578020bc0a50c783f": {
-    "tor-binary-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom",
-      "hash": "sha256-dS/B0riM8bepdpn5GC2CvWIqZWSwDXmGNnC5ltSchrI="
+  "com.github.haveno-dex.tor-binary:tor-binary:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-pnCBdYDBrw19tgBsx97tTdMGTVJQekhsfrHmjMeJp2Y="
     }
   },
-  "com.github.haveno-dex.tor-binary:tor-binary-geoip:4e38c9d5cc22266fe06cc42578020bc0a50c783f": {
-    "tor-binary-geoip-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-geoip/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-geoip-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar",
-      "hash": "sha256-DhVgh1lDbreH5L4SfZ0L4iTPqqVo8ZefPJgtv6X+V6Y="
+  "com.github.haveno-dex.tor-binary:tor-binary-geoip:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-geoip-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-geoip/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-geoip-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar",
+      "hash": "sha256-mLqOZt5RmNWlWNsOyTL6zLUsTv+cUN7vtkJ8fwg75mU="
     },
-    "tor-binary-geoip-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-geoip/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-geoip-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom",
-      "hash": "sha256-IGMuoiXFIqmV3KUgc5bMVy/7RRRKAfcsnZYb5B+AyfA="
+    "tor-binary-geoip-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-geoip/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-geoip-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-z7Ag1iuRoB3Vi6hXSsbThVqxQiI30adY0JqZCIGQdfM="
     }
   },
-  "com.github.haveno-dex.tor-binary:tor-binary-linux32:4e38c9d5cc22266fe06cc42578020bc0a50c783f": {
-    "tor-binary-linux32-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux32/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-linux32-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar",
-      "hash": "sha256-+MHcQ16c6fpFOap6FAyuBgajDN3mvjTDUA/9J7Xdt+o="
+  "com.github.haveno-dex.tor-binary:tor-binary-linux32:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-linux32-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux32/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-linux32-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar",
+      "hash": "sha256-9qY+1b28lBcQfIQluyQf+EGgqAdkkvu8wRkh5GvTYKA="
     },
-    "tor-binary-linux32-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux32/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-linux32-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom",
-      "hash": "sha256-rBMx8RVSbz9d7jUnk4V2EZRzDvwa8BIMUSFaEyMyanQ="
+    "tor-binary-linux32-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux32/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-linux32-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-gfGmVomxFZx1jSYgkrLP+8gT7YeyJ93oa/ssWWvdoAg="
     }
   },
-  "com.github.haveno-dex.tor-binary:tor-binary-linux64:4e38c9d5cc22266fe06cc42578020bc0a50c783f": {
-    "tor-binary-linux64-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux64/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-linux64-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar",
-      "hash": "sha256-VwcHljLm9/aGkLMDJEuIolpQu8YiJp1pr1Tr3824cEE="
+  "com.github.haveno-dex.tor-binary:tor-binary-linux64:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-linux64-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux64/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-linux64-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar",
+      "hash": "sha256-7wVaQ+c/O8T/+4+vyv5RNWbY4BnJUY/i0b2Bu8rZ1Tc="
     },
-    "tor-binary-linux64-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux64/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-linux64-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom",
-      "hash": "sha256-SfHM90OwxwaFzcwN1DJYyXEVNqVnbPv56r8CBqQK3RI="
+    "tor-binary-linux64-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linux64/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-linux64-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-zsjIDaJjv3dz5hKLxwhvo2iFIHyaf7gM3L6lizAsaOc="
     }
   },
-  "com.github.haveno-dex.tor-binary:tor-binary-macos:4e38c9d5cc22266fe06cc42578020bc0a50c783f": {
-    "tor-binary-macos-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-macos/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-macos-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar",
-      "hash": "sha256-ZZXZn6MX2JkYKEDImPDfB7q7dHnMpmte49vY9XH9gsY="
+  "com.github.haveno-dex.tor-binary:tor-binary-linuxaarch64:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-linuxaarch64-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linuxaarch64/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-linuxaarch64-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar",
+      "hash": "sha256-ZSuVqtGqxkWDxtjjtXOFO2pod7NjswQNwjLrCxTniUY="
     },
-    "tor-binary-macos-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-macos/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-macos-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom",
-      "hash": "sha256-Tdz/ibJ7tfZUM0SZwnzu6nX5aM/iyLCTc1QbuQxe9to="
+    "tor-binary-linuxaarch64-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-linuxaarch64/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-linuxaarch64-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-VSIEtcAkZ2OqXt7DlzmyoH4/e/b5eOsINPIeIQt1JzI="
     }
   },
-  "com.github.haveno-dex.tor-binary:tor-binary-windows:4e38c9d5cc22266fe06cc42578020bc0a50c783f": {
-    "tor-binary-windows-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-windows/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-windows-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar",
-      "hash": "sha256-/gcHNlqcDK5jjKx82INIi6h/SJ5uvYjS2YkO2eis8V4="
+  "com.github.haveno-dex.tor-binary:tor-binary-macos:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-macos-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-macos/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-macos-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar",
+      "hash": "sha256-poFeQglWzh+vPd6uqH7whmb0dEzQz9WRK0FJQ7QdXro="
     },
-    "tor-binary-windows-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom": {
-      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-windows/4e38c9d5cc22266fe06cc42578020bc0a50c783f/tor-binary-windows-4e38c9d5cc22266fe06cc42578020bc0a50c783f.pom",
-      "hash": "sha256-CM5an0qVTYwVOt3s0DwcQJje2iSeEax5/nuZuBYS8Y4="
+    "tor-binary-macos-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-macos/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-macos-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-yJnS7dlC75GfTSNqx+V9EXG+h5hjiSpV+8ppsxKzDvs="
+    }
+  },
+  "com.github.haveno-dex.tor-binary:tor-binary-windows:2c02f6b133da79134312b964f2d0f9630c7dfa67": {
+    "tor-binary-windows-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-windows/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-windows-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar",
+      "hash": "sha256-kUTiM/41AWSp7gvdQuqbFtstLqSG5exjT/BA/Vk0pgk="
+    },
+    "tor-binary-windows-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom": {
+      "url": "https://jitpack.io/com/github/haveno-dex/tor-binary/tor-binary-windows/2c02f6b133da79134312b964f2d0f9630c7dfa67/tor-binary-windows-2c02f6b133da79134312b964f2d0f9630c7dfa67.pom",
+      "hash": "sha256-4Sv0IZFumHdVdztrOZNFKtOZE/fufHChM4k0xWVslhA="
     }
   },
   "com.github.johnrengelman:shadow:8.1.1": {
@@ -1441,14 +1441,14 @@
       "hash": "sha256-Ryjt3WTmrj4fIFp3XGoyeyS9mQuG1ShYShdFCotfANY="
     }
   },
-  "io.github.woodser:monero-java:0.8.31": {
-    "monero-java-0.8.31.jar": {
-      "url": "https://repo.maven.apache.org/maven2/io/github/woodser/monero-java/0.8.31/monero-java-0.8.31.jar",
-      "hash": "sha256-RrgbmLx29gqWW8feQp/3LPbEQ4WJh8vVG5ys0vio0os="
+  "io.github.woodser:monero-java:0.8.36": {
+    "monero-java-0.8.36.jar": {
+      "url": "https://repo.maven.apache.org/maven2/io/github/woodser/monero-java/0.8.36/monero-java-0.8.36.jar",
+      "hash": "sha256-VqOjua1rmglOd0wzfCaOYIJe0H8ZwPA2jNkPEsg/eUY="
     },
-    "monero-java-0.8.31.pom": {
-      "url": "https://repo.maven.apache.org/maven2/io/github/woodser/monero-java/0.8.31/monero-java-0.8.31.pom",
-      "hash": "sha256-ozcRDw2vuNkM1ZVzFBp6705H5fZJVH3ol9yXSz9G4OQ="
+    "monero-java-0.8.36.pom": {
+      "url": "https://repo.maven.apache.org/maven2/io/github/woodser/monero-java/0.8.36/monero-java-0.8.36.pom",
+      "hash": "sha256-idTw3q7E+QlIDFBF1WOsqFUCLuKfTtogtVx0rIHtiIE="
     }
   },
   "io.grpc:grpc-api:1.42.1": {

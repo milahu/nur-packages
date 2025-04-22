@@ -22,6 +22,7 @@
 , findutils
 , perl
 , gradle2nix
+, gradle_8_6
 # TODO? use fork https://github.com/haveno-dex/monero
 , monero-cli
 
@@ -48,6 +49,8 @@
 , unbound
 , libusb1
 
+, protobuf3_19_1
+
 # tor
 , libz
 
@@ -55,10 +58,7 @@
 }:
 
 let
-  protobuf3_19 = callPackage (<nixpkgs> + "/pkgs/development/libraries/protobuf/generic-v3.nix") {
-    version = "3.19.1";
-    sha256 = "sha256-IQAlnpsO3AYfzXVnIHxLOKo1XzdWDmwwv+W/OanAl+s=";
-  };
+  protobuf3_19 = protobuf3_19_1;
 
   # TODO upstream: this belongs to gradle2nix.mkOverride
   mkOverride = callPackage ./gradle2nix-mk-override.nix { };
@@ -67,7 +67,6 @@ in
 # fix: error: cannot find symbol: method parseUnknownField
 # https://github.com/protocolbuffers/protobuf/issues/10695
 # build.gradle: protobufVersion = '3.19.1'
-#let protobuf = protobuf3_20; in
 let protobuf = protobuf3_19; in
 
 let
@@ -76,7 +75,11 @@ in
 
 gradle2nix.buildGradlePackage rec {
   pname = "haveno${versionSuffix}";
-  version = "1.0.8";
+  version = "1.1.0";
+
+  # fix: java.lang.ClassNotFoundException: haveno.desktop.app.HavenoAppMain
+  # https://github.com/haveno-dex/haveno/issues/735
+  gradle = gradle_8_6;
 
   src = (
     if havenoFork == null then
@@ -84,7 +87,7 @@ gradle2nix.buildGradlePackage rec {
       owner = "haveno-dex";
       repo = "haveno";
       rev = version;
-      hash = "sha256-pNwlvdV8ilsbnI8VFghDYaZwk28ptKPV8+SArx2FOJQ=";
+      hash = "";
     }
     else
     if havenoFork == "reto" then
@@ -92,7 +95,7 @@ gradle2nix.buildGradlePackage rec {
       owner = "retoaccess1";
       repo = "haveno-reto";
       rev = "v${version}";
-      hash = "sha256-L9XH+LRnerPsRPmT3+G6rCSCXMUMVEh5NxpBVqon3BA=";
+      hash = "sha256-T97ucq+GFDXsfVJeItvXuB4yV5iC3N/mUp1TYseWZeo=";
     }
     else
     throw "unknown version ${havenoFork}"
@@ -117,6 +120,9 @@ gradle2nix.buildGradlePackage rec {
   setting RPATH to: /nix/store/9nk7bsdlsmmnj96bivbvgqy491p65jdq-libz-1.2.8.2015.12.26-unstable-2018-03-31/lib:/build/source/native/linux/x64/tor.tar.xz
   */
 
+  # TODO keep names in sync with gradle.lock
+  # or use overridesGlob
+  # https://github.com/tadfisher/gradle2nix/pull/62#issuecomment-2820420531
   overrides = {
     # fix: Execution failed for task ':proto:generateProto'.
     #   Cannot set /nix/store/.../protoc-gen-grpc-java-1.42.1-linux-x86_64.exe as executable
@@ -142,8 +148,8 @@ gradle2nix.buildGradlePackage rec {
         ];
       };
     };
-    "io.github.woodser:monero-java:0.8.31" = {
-      "monero-java-0.8.31.jar" = src: mkOverride src {
+    "io.github.woodser:monero-java:0.8.36" = {
+      "monero-java-0.8.36.jar" = src: mkOverride src {
         buildInputs = [
           boost # libboost_chrono.so libboost_filesystem.so libboost_program_options.so libboost_regex.so libboost_serialization.so libboost_thread.so
           openssl.out # libcrypto.so libssl.so
@@ -162,8 +168,8 @@ gradle2nix.buildGradlePackage rec {
         ];
       };
     };
-    "com.github.haveno-dex.tor-binary:tor-binary-linux64:4e38c9d5cc22266fe06cc42578020bc0a50c783f" = {
-      "tor-binary-linux64-4e38c9d5cc22266fe06cc42578020bc0a50c783f.jar" = src: mkOverride src {
+    "com.github.haveno-dex.tor-binary:tor-binary-linux64:2c02f6b133da79134312b964f2d0f9630c7dfa67" = {
+      "tor-binary-linux64-2c02f6b133da79134312b964f2d0f9630c7dfa67.jar" = src: mkOverride src {
         #archives = [ "native/linux/x64/tor.tar.xz" ];
         buildInputs = [
           libgcc.lib # libgcc_s.so.1 libgcc_s.so
@@ -172,12 +178,6 @@ gradle2nix.buildGradlePackage rec {
       };
     };
   };
-
-  patches = [
-    # fix: Execution failed for task ':desktop:installDist'.
-    # > java.io.FileNotFoundException: /build/source/haveno-desktop.bat (No such file or directory)
-    ./switch-platform-for-script-files.patch
-  ];
 
   # disable "havenoDeps"
   # dont download monero from github
@@ -263,7 +263,7 @@ gradle2nix.buildGradlePackage rec {
   nativeBuildInputs = [
     makeWrapper
     copyDesktopItems
-    imagemagick # convert
+    imagemagick # magick
     perl
   ];
 
@@ -310,7 +310,7 @@ gradle2nix.buildGradlePackage rec {
 
     for size in 16 24 32 48 64 128; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      convert -resize "$size"x"$size" ${srcLogo} $out/share/icons/hicolor/"$size"x"$size"/apps/haveno.png
+      magick ${srcLogo} -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/haveno.png
     done
   '';
 

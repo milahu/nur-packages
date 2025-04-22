@@ -957,6 +957,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gradle2nix = callPackage ./pkgs/development/tools/gradle2nix { };
 
+  gradle_8_6 = callPackage (import ./pkgs/development/tools/build-managers/gradle/8.6.nix {
+    inherit (pkgs) jdk11 jdk17 jdk21;
+  }).gradle_8 { };
+
   grpc-java = grpc-java-bin;
 
   # source build

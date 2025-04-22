@@ -66,7 +66,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to create, parse and edit torrent files and magnet links";
     homepage = "https://github.com/rndusr/torf";
-    changelog = "https://github.com/rndusr/torf/blob/${src.rev}/CHANGELOG";
+    #changelog = "https://github.com/rndusr/torf/blob/${src.rev}/CHANGELOG";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
   };

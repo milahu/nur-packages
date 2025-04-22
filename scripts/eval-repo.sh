@@ -159,7 +159,13 @@ a+=(--attr-path) # Print the attribute path of the derivation
 a+=(--meta) # Print all of the meta-attributes of the derivation.
 a+=(--json)
 a+=(--allowed-uris https://static.rust-lang.org)
-a+=(--option restrict-eval true)
+
+# no effect
+#a+=(--allowed-uris file:///nix/var/nix/profiles/per-user)
+
+# FIXME error: access to absolute path '/nix/var/nix/profiles/per-user/root/channels-2-link' is forbidden in restricted mode
+#a+=(--option restrict-eval true)
+
 a+=(--option allow-import-from-derivation true)
 a+=(--drv-path) # Print the path of the store derivation.
 a+=(--show-trace)
@@ -179,6 +185,8 @@ export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
 result=0
 
 echo "evaluating packages..."
+
+printf ">"; for x in "${a[@]}"; do printf " %q" "$x"; done; echo
 
 # get eval time
 # NUR has eval timeout after 15 seconds

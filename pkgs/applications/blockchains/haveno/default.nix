@@ -87,7 +87,7 @@ gradle2nix.buildGradlePackage rec {
     fetchFromGitHub {
       owner = "haveno-dex";
       repo = "haveno";
-      rev = version;
+      rev = "v${version}"; # haveno
       hash = "";
     }
     else
@@ -95,8 +95,10 @@ gradle2nix.buildGradlePackage rec {
     fetchFromGitHub {
       owner = "retoaccess1";
       repo = "haveno-reto";
-      rev = "v${version}";
-      hash = "sha256-T97ucq+GFDXsfVJeItvXuB4yV5iC3N/mUp1TYseWZeo=";
+      # TODO update: use the right git tag https://github.com/retoaccess1/haveno-reto/issues/74
+      #rev = "v${version}"; # haveno
+      rev = version; # haveno-reto
+      hash = "sha256-gwUNE8PE6XNFT9Px4zdvnqwwFpU8PyjtiARAEEnuw5w=";
     }
     else
     throw "unknown version ${havenoFork}"

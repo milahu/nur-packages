@@ -53,6 +53,7 @@
 
 # tor
 , libz
+, libevent
 
 , havenoFork ? "reto"
 }:
@@ -174,6 +175,8 @@ gradle2nix.buildGradlePackage rec {
         buildInputs = [
           libgcc.lib # libgcc_s.so.1 libgcc_s.so
           libz # libz.so.1 libz.so
+          libevent # libevent-2.1.so.7
+          openssl # libssl.so.3 libcrypto.so.3
         ];
       };
     };

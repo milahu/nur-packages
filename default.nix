@@ -1068,6 +1068,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   wireshare = callPackage ./pkgs/applications/networking/p2p/wireshare { };
 
+  voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

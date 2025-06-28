@@ -12,6 +12,10 @@ https://github.com/kbbdy/zipstream # 2020, 40 stars
 https://github.com/pR0Ps/zipstream-ng # 30 stars
 https://github.com/DoctorJohn/aiohttp-zip-response # 1 stars
 https://github.com/baldhumanity/py_stream_zip # 0 stars
+
+see also
+https://github.com/milahu/stream-zip/issues/1
+alternatives to stream-zip
 */
 
 { lib
@@ -23,28 +27,14 @@ https://github.com/baldhumanity/py_stream_zip # 0 stars
 
 python3.pkgs.buildPythonPackage rec {
   pname = "stream-zip";
-  version = "0.0.83";
+  version = "0.0.81";
   pyproject = true;
 
-  src =
-  if true then
-  fetchurl {
-    url = "https://files.pythonhosted.org/packages/08/8a/0674a98c1d3d8edf1461b92474ed9cfe19298a297aab9a8ccd9ae1f15b07/stream_zip-0.0.83.tar.gz";
-    hash = "sha256-h9dV8M5D38awrlVbcz8WLHbi6vzzx4BdP1kelmsxZxY=";
-  }
-  else
-  if true then
-  # http 404 ?!
-  fetchPypi {
-    inherit pname version;
-    hash = "";
-  }
-  else
-  fetchFromGitHub {
-    owner = "uktrade";
+  src = fetchFromGitHub {
+    owner = "milahu";
     repo = "stream-zip";
     rev = "v${version}";
-    hash = "sha256-zcYfpojAy0ZfJHuvYtsEr9SSpTc+tOH8gTKI9Fd4oHg=";
+    hash = "sha256-kSRCl0mVgntC53cCB6u5OAkzFk+a9yoyfiUJH8yLqAI=";
   };
 
   nativeBuildInputs = [

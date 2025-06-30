@@ -1070,6 +1070,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
 
+  nginxModules = pkgs.recurseIntoAttrs {
+    cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

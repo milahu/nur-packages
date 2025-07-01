@@ -59,6 +59,16 @@ let
       or (throw "The nginx module with source ${toString mod.src} does not have a `name` attribute. This prevents duplicate module detection and is no longer supported.")
   ) modules;
 
+  moduleSource = mod:
+    if (mod.src ? patches || mod.src ? patchPhase || mod.src ? prePatch || mod.src ? postPatch) then
+    stdenv.mkDerivation ({
+      name = "source";
+      src = mod.src;
+      installPhase = "cp -r . $out";
+    } // (lib.filterAttrs (n: v: (lib.elem n ["patches" "patchPhase" "prePatch" "postPatch"])) mod.src))
+    else
+    mod.src;
+
   mapModules =
     attrPath:
     lib.flip lib.concatMap modules (
@@ -175,7 +185,7 @@ stdenv.mkDerivation {
       stdenv.buildPlatform != stdenv.hostPlatform
     ) "--crossbuild=${stdenv.hostPlatform.uname.system}::${stdenv.hostPlatform.uname.processor}"
     ++ configureFlags
-    ++ map (mod: "--add-module=${mod.src}") modules
+    ++ map (mod: "--add-module=${moduleSource mod}") modules
     ++ (mapModules "configureFlags")
   ;
 

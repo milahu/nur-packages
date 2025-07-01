@@ -1097,7 +1097,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   };
 
   nginxModules = pkgs.recurseIntoAttrs {
+
     cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
+
+    markdown_filter = callPackage ./pkgs/servers/http/nginx/modules/markdown_filter.nix { };
+
   };
 
 }

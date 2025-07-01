@@ -1070,6 +1070,32 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
 
+  nginx = nginxStable;
+
+  nginxQuic = callPackage ./pkgs/servers/http/nginx/quic.nix {
+    withPerl = false;
+    # We don't use `with` statement here on purpose!
+    # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
+    modules = [
+      pkgs.nginxModules.rtmp
+      pkgs.nginxModules.dav
+      pkgs.nginxModules.moreheaders
+    ];
+    # Use latest boringssl to allow http3 support
+    openssl = pkgs.quictls;
+  };
+
+  nginxStable = callPackage ./pkgs/servers/http/nginx/stable.nix {
+    withPerl = false;
+    # We don't use `with` statement here on purpose!
+    # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
+    modules = [
+      pkgs.nginxModules.rtmp
+      pkgs.nginxModules.dav
+      pkgs.nginxModules.moreheaders
+    ];
+  };
+
   nginxModules = pkgs.recurseIntoAttrs {
     cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
   };

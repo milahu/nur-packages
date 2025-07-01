@@ -174,7 +174,9 @@ stdenv.mkDerivation {
       stdenv.buildPlatform != stdenv.hostPlatform
     ) "--crossbuild=${stdenv.hostPlatform.uname.system}::${stdenv.hostPlatform.uname.processor}"
     ++ configureFlags
-    ++ map (mod: "--add-module=${mod.src}") modules;
+    ++ map (mod: "--add-module=${mod.src}") modules
+    ++ (mapModules "configureFlags")
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [

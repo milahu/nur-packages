@@ -110,6 +110,7 @@ stdenv.mkDerivation {
     ]
     ++ buildInputs
     ++ mapModules "inputs"
+    ++ mapModules "buildInputs"
     ++ lib.optional withGeoIP geoip
     ++ lib.optional withImageFilter gd;
 

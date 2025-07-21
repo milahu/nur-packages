@@ -1108,6 +1108,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nym-wallet-bin = callPackage ./pkgs/tools/security/nym/nym-wallet-bin.nix { };
 
+  # findimagedupes = callPackage ./pkgs/tools/graphics/findimagedupes { };
+  # fix: error: undefined variable 'DBFile' at perlPackages.DBFile
+  # FIXME scope
+  findimagedupes = pkgs.callPackage ./pkgs/tools/graphics/findimagedupes { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

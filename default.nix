@@ -459,6 +459,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       gostcrypto = callPackage ./pkgs/python3/pkgs/gostcrypto { };
 
+      tigerhash = callPackage ./pkgs/python3/pkgs/tigerhash { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

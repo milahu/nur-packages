@@ -457,6 +457,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       traktexport = callPackage ./pkgs/python3/pkgs/traktexport { };
 
+      gostcrypto = callPackage ./pkgs/python3/pkgs/gostcrypto { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

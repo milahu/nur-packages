@@ -453,6 +453,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ffmpegio = callPackage ./pkgs/python3/pkgs/ffmpegio { };
 
+      pytrakt = callPackage ./pkgs/python3/pkgs/pytrakt { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

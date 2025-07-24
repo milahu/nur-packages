@@ -491,6 +491,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   vtt2clean-srt = python3Packages.vtt2clean-srt;
 
+  traktexport = python3Packages.traktexport;
+
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
       callPackage ./pkgs/deno/pkgs { }

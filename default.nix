@@ -467,6 +467,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ratarmount = callPackage ./pkgs/python3/pkgs/ratarmount { };
 
+      ratarmountcore = callPackage ./pkgs/python3/pkgs/ratarmountcore { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

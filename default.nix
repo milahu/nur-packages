@@ -455,6 +455,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pytrakt = callPackage ./pkgs/python3/pkgs/pytrakt { };
 
+      traktexport = callPackage ./pkgs/python3/pkgs/traktexport { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

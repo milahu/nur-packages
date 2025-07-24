@@ -461,6 +461,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tigerhash = callPackage ./pkgs/python3/pkgs/tigerhash { };
 
+      ripemd = callPackage ./pkgs/python3/pkgs/ripemd { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -1113,6 +1113,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # FIXME scope
   findimagedupes = pkgs.callPackage ./pkgs/tools/graphics/findimagedupes { };
 
+  tarindexer = callPackage ./pkgs/tools/compression/tarindexer { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

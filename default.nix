@@ -1086,6 +1086,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   wireshare = callPackage ./pkgs/applications/networking/p2p/wireshare { };
 
+  patchelf_pr_118 = callPackage ./pkgs/development/tools/misc/patchelf/pr_118.nix { };
+
   voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
 
   nginx = nginxStable;

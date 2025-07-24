@@ -463,6 +463,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ripemd = callPackage ./pkgs/python3/pkgs/ripemd { };
 
+      hashbase = callPackage ./pkgs/python3/pkgs/hashbase { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

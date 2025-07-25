@@ -1,0 +1,45 @@
+commit 5c52aa4a9313888dd7b6707e579f5d47779d3614
+Author: Milan Hauth <milahu@gmail.com>
+Date:   Fri Jul 25 17:29:12 2025 +0200
+
+    fix: invalid user-defined conversion to xmlStructuredErrorFunc
+
+diff --git a/src/libsrcml/sax2_srcsax_handler.cpp b/src/libsrcml/sax2_srcsax_handler.cpp
+index e2ca856..72b0a19 100644
+--- a/src/libsrcml/sax2_srcsax_handler.cpp
++++ b/src/libsrcml/sax2_srcsax_handler.cpp
+@@ -118,7 +118,7 @@ static int reparse_root(void* ctx) {
+     memset(&roottagsax, 0, sizeof(roottagsax));
+     roottagsax.initialized    = XML_SAX2_MAGIC;
+     xmlSetStructuredErrorFunc(ctx, [](void * userData,
+-                     xmlErrorPtr /* error */) {
++                     const xmlError* /* error */) {
+ 
+         auto ctxt = (xmlParserCtxtPtr) userData;
+         if (ctxt == nullptr)
+diff --git a/src/libsrcml/srcSAXController.cpp b/src/libsrcml/srcSAXController.cpp
+index 990b85f..88326a5 100644
+--- a/src/libsrcml/srcSAXController.cpp
++++ b/src/libsrcml/srcSAXController.cpp
+@@ -82,7 +82,7 @@ void srcSAXController::parse(srcSAXHandler * handler) {
+ 
+     if (status != 0) {
+ 
+-        xmlErrorPtr ep = xmlCtxtGetLastError(context->libxml2_context);
++        const xmlError* ep = xmlCtxtGetLastError(context->libxml2_context);
+         SAXError error = { std::string(ep->message), ep->code };
+ 
+         throw error;
+diff --git a/src/libsrcml/srcsax_controller.cpp b/src/libsrcml/srcsax_controller.cpp
+index 332c5b0..02b767c 100644
+--- a/src/libsrcml/srcsax_controller.cpp
++++ b/src/libsrcml/srcsax_controller.cpp
+@@ -129,7 +129,7 @@ int srcsax_parse(srcsax_context* context) {
+ 
+     if (status != 0 && context->srcsax_error) {
+ 
+-        xmlErrorPtr ep = xmlCtxtGetLastError(context->libxml2_context);
++        const xmlError* ep = xmlCtxtGetLastError(context->libxml2_context);
+ 
+         auto str_length = strlen(ep->message);
+         ep->message[str_length - 1] = '\0';

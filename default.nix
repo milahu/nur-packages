@@ -471,6 +471,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ratarmount = callPackage ./pkgs/development/python-modules/ratarmount { };
 
+      kaitaistruct = callPackage ./pkgs/development/python-modules/kaitaistruct { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

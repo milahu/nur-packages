@@ -1145,6 +1145,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   kaitai-struct-compiler = callPackage ./pkgs/by-name/ka/kaitai-struct-compiler/package.nix { };
 
+  srcml = callPackage ./pkgs/development/tools/srcml { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -1,0 +1,45 @@
+commit 6370322f3407c3ba0a528bd8b5103f3bebc746ad
+Author: Milan Hauth <milahu@gmail.com>
+Date:   Fri Jul 25 18:21:43 2025 +0200
+
+    fix: error: no match for 'operator='
+
+diff --git a/src/client/src_input_file.cpp b/src/client/src_input_file.cpp
+index 2134ea8..3db25ea 100644
+--- a/src/client/src_input_file.cpp
++++ b/src/client/src_input_file.cpp
+@@ -38,7 +38,7 @@ int src_input_file(ParseQueue& queue,
+     std::shared_ptr<ParseRequest> prequest(new ParseRequest);
+ 
+     if (option(SRCML_COMMAND_NOARCHIVE)) {
+-        prequest->disk_dir = srcml_request.output_filename;
++        prequest->disk_dir = std::string(srcml_request.output_filename);
+     }
+ 
+     if (srcml_request.att_filename)
+diff --git a/src/client/src_input_libarchive.cpp b/src/client/src_input_libarchive.cpp
+index d7feb00..947cbf5 100644
+--- a/src/client/src_input_libarchive.cpp
++++ b/src/client/src_input_libarchive.cpp
+@@ -228,7 +228,7 @@ int src_input_libarchive(ParseQueue& queue,
+         std::shared_ptr<ParseRequest> prequest(new ParseRequest);
+ 
+         if (option(SRCML_COMMAND_NOARCHIVE))
+-            prequest->disk_dir = srcml_request.output_filename;
++            prequest->disk_dir = std::string(srcml_request.output_filename);
+ 
+         if (srcml_request.att_filename || (filename != "-"))
+             prequest->filename = filename;
+diff --git a/src/client/src_input_text.cpp b/src/client/src_input_text.cpp
+index 59d970f..1dd1a87 100644
+--- a/src/client/src_input_text.cpp
++++ b/src/client/src_input_text.cpp
+@@ -67,7 +67,7 @@ int src_input_text(ParseQueue& queue,
+         std::shared_ptr<ParseRequest> prequest(new ParseRequest);
+ 
+         if (option(SRCML_COMMAND_NOARCHIVE))
+-            prequest->disk_dir = srcml_request.output_filename;
++            prequest->disk_dir = std::string(srcml_request.output_filename);
+ 
+         prequest->filename = srcml_request.att_filename;
+         prequest->url = srcml_request.att_url;

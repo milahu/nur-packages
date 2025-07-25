@@ -471,6 +471,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       mfusepy = callPackage ./pkgs/python3/pkgs/mfusepy { };
 
+      kaitaistruct = callPackage ./pkgs/development/python-modules/kaitaistruct { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

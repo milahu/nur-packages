@@ -1143,6 +1143,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   tarindexer = callPackage ./pkgs/tools/compression/tarindexer { };
 
+  kaitai-struct-compiler = callPackage ./pkgs/by-name/ka/kaitai-struct-compiler/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

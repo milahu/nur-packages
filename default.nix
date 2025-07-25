@@ -1147,6 +1147,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   srcml = callPackage ./pkgs/development/tools/srcml { };
 
+  gumtree = callPackage ./pkgs/development/tools/gumtree { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

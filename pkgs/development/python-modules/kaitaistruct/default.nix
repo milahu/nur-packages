@@ -18,12 +18,16 @@ let
 in
 buildPythonPackage rec {
   pname = "kaitaistruct";
-  version = "0.10";
+  # last tag: 0.10 @ 2022-07-07
+  # https://github.com/kaitai-io/kaitai_struct_python_runtime/issues/81
+  version = "0.11.2025.03.30";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-oETe4pFz1q+6zye8rDna+JtlTdQYz6AJq4LZF4qa5So=";
+  src = fetchFromGitHub {
+    owner = "kaitai-io";
+    repo = "kaitai_struct_python_runtime";
+    rev = "a6b0315bc1a07b5b54e2c086204e7633f780f0d7";
+    hash = "sha256-3Ds9liv46YEgippA3L+i8fcTDgEfLs8RjfquRwRfqZ4=";
   };
 
   preBuild = ''
@@ -42,7 +46,6 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [
     "kaitaistruct"
-    "kaitai.compress"
   ];
 
   meta = with lib; {

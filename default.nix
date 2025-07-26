@@ -1149,6 +1149,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gumtree = callPackage ./pkgs/development/tools/gumtree { };
 
+  mkSbtDerivation = callPackage ./pkgs/development/tools/sbt-derivation { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

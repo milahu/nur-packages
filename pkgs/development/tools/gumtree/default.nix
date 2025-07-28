@@ -24,7 +24,7 @@ gradle2nix.buildGradlePackage rec {
   /*
     git clone --depth=1 https://github.com/GumTreeDiff/gumtree
     cd gumtree
-    nix-shell -p java nur.repos.milahu.gradle2nix
+    nix-shell -p jre nur.repos.milahu.gradle2nix
     gradle2nix
   */
   lockFile = ./gradle.lock;

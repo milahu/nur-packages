@@ -173,7 +173,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       #ffsubsync = callPackage ./pkgs/python3/pkgs/ffsubsync/ffsubsync.nix { };
       ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
-      ete3 = callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
+      ete3 = callPackage ./pkgs/python3/pkgs/ete3/ete3.nix { };
 
       faust-cchardet = callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
 

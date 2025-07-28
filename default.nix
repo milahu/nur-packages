@@ -1151,6 +1151,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   mkSbtDerivation = callPackage ./pkgs/development/tools/sbt-derivation { };
 
+  xtdb = callPackage ./pkgs/servers/sql/xtdb { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

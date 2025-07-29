@@ -475,6 +475,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       python-ext4 = callPackage ./pkgs/development/python-modules/python-ext4 { };
 
+      pysquashfsimage = callPackage ./pkgs/development/python-modules/pysquashfsimage { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -1,42 +1,69 @@
-{ lib
-, buildPythonPackage
-, fetchgit
-, pythonOlder
-, pytestCheckHook
-, indexed-bzip2
-, indexed-gzip
-, indexed-zstd
-, python-xz
-, rapidgzip
-, rarfile
-, zstandard     # Python bindings
-, zstd          # System tool
+{
+  lib,
+  buildPythonPackage,
+  # fetchgit,
+  fetchFromGitHub,
+  makeWrapper,
+  makePythonPath,
+  pythonOlder,
+  # pytestCheckHook,
+  indexed-bzip2,
+  indexed-gzip,
+  indexed-zstd,
+  python-xz,
+  rapidgzip,
+  rarfile,
+  zstandard,
+  fsspec,
+  libarchive-c,
+  mfusepy,
+  lrzip,
+  lzop,
+  lzmaffi,
+  pysquashfsimage,
+  py7zr,
+  pyfatfs,
+  python-ext4,
+  sqlcipher3,
 }:
 
 buildPythonPackage rec {
   pname = "ratarmountcore";
-  version = "0.6.0";
+  version = "1.1.1";
 
   disabled = pythonOlder "3.6";
 
-  src = fetchgit {
-    url = "https://github.com/mxmlnkn/ratarmount";
-    # The revision is hardcoded for now to fix problems with the tests, which are not worthy of a new release
-    # tag because releases do not officially contain tests. On the next release, use the commented revision,
-    # which points to a release tag, instead.
-    #rev = "core-v${version}";
-    rev = "ea43572dfbac4770a27ef2169f72ff73ee4a4ae9";
-    hash = "sha256-sPApM5OW+UbujFXHSL4ptMaegajz7FNtXz/KftTlw+U=";
+  src = fetchFromGitHub {
+    owner = "mxmlnkn";
+    repo = "ratarmount";
+    tag = "v${version}";
+    hash = "sha256-OEp2YV4PNRaFF5Al66+0KW842KlUWf+Dp2FmbrPLyug=";
     fetchSubmodules = true;
   };
 
   sourceRoot = "${src.name}/core";
 
-  propagatedBuildInputs = [ indexed-gzip indexed-bzip2 indexed-zstd python-xz rapidgzip rarfile ];
+  # TODO maybe update dependencies
+  propagatedBuildInputs = [
+    indexed-gzip
+    indexed-bzip2
+    indexed-zstd
+    python-xz
+    rapidgzip
+    rarfile
+    zstandard
+    fsspec
+    libarchive-c
+    mfusepy
+    lzmaffi
+    pysquashfsimage
+    py7zr
+    pyfatfs
+    python-ext4
+    sqlcipher3
+  ];
 
   pythonImportsCheck = [ "ratarmountcore" ];
-
-  nativeCheckInputs = [ pytestCheckHook zstandard zstd ];
 
   meta = with lib; {
     description = "Library for accessing archives by way of indexing";

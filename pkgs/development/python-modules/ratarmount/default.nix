@@ -1,31 +1,35 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, fusepy
-, ratarmountcore
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  fusepy,
+  ratarmountcore,
+  fsspec,
+  zstd,
+  pytestCheckHook,
+  callPackage,
 }:
 
 buildPythonPackage rec {
   pname = "ratarmount";
-  version = "0.14.0";
 
-  disabled = pythonOlder "3.6";
+  inherit (ratarmountcore) version src disabled;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-P+p0h+KuOsunPsXbRwxzAhr1XcEqMjQxHeHmA29+pDQ=";
-  };
+  propagatedBuildInputs = [
+    ratarmountcore
+  ];
 
-  propagatedBuildInputs = [ ratarmountcore fusepy ];
-
-  checkPhase = ''
-    runHook preCheck
-
-    python tests/tests.py
-
-    runHook postCheck
-  '';
+  # WONTFIX? many tests fail
+  # 14 failed, 439 passed, 2 skipped in 452.81s (0:07:32)
+  # https://discourse.nixos.org/t/using-fuse-inside-nix-derivation/8534
+  /*
+  nativeCheckInputs = [
+    pytestCheckHook
+    zstandard
+    zstd
+  ];
+  */
 
   meta = with lib; {
     description = "Mounts archives as read-only file systems by way of indexing";

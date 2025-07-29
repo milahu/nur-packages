@@ -477,6 +477,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pysquashfsimage = callPackage ./pkgs/development/python-modules/pysquashfsimage { };
 
+      lzmaffi = callPackage ./pkgs/development/python-modules/lzmaffi { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

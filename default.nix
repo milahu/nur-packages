@@ -473,6 +473,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       kaitaistruct = callPackage ./pkgs/development/python-modules/kaitaistruct { };
 
+      python-ext4 = callPackage ./pkgs/development/python-modules/python-ext4 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

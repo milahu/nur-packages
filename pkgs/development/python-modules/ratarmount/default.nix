@@ -31,6 +31,10 @@ buildPythonPackage rec {
   ];
   */
 
+  passthru = {
+    test = callPackage ./test.nix { };
+  };
+
   meta = with lib; {
     description = "Mounts archives as read-only file systems by way of indexing";
     homepage = "https://github.com/mxmlnkn/ratarmount";

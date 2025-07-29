@@ -6,13 +6,36 @@
   callPackage,
   fetchFromGitHub,
   gradle2nix,
-  # protobuf,
-  # makeWrapper,
+  # protobuf_31,
+  makeWrapper,
+  jdk,
 }:
 
 let
   # TODO upstream: this belongs to gradle2nix.mkOverride
   mkOverride = callPackage ./gradle2nix-mk-override.nix { };
+
+  # no. protoc is not used by the gradle build
+  # protobuf = protobuf_31;
+  /*
+  # no. building protobuf from source is 1000x slower
+  # than fixing the com.google.protobuf:protoc jar file
+  # no. protobuf_31 already is version 4.31.1
+  protobuf = protobuf_31.overrideAttrs (o: rec {
+    version = "4.31.1";
+    # https://github.com/protocolbuffers/protobuf
+    src = fetchFromGitHub {
+      owner = "protocolbuffers";
+      repo = "protobuf";
+      rev = "v${version}";
+      hash = "sha256-E8q8XupOXoCFpXyGNHArfBmVm6ebfDgaJlJyvMqpveU=";
+    };
+    # fix:
+    # Did not find version 4.31.1 in the output of the command protoc --version
+    # libprotoc 31.1
+    doInstallCheck = false;
+  });
+  */
 in
 
 gradle2nix.buildGradlePackage rec {
@@ -53,8 +76,9 @@ gradle2nix.buildGradlePackage rec {
   lockFile = ./gradle.lock;
 
   nativeBuildInputs = [
-    # protobuf # not used
-    # makeWrapper # not used
+    # no. protoc is not used by the gradle build
+    # protobuf
+    makeWrapper
   ];
 
   gradleBuildFlags = [
@@ -76,7 +100,7 @@ gradle2nix.buildGradlePackage rec {
     # "--warning-mode" "all" # debug
 
     # build all default targets
-    "build"
+    # "build"
 
     # based on docker/bin/build-standalone-image.sh
     # docker/standalone/build.gradle.kts
@@ -107,63 +131,50 @@ gradle2nix.buildGradlePackage rec {
   # FIXME build.gradle.kts has no installDist target
   # error: builder failed to produce output path for output 'out'
   # https://github.com/xtdb/xtdb/issues/4637
+  /*
   gradleInstallFlags = [
     "installDist"
   ];
+  */
 
-  # TODO create symlinks or scripts in $out/bin/
-  # what is the entry point to the xtdb server?
-  # ... or at least to the clojure repl where i can enter "(go)" to start the server
-  /*
-    $ java -jar ./result/opt/xtdb/docker/standalone/build/libs/xtdb-standalone.jar
-    Clojure 1.12.0
-    user=> (go)
-    Syntax error compiling at (REPL:1:1).
-    Unable to resolve symbol: go in this context
-  */
-  /*
-    $ LANG=C java -jar ./result/opt/xtdb/http-server/build/libs/xtdb-http-server-2.0.0-SNAPSHOT.jar
-    no main manifest attribute, in ./result/opt/xtdb/http-server/build/libs/xtdb-http-server-2.0.0-SNAPSHOT.jar
-  */
   installPhase =
-  if true then ''
+  if false then ''
     # debug: install all files
     mkdir -p $out/opt
     cp -r . $out/opt/xtdb
     # remove broken symlinks
     # fix: ERROR: noBrokenSymlinks: the symlink x points to a missing target y
     find $out -xtype l -delete
+    mkdir -p $out/bin
+    # TODO gradle2nix should set offlineRepo
+    offlineRepo=$(grep -F -m1 "repo.url 'file:" $gradleInitScript | sed -E "s|.*'file:(.*)'.*|\1|")
+    echo "offlineRepo: $offlineRepo"
+    find $out -path '*/build/scripts/*' | grep -v '\.bat$' |
+    while read script; do
+      echo "script: $script"
+      # patch classpath in script
+      classpath=$(find $offlineRepo $out -false $(printf ' -or -name %s' $(grep -m1 ^CLASSPATH= "$script" | tr : $'\n' | sed 's|\$APP_HOME/lib/||')) | tr $'\n' :)
+      sed -i "s|^CLASSPATH=.*|CLASSPATH=$classpath|" "$script"
+      n=$(echo "$script" | sed -E 's|.*/(xtdb/.*)/build/scripts/.*|\1|' | tr / -)
+      ln -svr "$script" $out/bin/$n
+    done
   ''
   else
-  # TODO expose this as $out/bin/xtdb: build.gradle.kts: tasks.clojureRepl
-  # FIXME this is not working. probably needs more jar files
-  # https://github.com/xtdb/xtdb/tree/main/dev#getting-started
-  /*
-    $ xtdb
-    Clojure 1.12.0
-    user=> (dev)
-    Syntax error compiling at (REPL:1:1).
-    Unable to resolve symbol: dev in this context
-    user=> (go)
-    Syntax error compiling at (REPL:1:1).
-    Unable to resolve symbol: go in this context
-  */
+  # based on https://github.com/xtdb/xtdb/blob/v2.0.0/docker/standalone/Dockerfile
   ''
-    mkdir -p $out/bin
     mkdir -p $out/lib
     cp docker/standalone/build/libs/xtdb-standalone.jar $out/lib
+    mkdir -p $out/bin
     cat >$out/bin/xtdb <<EOF
-    exec java -jar $out/lib/xtdb-standalone.jar
+    exec ${jdk}/bin/java \
+      -cp $out/lib/xtdb-standalone.jar \
+      -Dclojure.main.report=stderr \
+      --add-opens=java.base/java.nio=ALL-UNNAMED \
+      -Dio.netty.tryReflectionSetAccessible=true \
+      clojure.main -m xtdb.main
     EOF
     chmod +x $out/bin/xtdb
   '';
-
-  /*
-    cp -r dist/build/install/gumtree/{bin,lib} $out
-    rm $out/bin/gumtree.bat
-    wrapProgram $out/bin/gumtree \
-      --prefix PATH : ${lib.makeBinPath [ ]}
-  */
 
   # TODO keep names in sync with gradle.lock
   # or use overridesGlob

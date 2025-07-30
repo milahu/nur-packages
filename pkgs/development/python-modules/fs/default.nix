@@ -4,24 +4,37 @@
   appdirs,
   buildPythonPackage,
   fetchPypi,
+  fetchFromGitHub,
   mock,
   psutil,
   pyftpdlib,
   pytestCheckHook,
   pythonOlder,
   pytz,
+  parameterized,
   setuptools,
   six,
 }:
 
 buildPythonPackage rec {
   pname = "fs";
-  version = "2.4.16";
+  version = "2.4.17";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
 
-  src = fetchPypi {
+  src =
+  if true then
+  fetchFromGitHub {
+    # https://github.com/PyFilesystem/pyfilesystem2/pull/590
+    # https://github.com/milahu/pyfilesystem2/tree/pkg-resources-part-1-and-2
+    owner = "milahu";
+    repo = "pyfilesystem2";
+    rev = "70dc40dae57bbdb579f42cff30cb993a674018a0";
+    hash = "sha256-XSDR9AMTWEcnyQ440GRYylMIz0tw0dR3l3LB3wo9kqI=";
+  }
+  else
+  fetchPypi {
     inherit pname version;
     hash = "sha256-rpfH1RIT9LcLapWCklMCiQkN46fhWEHhCPvhRPBp0xM=";
   };
@@ -39,6 +52,7 @@ buildPythonPackage rec {
     six
     appdirs
     pytz
+    parameterized
   ];
 
   nativeCheckInputs = [

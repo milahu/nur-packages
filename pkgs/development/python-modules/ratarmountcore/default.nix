@@ -1,12 +1,10 @@
 {
   lib,
   buildPythonPackage,
-  # fetchgit,
   fetchFromGitHub,
   makeWrapper,
   makePythonPath,
   pythonOlder,
-  # pytestCheckHook,
   indexed-bzip2,
   indexed-gzip,
   indexed-zstd,
@@ -25,6 +23,7 @@
   pyfatfs,
   python-ext4,
   sqlcipher3,
+  cryptography,
 }:
 
 buildPythonPackage rec {
@@ -43,7 +42,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/core";
 
-  # TODO maybe update dependencies
+  # NOTE here we add only python dependencies
+  # so the user is responsible for adding native dependencies
+  # see also nativeTestInputs in pkgs/development/python-modules/ratarmount/test.nix
   propagatedBuildInputs = [
     indexed-gzip
     indexed-bzip2
@@ -61,6 +62,7 @@ buildPythonPackage rec {
     pyfatfs
     python-ext4
     sqlcipher3
+    cryptography # also required for sqlcipher3
   ];
 
   pythonImportsCheck = [ "ratarmountcore" ];

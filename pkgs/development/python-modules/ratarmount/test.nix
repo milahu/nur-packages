@@ -4,29 +4,13 @@
 
 {
   lib,
+  pkgs,
   stdenv,
   ratarmountcore,
   ratarmount,
-  # fetchgit,
-  makeWrapper,
   makePythonPath,
-  # pytestCheckHook,
   pytest,
-  moreutils,
-  sqlite, # sqlar?
-  coreutils,
   python,
-  gnutar,
-  pixz,
-  bzip2,
-  gzip,
-  procps,
-  gnugrep,
-  pkgs,
-  diffutils,
-  findutils,
-  gnused,
-  bash,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,131 +18,145 @@ stdenv.mkDerivation rec {
 
   inherit (ratarmount) version src;
 
-  nativeBuildInputs = [
-    makeWrapper
-    moreutils # sponge
-  ];
-
-  # WONTFIX? many tests fail
-  # https://discourse.nixos.org/t/using-fuse-inside-nix-derivation/8534
-  /*
-  nativeCheckInputs = [
-    pytestCheckHook
-    zstandard
-    # tests/test_BlockParallelReaders.py
-    # subprocess.run(['zstd'
-    zstd
-    # TODO verify
-    lrzip
-    lzop
-  ];
-  */
-
-  # TODO cleanup. use pytest?
   postInstall =
-  if false then
-  (
   let
-    nativeTestInputs = [
-    ];
     pythonTestInputs = ratarmountcore.propagatedBuildInputs;
-  in
-  ''
-    # cp -r tests $out
-    # cp -r . $out
-    cp -r .. $out
-    # for f in $out/test_*.py; do
-    # for f in $out/tests/test_*.py; do
-    for f in $out/core/tests/test_*.py; do
-      {
-        echo '#!${pytest}/bin/pytest'
-        echo 'import sys'
-        echo 'sys.path += "'${makePythonPath pythonTestInputs}:$(toPythonPath $out)'".split(":")'
-        # echo 'sys.path += "'${makePythonPath pythonTestInputs}'".split(":")'
-        echo 'import os'
-        echo 'os.environ["PATH"] += "${lib.makeBinPath nativeTestInputs}"'
-        cat "$f" | grep -v -F "sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))"
-        # cat "$f"
-      } | sponge "$f"
-      chmod +x "$f"
-    done
-    if false; then
-    cat >$out/test.sh <<'EOF'
-    #!/usr/bin/env bash
-    cd "$(dirname "$0")"
-    for f in test_*.py; do
-      echo "$f"
-      ./"$f"
-    done
-    EOF
-    chmod +x $out/test.sh
-    fi
-    # no. we also have to run this on runtime, not in the nix-build sandbox
-    if false; then
-    echo "generating test files"
-    bash $out/tests/create-tests.sh
-    else
-    chmod -R +w $out/tests/
-    # sed -i '1 i\#!/usr/bin/env bash' $out/tests/create-tests.sh
-    # sed -i '1 i\#!/usr/bin/env bash\nset -eux' $out/tests/create-tests.sh
-    sed -i '1 i\#!/usr/bin/env bash\nset -x' $out/tests/create-tests.sh
-    chmod +x $out/tests/create-tests.sh
-    fi
-  ''
-  )
-  else
-  (
-  let
+
     nativeTestInputs = [
-      coreutils # dd
-      python
       pytest
+    ] ++ (with pkgs; [
+      # fix: rarfile.RarCannotExec: Cannot find working tool
+      rar # unfree
+      # fix: Exception: Can't initialize filter; unable to run program "lrzip -d -q"
+      lrzip
+      # fix: Exception: Can't initialize filter; unable to run program "lz4 -d -q"
+      lz4
+      # fix: Exception: Can't initialize filter; unable to run program "lzop -d"
+      lzop
+      # all these are needed for create-tests.sh
+      /*
+      coreutils # mktemp
       gnutar
-      # sqlite
+      sqlite
+      sqlar
       pixz
       bzip2
       gzip
       procps # pkill
       gnugrep
-      pkgs.zstd
+      zstd
       diffutils
       findutils
       # TODO upstream: these commands are not checked: for tool in dd zstd stat ...
-      pkgs.attr # setfattr
+      attr # setfattr
       gnused
-      pkgs.fuse # fusermount
+      # fuse # fusermount # needs suid wrapper
       bash
-    ];
-    pythonTestInputs = ratarmountcore.propagatedBuildInputs;
+      # sudo # needs suid wrapper
+      # util-linux.mount # needs suid wrapper
+      lz4
+      e2fsprogs # mkfs.ext4
+      squashfsTools # sqfstar
+      zip
+      unzip
+      rar # unfree
+      p7zip
+      xz
+      cdrkit # mkisofs genisoimage
+      lrzip
+      lzip
+
+      lzop
+      ncompress # compress
+      binutils # ar
+      lcab
+      xar
+      cpio
+      dosfstools # mkfs.fat
+      libarchive # bsdtar
+      asar # npm: @electron/asar
+      */
+    ]);
   in
+
+  # toPythonPath is defined in nixpkgs/pkgs/development/interpreters/python/setup-hook.sh
+  # so its not available in stdenv.mkDerivation
+  # export PYTHONPATH=${makePythonPath pythonTestInputs}:$(toPythonPath $out)
+
+  # TODO future: check output for "command not found" errors and add missing dependencies
   ''
     mkdir -p $out/bin
+
     cat >$out/bin/ratarmount-test <<EOF
     #!/usr/bin/env bash
     set -e
-    # set -u # RATARMOUNT_CMD unbound
-    set -x
-    export PYTHONPATH=${makePythonPath pythonTestInputs}:$(toPythonPath $out)
-    # TODO more
-    export PATH=${lib.makeBinPath nativeTestInputs}
-    export LANG=C
+    # set -x # debug
+
+    # no. sudo is only needed for create-tests.sh
+    # for f in fusermount mount umount sudo; do
+    for f in fusermount mount umount; do
+      f=/run/wrappers/bin/\$f
+      if ! [ -x "\$f" ]; then
+        echo "error: missing suid wrapper: \$f"
+        # not reachable? these suid wrappers should installed by default
+        echo "you must install this tool via /etc/nixos/configuration.nix and nixos-rebuild"
+        exit 1
+      fi
+    done
+    # add all suid wrappers from env, also for: fusermount, mount, umount
+    export PATH=${lib.makeBinPath nativeTestInputs}:/run/wrappers/bin
+
+    export PYTHONPATH=${makePythonPath pythonTestInputs}:$out/${python.sitePackages}
+
+    export LANG=C # english
+
+    for a in "\$@"; do
+      if [ "\$a" = "-h" ] || [ "\$a" = "--help" ]; then
+        echo "ratarmount-test: all arguments are passed to pytest. pytest help:"
+        echo
+        exec pytest --help
+      fi
+    done
+
+    # no. a writable workdir is only needed for create-tests.sh
+    if false; then
     tempdir=\$(mktemp -d --tmpdir ratarmount-test.XXXXXXXXXX)
     echo "using tempdir \$tempdir"
     cd \$tempdir
+    # FIXME error: expected a set but found a path
     cp -r --no-preserve=owner ${src} ratarmount
     chmod -R +w ratarmount
     cd ratarmount
-    RATARMOUNT_CMD=${ratarmount}/bin/ratarmount
-    CI=1 # dont run tests/run-style-checkers.sh
-    echo "calling tests/runtests.sh ..."
-    # FIXME pkill: killing pid 1370 failed: Operation not permitted
-    . tests/runtests.sh
-    echo "calling tests/runtests.sh done"
-    echo "keeping tempdir \$tempdir"
+    else
+    # read-only
+    cd ${src}
+    fi
+
+    # no. this is not necessary, because all test files are in the git repo
+    if false; then
+    # create test files for pytest
+    echo "calling ratarmount/tests/create-tests.sh"
+    # alias does not work: alias tarc='tar -c --owner=user --group=group --numeric'
+    function tarc() { tar -c --owner=user --group=group --numeric "\$@"; }
+    function npm() { echo "ignoring: npm \$@"; }
+    function npx() { echo "ignoring: npx \$@"; }
+    function wget() { echo "ignoring: wget \$@"; }
+    # FIXME this path is still mounted
+    # /tmp/ratarmount-test.*/ratarmount/momo
+    set +e # fails at: tar -x -f single-file.tar
+    set -e; set -x # debug
+    cd tests
+    . create-tests.sh
+    cd ..
+    set -e
+    fi
+
+    # no. this breaks tests
+    # cd tests; pytest "\$@"
+
+    printf ">"; printf " %q" pytest tests/ "\$@"; printf "\n"
+    exec pytest tests/ "\$@"
     EOF
     chmod +x $out/bin/ratarmount-test
-
-    # TODO also run: python3 tests/tests.py
-  ''
-  );
+  '';
 }

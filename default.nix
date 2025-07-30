@@ -479,6 +479,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       lzmaffi = callPackage ./pkgs/development/python-modules/lzmaffi { };
 
+      fs = callPackage ./pkgs/development/python-modules/fs { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

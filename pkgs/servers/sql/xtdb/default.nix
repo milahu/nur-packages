@@ -82,6 +82,7 @@ gradle2nix.buildGradlePackage rec {
   ];
 
   gradleBuildFlags = [
+    /*
     # There were failing tests. See the report at: file:///build/source/http-server/build/reports/tests/test/index.html
     "--exclude-task=:xtdb-http-server:test"
     "--exclude-task=:modules:xtdb-flight-sql:test"
@@ -91,6 +92,8 @@ gradle2nix.buildGradlePackage rec {
     # FIXME this is not implemented in gradle
     # https://github.com/gradle/gradle/issues/34433
     # "--exclude-task=*:test"
+    "build"
+    */
 
     # "--scan" # debug # no. this creates new errors
 

@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     description = "The Nym desktop wallet enables you to use the Nym network and take advantage of its key capabilities";
     # https://nym.com/wallet
     homepage = "https://github.com/nymtech/nym/tree/develop/nym-wallet";
-    changelog = "https://github.com/nymtech/nym/blob/${src.rev}/CHANGELOG.md";
+    # FIXME error: attribute 'rev' missing
+    # changelog = "https://github.com/nymtech/nym/blob/${src.rev}/CHANGELOG.md";
     # https://github.com/nymtech/nym/blob/develop/nym-wallet/package.json
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];

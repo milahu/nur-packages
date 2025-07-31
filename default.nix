@@ -48,7 +48,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   github-downloader = callPackage ./pkgs/github-downloader/default.nix { };
 
-  oci-image-generator = callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
+  # FIXME Function called without required argument "writeReferencesToFile"
+  # oci-image-generator = callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
 
   /*
   linux-firecracker = callPackage ./pkgs/linux-firecracker { };

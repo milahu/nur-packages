@@ -484,6 +484,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tempcache = callPackage ./pkgs/development/python-modules/tempcache { };
 
+      make_playlist = callPackage ./pkgs/development/python-modules/make_playlist { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

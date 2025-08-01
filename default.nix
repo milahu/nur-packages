@@ -486,6 +486,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       make_playlist = callPackage ./pkgs/development/python-modules/make_playlist { };
 
+      repro-zipfile = callPackage ./pkgs/development/python-modules/repro-zipfile { };
+
+      rpzip = callPackage ./pkgs/development/python-modules/rpzip { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

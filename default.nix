@@ -482,6 +482,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       fs = callPackage ./pkgs/development/python-modules/fs { };
 
+      tempcache = callPackage ./pkgs/development/python-modules/tempcache { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

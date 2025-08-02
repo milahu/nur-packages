@@ -518,6 +518,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   traktexport = python3Packages.traktexport;
 
+  ratarmount = python3Packages.ratarmount;
+
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
       callPackage ./pkgs/deno/pkgs { }

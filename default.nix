@@ -1170,6 +1170,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   xtdb = callPackage ./pkgs/servers/sql/xtdb { };
 
+  nix-editor = callPackage ./pkgs/development/tools/nix-editor { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

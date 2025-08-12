@@ -6,36 +6,13 @@
   callPackage,
   fetchFromGitHub,
   gradle2nix,
-  # protobuf_31,
+  protobuf_31,
   makeWrapper,
   jdk,
 }:
 
 let
-  # TODO upstream: this belongs to gradle2nix.mkOverride
-  mkOverride = callPackage ./gradle2nix-mk-override.nix { };
-
-  # no. protoc is not used by the gradle build
-  # protobuf = protobuf_31;
-  /*
-  # no. building protobuf from source is 1000x slower
-  # than fixing the com.google.protobuf:protoc jar file
-  # no. protobuf_31 already is version 4.31.1
-  protobuf = protobuf_31.overrideAttrs (o: rec {
-    version = "4.31.1";
-    # https://github.com/protocolbuffers/protobuf
-    src = fetchFromGitHub {
-      owner = "protocolbuffers";
-      repo = "protobuf";
-      rev = "v${version}";
-      hash = "sha256-E8q8XupOXoCFpXyGNHArfBmVm6ebfDgaJlJyvMqpveU=";
-    };
-    # fix:
-    # Did not find version 4.31.1 in the output of the command protoc --version
-    # libprotoc 31.1
-    doInstallCheck = false;
-  });
-  */
+  protobuf = protobuf_31;
 in
 
 gradle2nix.buildGradlePackage rec {
@@ -66,6 +43,11 @@ gradle2nix.buildGradlePackage rec {
     popd
   '';
 
+  postPatch = ''
+    # use native protoc
+    sed -i 's/artifact = "com.google.protobuf:protoc:.*"/path = "protoc"/' core/build.gradle.kts
+  '';
+
   # lockfile generated with
   /*
     nix-shell -p jre nur.repos.milahu.gradle2nix git git-lfs
@@ -76,8 +58,7 @@ gradle2nix.buildGradlePackage rec {
   lockFile = ./gradle.lock;
 
   nativeBuildInputs = [
-    # no. protoc is not used by the gradle build
-    # protobuf
+    protobuf
     makeWrapper
   ];
 
@@ -178,16 +159,6 @@ gradle2nix.buildGradlePackage rec {
     EOF
     chmod +x $out/bin/xtdb
   '';
-
-  # TODO keep names in sync with gradle.lock
-  # or use overridesGlob
-  # https://github.com/tadfisher/gradle2nix/pull/62#issuecomment-2820420531
-  overrides = {
-    # fix: Cannot set protoc-4.31.1-linux-x86_64.exe as executable
-    "com.google.protobuf:protoc:4.31.1" = {
-      "protoc-4.31.1-linux-x86_64.exe" = src: mkOverride src { };
-    };
-  };
 
   meta = {
     description = "An immutable SQL database for application development, time-travel reporting and data compliance. Developed by @juxt";

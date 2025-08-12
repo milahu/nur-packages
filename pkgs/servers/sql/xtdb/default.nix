@@ -155,7 +155,7 @@ gradle2nix.buildGradlePackage rec {
       -Dclojure.main.report=stderr \
       --add-opens=java.base/java.nio=ALL-UNNAMED \
       -Dio.netty.tryReflectionSetAccessible=true \
-      clojure.main -m xtdb.main
+      clojure.main -m xtdb.main "\$@"
     EOF
     chmod +x $out/bin/xtdb
   '';

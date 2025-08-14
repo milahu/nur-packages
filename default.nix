@@ -1174,6 +1174,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nix-editor = callPackage ./pkgs/development/tools/nix-editor { };
 
+  browsermob-proxy-bin = callPackage ./pkgs/development/tools/browsermob-proxy/bin.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

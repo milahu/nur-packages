@@ -150,11 +150,12 @@ gradle2nix.buildGradlePackage rec {
     cp docker/standalone/build/libs/xtdb-standalone.jar $out/lib
     mkdir -p $out/bin
     cat >$out/bin/xtdb <<EOF
-    exec ${jdk}/bin/java \
-      -cp $out/lib/xtdb-standalone.jar \
-      -Dclojure.main.report=stderr \
-      --add-opens=java.base/java.nio=ALL-UNNAMED \
-      -Dio.netty.tryReflectionSetAccessible=true \
+    #!/bin/sh
+    exec ${jdk}/bin/java \\
+      -cp $out/lib/xtdb-standalone.jar \\
+      -Dclojure.main.report=stderr \\
+      --add-opens=java.base/java.nio=ALL-UNNAMED \\
+      -Dio.netty.tryReflectionSetAccessible=true \\
       clojure.main -m xtdb.main "\$@"
     EOF
     chmod +x $out/bin/xtdb

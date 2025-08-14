@@ -490,6 +490,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       rpzip = callPackage ./pkgs/development/python-modules/rpzip { };
 
+      browsermob-proxy = callPackage ./pkgs/development/python-modules/browsermob-proxy {
+        # FIXME scope pkgs.browsermob-proxy
+        pkgs-browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

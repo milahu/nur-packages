@@ -1176,6 +1176,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   browsermob-proxy-bin = callPackage ./pkgs/development/tools/browsermob-proxy/bin.nix { };
 
+  browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -151,6 +151,11 @@ gradle2nix.buildGradlePackage rec {
     mkdir -p $out/bin
     cat >$out/bin/xtdb <<EOF
     #!/bin/sh
+    # workaround for https://github.com/xtdb/xtdb/issues/4678
+    # TODO remove when "xtdb --help" takes less than 10 seconds
+    if ([ "\$1" = "-h" ] || [ "\$1" = "--help" ]) && [ -z "\$XTDB_BYPASS_HELPTEXT_CACHE" ]; then
+      exec cat $out/share/doc/xtdb/xtdb-help.txt
+    fi
     exec ${jdk}/bin/java \\
       -cp $out/lib/xtdb-standalone.jar \\
       -Dclojure.main.report=stderr \\
@@ -159,6 +164,15 @@ gradle2nix.buildGradlePackage rec {
       clojure.main -m xtdb.main "\$@"
     EOF
     chmod +x $out/bin/xtdb
+    # workaround for https://github.com/xtdb/xtdb/issues/4678
+    # TODO remove when "xtdb --help" takes less than 10 seconds
+    mkdir -p $out/share/doc/xtdb
+    echo "rendering helptext ..."
+    t1=$(date +%s)
+    XTDB_BYPASS_HELPTEXT_CACHE=1 \
+    $out/bin/xtdb --help | grep -v '^Starting XTDB' >$out/share/doc/xtdb/xtdb-help.txt
+    t2=$(date +%s)
+    echo "rendering helptext done in $((t2 - t1)) seconds"
   '';
 
   meta = {

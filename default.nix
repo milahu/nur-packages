@@ -1183,6 +1183,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
 
+  scribeocr = callPackage ./pkgs/tools/misc/scribeocr { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

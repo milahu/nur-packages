@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "archive-hocr-tools";
-  version = "1.1.59";
+  version = "1.1.67";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "internetarchive";
     repo = "archive-hocr-tools";
     rev = version;
-    hash = "sha256-LVcABhEbbURKCZ4mP+MmE2Kw85BIXGp45XSBf83BV9g=";
+    hash = "sha256-ZHooJSF9qilF4pdz5I9rIAfP/LRaQsSKqNkinXuA1k4=";
   };
 
   nativeBuildInputs = [

@@ -525,6 +525,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ratarmount = python3Packages.ratarmount;
 
+  archive-hocr-tools = python3Packages.archive-hocr-tools;
+
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
       callPackage ./pkgs/deno/pkgs { }

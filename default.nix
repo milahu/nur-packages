@@ -1197,6 +1197,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
 
+  qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -495,6 +495,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pkgs-browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
       };
 
+      qtermwidget = callPackage ./pkgs/development/python-modules/qtermwidget {
+        # FIXME scope
+        pkgs-qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget {
+          lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
+        };
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

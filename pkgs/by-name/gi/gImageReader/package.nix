@@ -50,6 +50,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xS63iGY1yf0NEnGuss0sme1vSYd2L3sOUd/g8yyPn1k=";
   };
 
+  postPatch =
+  if (builtins.stringLength version == 40) then
+  ''
+    sed -i 's/^EXECUTE_PROCESS(COMMAND git rev-parse HEAD OUTPUT_VARIABLE PACKAGE_REVISION.*/SET(PACKAGE_REVISION "${version}")/' CMakeLists.txt
+  ''
+  else ""
+  ;
+
   nativeBuildInputs = [
     cmake
     ninja

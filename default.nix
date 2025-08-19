@@ -1195,6 +1195,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   hocr-editor-cs = callPackage ./pkgs/tools/misc/hocr-editor-cs { };
 
+  lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

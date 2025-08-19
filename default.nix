@@ -1187,6 +1187,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   scribeocr = callPackage ./pkgs/tools/misc/scribeocr { };
 
+  gImageReader = callPackage ./pkgs/by-name/gi/gImageReader/package.nix { };
+
+  gImageReader-qt = pkgs.qt6Packages.callPackage ./pkgs/by-name/gi/gImageReader/package.nix {
+    withQt6 = true;
+  };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

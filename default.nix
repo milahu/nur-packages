@@ -1193,6 +1193,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     withQt6 = true;
   };
 
+  hocr-editor-cs = callPackage ./pkgs/tools/misc/hocr-editor-cs { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

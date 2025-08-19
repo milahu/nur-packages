@@ -41,13 +41,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gImageReader";
-  version = "5aff249fdc119caa1464af9405259799b4f69d8b";
+  version = "43baf89546cb0f7574836e6dce6e9f6403472567"; # 2025-08-18
 
   src = fetchFromGitHub {
     owner = "manisandro";
     repo = "gImageReader";
     rev = "${version}";
-    sha256 = "sha256-xS63iGY1yf0NEnGuss0sme1vSYd2L3sOUd/g8yyPn1k=";
+    sha256 = "sha256-xAyXjGOYDdyHHdbpiw2+sa85ACdUgmqb9atk1Xdt/Rs=";
   };
 
   postPatch =

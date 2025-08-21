@@ -9,15 +9,15 @@
 
 stdenv.mkDerivation {
   pname = "i2pd-tools";
-  version = "2.56.0";
+  version = "2.56.0.8c95338";
 
   #tries to access the network during the tests, which fails
 
   src = fetchFromGitHub {
     owner = "PurpleI2P";
     repo = "i2pd-tools";
-    rev = "33fce4b087d92ee90653460bbe7a07cdc0c7b121";
-    hash = "sha256-mmCs8AHHKhx1/rDp/Vc1p2W3pufoTa4FcJyJwD919zw=";
+    rev = "8c953386b4823b1af0908098574329a25cb72348";
+    hash = "sha256-SbSZWkrx/pl2HcRgaRcnUML6qgkvJBPzhbxyKKv5P64=";
     fetchSubmodules = true;
   };
 

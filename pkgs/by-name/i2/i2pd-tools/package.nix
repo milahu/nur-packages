@@ -26,6 +26,11 @@ stdenv.mkDerivation {
     openssl
     boost
   ];
+
+  buildPhase = ''
+    make vain
+  '';
+
   installPhase = ''
     runHook preInstall
 

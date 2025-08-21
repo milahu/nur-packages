@@ -21,15 +21,20 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
+  # fix: error: cannot convert 'std::__cxx11::basic_string<char>::iterator' to 'const char*'
+  # https://github.com/PurpleI2P/i2pd-tools/issues/104
+  postPatch = ''
+    substituteInPlace i2pbase64.cpp \
+      --replace-fail \
+        "#include <cassert>" \
+        "#include <cassert>"$'\n'"#include <algorithm>"
+  '';
+
   buildInputs = [
     zlib
     openssl
     boost
   ];
-
-  buildPhase = ''
-    make vain
-  '';
 
   installPhase = ''
     runHook preInstall

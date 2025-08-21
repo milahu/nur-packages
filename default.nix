@@ -1206,6 +1206,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget { };
 
+  i2pd-tools = callPackage ./pkgs/by-name/i2/i2pd-tools/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -9,26 +9,17 @@
 
 stdenv.mkDerivation {
   pname = "i2pd-tools";
-  version = "2.56.0.8c95338";
+  version = "2.56.0.c7dea1f";
 
   #tries to access the network during the tests, which fails
 
   src = fetchFromGitHub {
     owner = "PurpleI2P";
     repo = "i2pd-tools";
-    rev = "8c953386b4823b1af0908098574329a25cb72348";
-    hash = "sha256-SbSZWkrx/pl2HcRgaRcnUML6qgkvJBPzhbxyKKv5P64=";
+    rev = "c7dea1f3ff1aefa62d30dba0e5c57e1322026ee3";
+    hash = "sha256-9yD85Z8zND29nYvA4Y58hQElW6Qvcy3bs769sCoTZk0=";
     fetchSubmodules = true;
   };
-
-  # fix: error: cannot convert 'std::__cxx11::basic_string<char>::iterator' to 'const char*'
-  # https://github.com/PurpleI2P/i2pd-tools/issues/104
-  postPatch = ''
-    substituteInPlace i2pbase64.cpp \
-      --replace-fail \
-        "#include <cassert>" \
-        "#include <cassert>"$'\n'"#include <algorithm>"
-  '';
 
   buildInputs = [
     zlib

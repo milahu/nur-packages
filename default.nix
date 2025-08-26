@@ -344,7 +344,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       camel-snake-pep8 = callPackage ./pkgs/python3/pkgs/camel-snake-pep8/camel-snake-pep8.nix { };
 
-      tree-sitter-languages = callPackage ./pkgs/python3/pkgs/tree-sitter-languages/tree-sitter-languages.nix { };
+      tree-sitter-languages = throw "tree-sitter-languages is broken and has been removed in favor of tree-sitter-language-pack";
 
       stream-zip = callPackage ./pkgs/python3/pkgs/stream-zip/stream-zip.nix { };
 

@@ -502,6 +502,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         };
       };
 
+      pyside6-stubs = callPackage ./pkgs/development/python-modules/pyside6-stubs { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

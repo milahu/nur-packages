@@ -64,12 +64,20 @@ gradle2nix.buildGradlePackage rec {
 
   # FIXME gumtree has no install target
   # https://github.com/GumTreeDiff/gumtree/issues/392
-  /*
   gradleInstallFlags = [
-    "installDist"
+    # "installDist"
+    "installShadowDist"
   ];
-  */
 
+  preInstall = ''
+    echo "preInstall: PWD = $PWD"
+  '';
+
+  postInstall = ''
+    echo "postInstall: PWD = $PWD"
+  '';
+
+  /*
   installPhase =
   # if true then "cp -r . $out" else # debug: install all files
   ''
@@ -79,6 +87,7 @@ gradle2nix.buildGradlePackage rec {
     wrapProgram $out/bin/gumtree \
       --prefix PATH : ${lib.makeBinPath [ srcml ]}
   '';
+  */
 
   meta = {
     description = "syntax-aware diff tool";

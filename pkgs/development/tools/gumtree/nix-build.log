@@ -1,0 +1,726 @@
+Running phase: unpackPhase
+@nix { "action": "setPhase", "phase": "unpackPhase" }
+unpacking source archive /nix/store/ih234pwk02bnrm8r3arvj7cl5py4szi4-source
+source root is source
+Running phase: patchPhase
+@nix { "action": "setPhase", "phase": "patchPhase" }
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+@nix { "action": "setPhase", "phase": "updateAutotoolsGnuConfigScriptsPhase" }
+Running phase: configurePhase
+@nix { "action": "setPhase", "phase": "configurePhase" }
+gradle: enabled parallel building
+gradle: enabled parallel checking
+gradle: enabled parallel installing
+Running phase: buildPhase
+@nix { "action": "setPhase", "phase": "buildPhase" }
+gradleBuildPhase flags: --console=plain --exclude-task=:core:test build --parallel --max-workers 1
+
+Welcome to Gradle 8.14.2!
+
+Here are the highlights of this release:
+ - Java 24 support
+ - GraalVM Native Image toolchain selection
+ - Enhancements to test reporting
+ - Build Authoring improvements
+
+For more details see https://docs.gradle.org/8.14.2/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :buildSrc:extractPluginRequests
+> Task :buildSrc:generatePluginAdapters
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:compileGroovyPlugins
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:jar
+> Task :core:compileJava
+> Task :core:processResources NO-SOURCE
+> Task :core:classes
+> Task :core:jar
+
+> Task :gen.jdt:compileJava
+/build/source/gen.jdt/src/main/java/com/github/gumtreediff/gen/jdt/cd/CdJdtVisitor.java:553: warning: [deprecation] getExpression() in SwitchCase has been deprecated
+        pushNode(node, node.getExpression() != null ? node.getExpression().toString() : "default");
+                           ^
+/build/source/gen.jdt/src/main/java/com/github/gumtreediff/gen/jdt/cd/CdJdtVisitor.java:553: warning: [deprecation] getExpression() in SwitchCase has been deprecated
+        pushNode(node, node.getExpression() != null ? node.getExpression().toString() : "default");
+                                                          ^
+Note: /build/source/gen.jdt/src/main/java/com/github/gumtreediff/gen/jdt/AbstractJdtVisitor.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+2 warnings
+
+> Task :gen.jdt:processResources NO-SOURCE
+> Task :gen.jdt:classes
+> Task :gen.jdt:jar
+> Task :gen.treesitter-ng:compileJava
+> Task :gen.treesitter-ng:processResources
+> Task :gen.treesitter-ng:classes
+> Task :gen.treesitter-ng:jar
+
+> Task :benchmark:compileJava
+Note: /build/source/benchmark/src/main/java/com/github/gumtree/benchmark/RunOnDataset.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :benchmark:processResources NO-SOURCE
+> Task :benchmark:classes
+> Task :benchmark:jar SKIPPED
+> Task :benchmark:startScripts
+> Task :benchmark:distTar
+> Task :benchmark:distZip
+> Task :benchmark:javadoc
+> Task :benchmark:javadocJar
+> Task :benchmark:sourcesJar
+> Task :benchmark:assemble
+> Task :benchmark:checkstyleMain
+> Task :benchmark:compileTestJava NO-SOURCE
+> Task :benchmark:processTestResources NO-SOURCE
+> Task :benchmark:testClasses UP-TO-DATE
+> Task :benchmark:checkstyleTest NO-SOURCE
+> Task :benchmark:test NO-SOURCE
+> Task :benchmark:check
+> Task :benchmark:build
+> Task :client:compileJava
+> Task :client:processResources NO-SOURCE
+> Task :client:classes
+> Task :client:jar
+> Task :client:javadoc
+> Task :client:javadocJar
+> Task :client:sourcesJar
+> Task :client:assemble
+> Task :client:checkstyleMain
+> Task :client:compileTestJava NO-SOURCE
+> Task :client:processTestResources NO-SOURCE
+> Task :client:testClasses UP-TO-DATE
+> Task :client:checkstyleTest NO-SOURCE
+> Task :client:test NO-SOURCE
+> Task :client:check
+> Task :client:build
+
+> Task :client.diff:compileJava
+Note: /build/source/client.diff/src/main/java/com/github/gumtreediff/client/diff/swingdiff/DirectoryPanel.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :client.diff:processResources
+> Task :client.diff:classes
+> Task :client.diff:jar
+> Task :client.diff:javadoc
+> Task :client.diff:javadocJar
+> Task :client.diff:sourcesJar
+> Task :client.diff:assemble
+> Task :client.diff:checkstyleMain
+> Task :client.diff:compileTestJava NO-SOURCE
+> Task :client.diff:processTestResources NO-SOURCE
+> Task :client.diff:testClasses UP-TO-DATE
+> Task :client.diff:checkstyleTest NO-SOURCE
+> Task :client.diff:test NO-SOURCE
+> Task :client.diff:check
+> Task :client.diff:build
+> Task :core:javadoc
+> Task :core:javadocJar
+> Task :core:sourcesJar
+> Task :core:assemble
+> Task :core:checkstyleMain
+> Task :core:compileTestJava
+> Task :core:processTestResources
+> Task :core:testClasses
+> Task :core:checkstyleTest
+> Task :core:check
+> Task :core:build
+> Task :gen.c:compileJava
+> Task :gen.c:processResources NO-SOURCE
+> Task :gen.c:classes
+> Task :gen.c:jar
+> Task :gen.css:compileJava
+> Task :gen.css:processResources NO-SOURCE
+> Task :gen.css:classes
+> Task :gen.css:jar
+> Task :gen.javaparser:compileJava
+> Task :gen.javaparser:processResources NO-SOURCE
+> Task :gen.javaparser:classes
+> Task :gen.javaparser:jar
+> Task :gen.js:compileJava
+> Task :gen.js:processResources NO-SOURCE
+> Task :gen.js:classes
+> Task :gen.js:jar
+> Task :gen.js-acorn:compileJava
+> Task :gen.js-acorn:processResources NO-SOURCE
+> Task :gen.js-acorn:classes
+> Task :gen.js-acorn:jar
+> Task :gen.python:compileJava
+> Task :gen.python:processResources NO-SOURCE
+> Task :gen.python:classes
+> Task :gen.python:jar
+> Task :gen.srcml:compileJava
+> Task :gen.srcml:processResources NO-SOURCE
+> Task :gen.srcml:classes
+> Task :gen.srcml:jar
+> Task :gen.treesitter:compileJava
+> Task :gen.treesitter:processResources NO-SOURCE
+> Task :gen.treesitter:classes
+> Task :gen.treesitter:jar
+> Task :gen.xml:compileJava
+> Task :gen.xml:processResources NO-SOURCE
+> Task :gen.xml:classes
+> Task :gen.xml:jar
+> Task :gen.yaml:compileJava
+> Task :gen.yaml:processResources NO-SOURCE
+> Task :gen.yaml:classes
+> Task :gen.yaml:jar
+> Task :dist:compileJava NO-SOURCE
+> Task :dist:processResources NO-SOURCE
+> Task :dist:classes UP-TO-DATE
+> Task :dist:jar SKIPPED
+> Task :dist:startScripts SKIPPED
+> Task :dist:distTar SKIPPED
+> Task :dist:distZip SKIPPED
+> Task :dist:javadoc NO-SOURCE
+> Task :dist:javadocJar
+> Task :dist:shadowJar
+> Task :dist:startShadowScripts
+> Task :dist:shadowDistTar SKIPPED
+> Task :dist:shadowDistZip
+> Task :dist:sourcesJar
+> Task :dist:assemble
+> Task :dist:checkstyleMain NO-SOURCE
+> Task :dist:compileTestJava NO-SOURCE
+> Task :dist:processTestResources NO-SOURCE
+> Task :dist:testClasses UP-TO-DATE
+> Task :dist:checkstyleTest NO-SOURCE
+> Task :dist:test NO-SOURCE
+> Task :dist:check UP-TO-DATE
+> Task :dist:build
+> Task :dist:installShadowDist
+> Task :gen.json:compileJava
+> Task :gen.json:processResources NO-SOURCE
+> Task :gen.json:classes
+> Task :gen.json:jar
+> Task :dist-minimal:compileJava NO-SOURCE
+> Task :dist-minimal:processResources NO-SOURCE
+> Task :dist-minimal:classes UP-TO-DATE
+> Task :dist-minimal:jar SKIPPED
+> Task :dist-minimal:startScripts SKIPPED
+> Task :dist-minimal:distTar SKIPPED
+> Task :dist-minimal:distZip SKIPPED
+> Task :dist-minimal:javadoc NO-SOURCE
+> Task :dist-minimal:javadocJar
+> Task :dist-minimal:shadowJar
+> Task :dist-minimal:startShadowScripts
+> Task :dist-minimal:shadowDistTar SKIPPED
+> Task :dist-minimal:shadowDistZip
+> Task :dist-minimal:sourcesJar
+> Task :dist-minimal:assemble
+> Task :dist-minimal:checkstyleMain NO-SOURCE
+> Task :dist-minimal:compileTestJava NO-SOURCE
+> Task :dist-minimal:processTestResources NO-SOURCE
+> Task :dist-minimal:testClasses UP-TO-DATE
+> Task :dist-minimal:checkstyleTest NO-SOURCE
+> Task :dist-minimal:test NO-SOURCE
+> Task :dist-minimal:check UP-TO-DATE
+> Task :dist-minimal:build
+> Task :dist-minimal:installShadowDist
+> Task :gen.antlr3:generateGrammarSource NO-SOURCE
+> Task :gen.antlr3:compileJava
+> Task :gen.antlr3:processResources NO-SOURCE
+> Task :gen.antlr3:classes
+> Task :gen.antlr3:jar
+> Task :gen.antlr3:javadoc
+> Task :gen.antlr3:javadocJar
+> Task :gen.antlr3:sourcesJar
+> Task :gen.antlr3:assemble
+> Task :gen.antlr3:checkstyleMain
+> Task :gen.antlr3:generateTestGrammarSource NO-SOURCE
+> Task :gen.antlr3:compileTestJava NO-SOURCE
+> Task :gen.antlr3:processTestResources NO-SOURCE
+> Task :gen.antlr3:testClasses UP-TO-DATE
+> Task :gen.antlr3:checkstyleTest NO-SOURCE
+> Task :gen.antlr3:test NO-SOURCE
+> Task :gen.antlr3:check
+> Task :gen.antlr3:build
+> Task :gen.antlr4:generateGrammarSource NO-SOURCE
+> Task :gen.antlr4:compileJava
+> Task :gen.antlr4:processResources NO-SOURCE
+> Task :gen.antlr4:classes
+> Task :gen.antlr4:jar
+> Task :gen.antlr4:javadoc
+> Task :gen.antlr4:javadocJar
+> Task :gen.antlr4:sourcesJar
+> Task :gen.antlr4:assemble
+> Task :gen.antlr4:checkstyleMain
+> Task :gen.antlr4:generateTestGrammarSource NO-SOURCE
+> Task :gen.antlr4:compileTestJava NO-SOURCE
+> Task :gen.antlr4:processTestResources NO-SOURCE
+> Task :gen.antlr4:testClasses UP-TO-DATE
+> Task :gen.antlr4:checkstyleTest NO-SOURCE
+> Task :gen.antlr4:test NO-SOURCE
+> Task :gen.antlr4:check
+> Task :gen.antlr4:build
+> Task :gen.c:javadoc
+> Task :gen.c:javadocJar
+> Task :gen.c:sourcesJar
+> Task :gen.c:assemble
+> Task :gen.c:checkstyleMain
+> Task :gen.c:compileTestJava
+> Task :gen.c:processTestResources NO-SOURCE
+> Task :gen.c:testClasses
+> Task :gen.c:checkstyleTest
+> Task :gen.c:test SKIPPED
+> Task :gen.c:check
+> Task :gen.c:build
+> Task :gen.css:javadoc
+> Task :gen.css:javadocJar
+> Task :gen.css:sourcesJar
+> Task :gen.css:assemble
+> Task :gen.css:checkstyleMain
+> Task :gen.css:compileTestJava
+> Task :gen.css:processTestResources NO-SOURCE
+> Task :gen.css:testClasses
+> Task :gen.css:checkstyleTest
+
+> Task :gen.css:test
+
+TestCssTreeGenerator > badSyntax() PASSED
+
+TestCssTreeGenerator > testSimple() PASSED
+
+> Task :gen.css:check
+> Task :gen.css:build
+> Task :gen.javaparser:javadoc
+> Task :gen.javaparser:javadocJar
+> Task :gen.javaparser:sourcesJar
+> Task :gen.javaparser:assemble
+> Task :gen.javaparser:checkstyleMain
+> Task :gen.javaparser:compileTestJava
+> Task :gen.javaparser:processTestResources NO-SOURCE
+> Task :gen.javaparser:testClasses
+> Task :gen.javaparser:checkstyleTest
+
+> Task :gen.javaparser:test
+
+TestJavaParserGenerator > testBadSyntax() PASSED
+
+TestJavaParserGenerator > testRange() PASSED
+
+TestJavaParserGenerator > testSimpleSyntax(String, int, String) > [1] CompilationUnit, 12, package foo.bar; public class Foo { public int foo; } PASSED
+
+TestJavaParserGenerator > testSimpleSyntax(String, int, String) > [2] CompilationUnit, 37, public class Foo<A> { public List<A> foo; public void foo() { for (A f : foo) { System.out.println(f); } } } PASSED
+
+TestJavaParserGenerator > testSimpleSyntax(String, int, String) > [3] CompilationUnit, 23, public class Foo {
+	public void foo() {
+		new ArrayList<Object>().stream().forEach(a -> {});
+	}
+} PASSED
+
+> Task :gen.javaparser:check
+> Task :gen.javaparser:build
+> Task :gen.jdt:javadoc
+> Task :gen.jdt:javadocJar
+> Task :gen.jdt:sourcesJar
+> Task :gen.jdt:assemble
+> Task :gen.jdt:checkstyleMain
+> Task :gen.jdt:compileTestJava
+> Task :gen.jdt:processTestResources
+> Task :gen.jdt:testClasses
+> Task :gen.jdt:checkstyleTest
+
+> Task :gen.jdt:test
+
+TestJdtGenerator > testTagElement() PASSED
+
+TestJdtGenerator > testPrefixExpression() PASSED
+
+TestJdtGenerator > testArrayCreation() PASSED
+
+TestJdtGenerator > testIds() PASSED
+
+TestJdtGenerator > testComments2() PASSED
+
+TestJdtGenerator > testMethodInvocation() PASSED
+
+TestJdtGenerator > testJava8Syntax() PASSED
+
+TestJdtGenerator > testSimpleSyntax() PASSED
+
+TestJdtGenerator > testVarargs() PASSED
+
+TestJdtGenerator > testComments() PASSED
+
+TestJdtGenerator > testAssignment() PASSED
+
+TestJdtGenerator > testGenericFunctionWithTypeParameter() PASSED
+
+TestJdtGenerator > testTypeDefinition() PASSED
+
+TestJdtGenerator > testJava5Syntax() PASSED
+
+TestJdtGenerator > testPostfixExpression() PASSED
+
+TestJdtGenerator > badSyntax() PASSED
+
+TestJdtGenerator > testInfixOperator() PASSED
+
+TestJdtMatching > testCase_1_20391Classic() SKIPPED
+
+TestJdtMatching > testSpurious1WithClassicDefault() SKIPPED
+
+TestJdtMatching > testSpurious1WithSimple() SKIPPED
+
+TestJdtMatching > testCase_1_0007_Classic() SKIPPED
+
+TestJdtMatching > testSpurious1WithClassic1_Default_0007d191fec7fe2d6a0c4e87594cb286a553f92c() SKIPPED
+
+TestJdtMatching > testCase_1_0a66_Simple() SKIPPED
+
+TestJdtMatching > testNotSpurious1() SKIPPED
+
+TestJdtMatching > testSpurious1WithClassicConfiguredGreedySubtreeMatcher() SKIPPED
+
+TestJdtMatching > testSpurious1WithClassicConfiguredGreedyBottomUpMatcher() SKIPPED
+
+TestJdtMatching > testCase_1_0007_Simple() SKIPPED
+
+TestJdtMatching > testSpurious1WithClassic_Configured_1_0007d191fec7fe2d6a0c4e87594cb286a553f92c() SKIPPED
+
+TestJdtMatching > testSpurious1WithClassic_Configured4Passing_1_0007d191fec7fe2d6a0c4e87594cb286a553f92c() SKIPPED
+
+TestJdtMatching > testSpurious1WithSimple_0007d191fec7fe2d6a0c4e87594cb286a553f92c() SKIPPED
+
+> Task :gen.jdt:check
+> Task :gen.jdt:build
+> Task :gen.js:javadoc
+> Task :gen.js:javadocJar
+> Task :gen.js:sourcesJar
+> Task :gen.js:assemble
+> Task :gen.js:checkstyleMain
+> Task :gen.js:compileTestJava
+> Task :gen.js:processTestResources NO-SOURCE
+> Task :gen.js:testClasses
+> Task :gen.js:checkstyleTest
+
+> Task :gen.js:test
+
+TestJsGenerator > testStatement() PASSED
+
+TestJsGenerator > testComment() PASSED
+
+TestJsGenerator > testLambda() PASSED
+
+TestJsGenerator > badSyntax() PASSED
+
+> Task :gen.js:check
+> Task :gen.js:build
+> Task :gen.js-acorn:javadoc
+> Task :gen.js-acorn:javadocJar
+> Task :gen.js-acorn:sourcesJar
+> Task :gen.js-acorn:assemble
+> Task :gen.js-acorn:checkstyleMain
+> Task :gen.js-acorn:compileTestJava
+> Task :gen.js-acorn:processTestResources NO-SOURCE
+> Task :gen.js-acorn:testClasses
+> Task :gen.js-acorn:checkstyleTest
+> Task :gen.js-acorn:test SKIPPED
+> Task :gen.js-acorn:check
+> Task :gen.js-acorn:build
+> Task :gen.json:javadoc
+> Task :gen.json:javadocJar
+> Task :gen.json:sourcesJar
+> Task :gen.json:assemble
+> Task :gen.json:checkstyleMain
+> Task :gen.json:compileTestJava
+> Task :gen.json:processTestResources NO-SOURCE
+> Task :gen.json:testClasses
+> Task :gen.json:checkstyleTest
+
+> Task :gen.json:test
+
+TestJsonTreeGenerator > testSyntaxError1() PASSED
+
+TestJsonTreeGenerator > testSyntaxError2() PASSED
+
+TestJsonTreeGenerator > testSyntaxError3() PASSED
+
+TestJsonTreeGenerator > testJsonArray() PASSED
+
+TestJsonTreeGenerator > testJsonObject() PASSED
+
+> Task :gen.json:check
+> Task :gen.json:build
+> Task :gen.python:javadoc
+> Task :gen.python:javadocJar
+> Task :gen.python:sourcesJar
+> Task :gen.python:assemble
+> Task :gen.python:checkstyleMain
+> Task :gen.python:compileTestJava
+> Task :gen.python:processTestResources NO-SOURCE
+> Task :gen.python:testClasses
+> Task :gen.python:checkstyleTest
+> Task :gen.python:test SKIPPED
+> Task :gen.python:check
+> Task :gen.python:build
+> Task :gen.srcml:javadoc
+> Task :gen.srcml:javadocJar
+> Task :gen.srcml:sourcesJar
+> Task :gen.srcml:assemble
+> Task :gen.srcml:checkstyleMain
+> Task :gen.srcml:compileTestJava
+> Task :gen.srcml:processTestResources NO-SOURCE
+> Task :gen.srcml:testClasses
+> Task :gen.srcml:checkstyleTest
+> Task :gen.srcml:test SKIPPED
+> Task :gen.srcml:check
+> Task :gen.srcml:build
+> Task :gen.treesitter:javadoc
+> Task :gen.treesitter:javadocJar
+> Task :gen.treesitter:sourcesJar
+> Task :gen.treesitter:assemble
+> Task :gen.treesitter:checkstyleMain
+> Task :gen.treesitter:compileTestJava
+> Task :gen.treesitter:processTestResources NO-SOURCE
+> Task :gen.treesitter:testClasses
+> Task :gen.treesitter:checkstyleTest
+> Task :gen.treesitter:test SKIPPED
+> Task :gen.treesitter:check
+> Task :gen.treesitter:build
+> Task :gen.treesitter-ng:javadoc
+> Task :gen.treesitter-ng:javadocJar
+> Task :gen.treesitter-ng:sourcesJar
+> Task :gen.treesitter-ng:assemble
+> Task :gen.treesitter-ng:checkstyleMain
+> Task :gen.treesitter-ng:compileTestJava
+> Task :gen.treesitter-ng:processTestResources NO-SOURCE
+> Task :gen.treesitter-ng:testClasses
+> Task :gen.treesitter-ng:checkstyleTest
+
+> Task :gen.treesitter-ng:test
+
+AbstractTreeSitterNgGeneratorTest > testMatchNodeOrAncestorTypes() PASSED
+
+CMakeTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+CTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+GoTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+JavaScriptTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+JavaTreeSitterNgTreeGeneratorTest > testUnicodeInComment() PASSED
+
+JavaTreeSitterNgTreeGeneratorTest > testUnicodeInString() PASSED
+
+JavaTreeSitterNgTreeGeneratorTest > testCommentLine() PASSED
+
+JavaTreeSitterNgTreeGeneratorTest > testAffectationOperatorChange() PASSED
+
+JavaTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+KotlinTreeSitterNgTreeGeneratorTest > testUnicodeInString() PASSED
+
+KotlinTreeSitterNgTreeGeneratorTest > testAffectationOperatorChange() PASSED
+
+KotlinTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+OcamlTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+PhpTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testComparisonOperators(String) > [1] < PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testComparisonOperators(String) > [2] <= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testComparisonOperators(String) > [3] > PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testComparisonOperators(String) > [4] >= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testComparisonOperators(String) > [5] == PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testComparisonOperators(String) > [6] != PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testBooleanOperators(String) > [1] and PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testBooleanOperators(String) > [2] or PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [1] = PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [2] += PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [3] -= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [4] *= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [5] /= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [6] //= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [7] %= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testAssignmentOperators(String) > [8] **= PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testString() PASSED
+
+PythonTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+RTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+RubyTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+RustTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+SwiftTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+TypeScriptTreeSitterNgTreeGeneratorTest > testHelloWorld() PASSED
+
+> Task :gen.treesitter-ng:check
+> Task :gen.treesitter-ng:build
+> Task :gen.xml:javadoc
+> Task :gen.xml:javadocJar
+> Task :gen.xml:sourcesJar
+> Task :gen.xml:assemble
+> Task :gen.xml:checkstyleMain
+> Task :gen.xml:compileTestJava
+> Task :gen.xml:processTestResources NO-SOURCE
+> Task :gen.xml:testClasses
+> Task :gen.xml:checkstyleTest
+
+> Task :gen.xml:test
+
+TestXmlTreeGenerator > testSimpleSyntax() PASSED
+
+TestXmlTreeGenerator > testXmlDeclaration() PASSED
+
+> Task :gen.xml:check
+> Task :gen.xml:build
+> Task :gen.yaml:javadoc
+> Task :gen.yaml:javadocJar
+> Task :gen.yaml:sourcesJar
+> Task :gen.yaml:assemble
+> Task :gen.yaml:checkstyleMain
+> Task :gen.yaml:compileTestJava
+> Task :gen.yaml:processTestResources NO-SOURCE
+> Task :gen.yaml:testClasses
+> Task :gen.yaml:checkstyleTest
+
+> Task :gen.yaml:test
+
+TestYamlGenerator > testSyntaxError() PASSED
+
+TestYamlGenerator > testSimpleSyntax() PASSED
+
+> Task :gen.yaml:check
+> Task :gen.yaml:build
+
+[Incubating] Problems report is available at: file:///build/source/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 55s
+175 actionable tasks: 175 executed
+buildPhase completed in 1 minutes 55 seconds
+Running phase: installPhase
+@nix { "action": "setPhase", "phase": "installPhase" }
+preInstall: PWD = /build/source
+gradleInstallPhase flags: --console=plain installShadowDist --parallel --max-workers 1
+> Task :buildSrc:extractPluginRequests UP-TO-DATE
+> Task :buildSrc:generatePluginAdapters UP-TO-DATE
+> Task :buildSrc:compileJava UP-TO-DATE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:compileGroovyPlugins UP-TO-DATE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources UP-TO-DATE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :core:compileJava UP-TO-DATE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :client:compileJava UP-TO-DATE
+> Task :client:processResources NO-SOURCE
+> Task :client:classes UP-TO-DATE
+> Task :client:jar UP-TO-DATE
+> Task :client.diff:compileJava UP-TO-DATE
+> Task :client.diff:processResources UP-TO-DATE
+> Task :client.diff:classes UP-TO-DATE
+> Task :client.diff:jar UP-TO-DATE
+> Task :gen.c:compileJava UP-TO-DATE
+> Task :gen.c:processResources NO-SOURCE
+> Task :gen.c:classes UP-TO-DATE
+> Task :gen.c:jar UP-TO-DATE
+> Task :gen.css:compileJava UP-TO-DATE
+> Task :gen.css:processResources NO-SOURCE
+> Task :gen.css:classes UP-TO-DATE
+> Task :gen.css:jar UP-TO-DATE
+> Task :gen.javaparser:compileJava UP-TO-DATE
+> Task :gen.javaparser:processResources NO-SOURCE
+> Task :gen.javaparser:classes UP-TO-DATE
+> Task :gen.javaparser:jar UP-TO-DATE
+> Task :gen.jdt:compileJava UP-TO-DATE
+> Task :gen.jdt:processResources NO-SOURCE
+> Task :gen.jdt:classes UP-TO-DATE
+> Task :gen.jdt:jar UP-TO-DATE
+> Task :gen.js:compileJava UP-TO-DATE
+> Task :gen.js:processResources NO-SOURCE
+> Task :gen.js:classes UP-TO-DATE
+> Task :gen.js:jar UP-TO-DATE
+> Task :gen.js-acorn:compileJava UP-TO-DATE
+> Task :gen.js-acorn:processResources NO-SOURCE
+> Task :gen.js-acorn:classes UP-TO-DATE
+> Task :gen.js-acorn:jar UP-TO-DATE
+> Task :gen.python:compileJava UP-TO-DATE
+> Task :gen.python:processResources NO-SOURCE
+> Task :gen.python:classes UP-TO-DATE
+> Task :gen.python:jar UP-TO-DATE
+> Task :gen.srcml:compileJava UP-TO-DATE
+> Task :gen.srcml:processResources NO-SOURCE
+> Task :gen.srcml:classes UP-TO-DATE
+> Task :gen.srcml:jar UP-TO-DATE
+> Task :gen.treesitter:compileJava UP-TO-DATE
+> Task :gen.treesitter:processResources NO-SOURCE
+> Task :gen.treesitter:classes UP-TO-DATE
+> Task :gen.treesitter:jar UP-TO-DATE
+> Task :gen.treesitter-ng:compileJava UP-TO-DATE
+> Task :gen.treesitter-ng:processResources UP-TO-DATE
+> Task :gen.treesitter-ng:classes UP-TO-DATE
+> Task :gen.treesitter-ng:jar UP-TO-DATE
+> Task :gen.xml:compileJava UP-TO-DATE
+> Task :gen.xml:processResources NO-SOURCE
+> Task :gen.xml:classes UP-TO-DATE
+> Task :gen.xml:jar UP-TO-DATE
+> Task :gen.yaml:compileJava UP-TO-DATE
+> Task :gen.yaml:processResources NO-SOURCE
+> Task :gen.yaml:classes UP-TO-DATE
+> Task :gen.yaml:jar UP-TO-DATE
+> Task :dist:compileJava NO-SOURCE
+> Task :dist:processResources NO-SOURCE
+> Task :dist:classes UP-TO-DATE
+> Task :dist:shadowJar UP-TO-DATE
+> Task :dist:startShadowScripts UP-TO-DATE
+> Task :dist:installShadowDist UP-TO-DATE
+> Task :gen.json:compileJava UP-TO-DATE
+> Task :gen.json:processResources NO-SOURCE
+> Task :gen.json:classes UP-TO-DATE
+> Task :gen.json:jar UP-TO-DATE
+> Task :dist-minimal:compileJava NO-SOURCE
+> Task :dist-minimal:processResources NO-SOURCE
+> Task :dist-minimal:classes UP-TO-DATE
+> Task :dist-minimal:shadowJar UP-TO-DATE
+> Task :dist-minimal:startShadowScripts UP-TO-DATE
+> Task :dist-minimal:installShadowDist UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///build/source/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2s
+47 actionable tasks: 47 up-to-date
+postInstall: PWD = /build/source
+Running phase: fixupPhase
+@nix { "action": "setPhase", "phase": "fixupPhase" }
+error: builder for '/nix/store/w11cibpa08bs6h34fab864p5z6p8jmwm-gumtree-4.0.0-beta4.drv' failed to produce output path for output 'out' at '/nix/store/w11cibpa08bs6h34fab864p5z6p8jmwm-gumtree-4.0.0-beta4.drv.chroot/root/nix/store/jmj5yz2gf61cgwkn9wz0n8bnlqf2nh55-gumtree-4.0.0-beta4'

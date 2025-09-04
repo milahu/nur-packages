@@ -506,6 +506,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       largestinteriorrectangle = callPackage ./pkgs/python3/pkgs/largestinteriorrectangle { };
 
+      stitching = callPackage ./pkgs/python3/pkgs/stitching { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

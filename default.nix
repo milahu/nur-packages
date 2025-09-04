@@ -508,6 +508,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       stitching = callPackage ./pkgs/python3/pkgs/stitching { };
 
+      tuspy = callPackage ./pkgs/python3/pkgs/tuspy { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

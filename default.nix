@@ -1171,6 +1171,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     markdown_filter = callPackage ./pkgs/servers/http/nginx/modules/markdown_filter.nix { };
 
+    dav = callPackage ./pkgs/servers/http/nginx/modules/dav.nix { };
+
   };
 
   bbcode = callPackage ./pkgs/development/libraries/bbcode { };

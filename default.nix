@@ -1147,7 +1147,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
     modules = [
       pkgs.nginxModules.rtmp
-      pkgs.nginxModules.dav
+      # pkgs.nginxModules.dav
+      nginxModules.dav
       pkgs.nginxModules.moreheaders
     ];
     # Use latest boringssl to allow http3 support
@@ -1160,7 +1161,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
     modules = [
       pkgs.nginxModules.rtmp
-      pkgs.nginxModules.dav
+      # pkgs.nginxModules.dav
+      nginxModules.dav
       pkgs.nginxModules.moreheaders
     ];
   };

@@ -1220,6 +1220,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   i2pd-tools = callPackage ./pkgs/by-name/i2/i2pd-tools/package.nix { };
 
+  qbittorrent-nova-killer = python3.pkgs.callPackage ./pkgs/by-name/qb/qbittorrent-nova-killer/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

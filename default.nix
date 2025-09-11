@@ -1222,6 +1222,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   qbittorrent-nova-killer = python3.pkgs.callPackage ./pkgs/by-name/qb/qbittorrent-nova-killer/package.nix { };
 
+  httpdirfs = callPackage ./pkgs/by-name/ht/httpdirfs/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

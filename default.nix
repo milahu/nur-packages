@@ -1224,6 +1224,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   httpdirfs = callPackage ./pkgs/by-name/ht/httpdirfs/package.nix { };
 
+  matroska-foundation = callPackage ./pkgs/by-name/ma/matroska-foundation/package.nix { };
+
+  mkvalidator = callPackage ./pkgs/by-name/mk/mkvalidator/package.nix { };
+
+  mkclean = callPackage ./pkgs/by-name/mk/mkclean/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -510,6 +510,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tuspy = callPackage ./pkgs/python3/pkgs/tuspy { };
 
+      ebutt2srt = callPackage ./pkgs/python3/pkgs/ebutt2srt { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -541,6 +543,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   ratarmount = python3Packages.ratarmount;
 
   archive-hocr-tools = python3Packages.archive-hocr-tools;
+
+  ebutt2srt = python3Packages.ebutt2srt;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

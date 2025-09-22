@@ -512,6 +512,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ebutt2srt = callPackage ./pkgs/python3/pkgs/ebutt2srt { };
 
+      tree-sitter = callPackage ./pkgs/development/python-modules/tree-sitter { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

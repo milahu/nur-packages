@@ -2,10 +2,12 @@
   lib,
   stdenv,
   buildPythonPackage,
-  fetchPypi,
+  fetchFromGitHub,
+  pkgs,
 
   # build-system
   setuptools,
+  pytestCheckHook,
 
   # tests
   tree-sitter-python,
@@ -17,12 +19,16 @@
 
 buildPythonPackage rec {
   pname = "tree-sitter";
-  version = "0.25.1";
+  version = "0.25.1-89a7e2a";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-zXYa0OTR/IiksbgIO64G1PlzrPb18pu/E+qWCcHeycE=";
+  src = fetchFromGitHub {
+    owner = "tree-sitter";
+    repo = "py-tree-sitter";
+    # https://github.com/tree-sitter/py-tree-sitter/pull/415
+    rev = "89a7e2a7eb744d722ace681fe24ba94fd0176c75";
+    hash = "sha256-DyZJDY7ozyw7GPbO5Bl62wPcERiB06FtiwY17DeEYQU=";
+    fetchSubmodules = true;
   };
 
   # see https://github.com/tree-sitter/py-tree-sitter/issues/330#issuecomment-2629403946
@@ -32,7 +38,12 @@ buildPythonPackage rec {
 
   build-system = [ setuptools ];
 
+  buildInputs = [
+    pkgs.tree-sitter
+  ];
+
   nativeCheckInputs = [
+    pytestCheckHook
     tree-sitter-python
     tree-sitter-rust
     tree-sitter-html

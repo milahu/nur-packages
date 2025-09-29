@@ -1236,6 +1236,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   mkclean = callPackage ./pkgs/by-name/mk/mkclean/package.nix { };
 
+  libtorrent-rasterbar-2_0_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_0_x/package.nix { };
+
+  libtorrent-rasterbar = libtorrent-rasterbar-2_0_x;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

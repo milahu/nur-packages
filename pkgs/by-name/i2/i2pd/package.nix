@@ -47,6 +47,9 @@ stdenv.mkDerivation rec {
     install -D i2pd $out/bin/i2pd
     install --mode=444 -D 'contrib/i2pd.service' "$out/etc/systemd/system/i2pd.service"
     installManPage 'debian/i2pd.1'
+    mkdir -p $out/share/doc/i2p
+    # contrib: i2pd.conf tunnels.conf certificates ...
+    cp -r contrib $out/share/doc/i2p
   '';
 
   meta = with lib; {

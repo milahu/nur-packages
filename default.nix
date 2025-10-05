@@ -1246,6 +1246,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   anacrolix-torrent = callPackage ./pkgs/by-name/an/anacrolix-torrent/package.nix { };
 
+  torr-server = callPackage ./pkgs/by-name/to/torr-server/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

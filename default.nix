@@ -1252,6 +1252,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   simple-torrent = callPackage ./pkgs/by-name/si/simple-torrent/package.nix { };
 
+  torrentfs = callPackage ./pkgs/by-name/to/torrentfs/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

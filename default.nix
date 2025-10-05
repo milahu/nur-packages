@@ -1242,6 +1242,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libtorrent-rasterbar = libtorrent-rasterbar-2_0_x;
 
+  rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

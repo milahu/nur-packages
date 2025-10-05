@@ -1248,6 +1248,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   torr-server = callPackage ./pkgs/by-name/to/torr-server/package.nix { };
 
+  distribyted = callPackage ./pkgs/by-name/di/distribyted/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

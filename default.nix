@@ -1244,6 +1244,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
 
+  anacrolix-torrent = callPackage ./pkgs/by-name/an/anacrolix-torrent/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

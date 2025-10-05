@@ -1250,6 +1250,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   distribyted = callPackage ./pkgs/by-name/di/distribyted/package.nix { };
 
+  simple-torrent = callPackage ./pkgs/by-name/si/simple-torrent/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

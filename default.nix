@@ -514,6 +514,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tree-sitter = callPackage ./pkgs/development/python-modules/tree-sitter { };
 
+      bencode-rs = callPackage ./pkgs/development/python-modules/bencode-rs { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

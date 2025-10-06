@@ -516,6 +516,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       bencode-rs = callPackage ./pkgs/development/python-modules/bencode-rs { };
 
+      torrent-models = callPackage ./pkgs/development/python-modules/torrent-models { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

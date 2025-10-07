@@ -1246,7 +1246,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libtorrent-rasterbar = libtorrent-rasterbar-2_0_x;
 
-  rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
+  # hide rqbit
+  # fix: NUR CI fails to eval this: pkgsWithOverlay = import <nixpkgs> { ... }
+  # rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
+  inherit (pkgs.dontRecurseIntoAttrs {
+    rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
+  }) rqbit;
 
   anacrolix-torrent = callPackage ./pkgs/by-name/an/anacrolix-torrent/package.nix { };
 

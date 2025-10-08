@@ -1263,6 +1263,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   torrentfs = callPackage ./pkgs/by-name/to/torrentfs/package.nix { };
 
+  confluence = callPackage ./pkgs/by-name/co/confluence/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

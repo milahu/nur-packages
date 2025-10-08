@@ -1265,6 +1265,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   confluence = callPackage ./pkgs/by-name/co/confluence/package.nix { };
 
+  cloud-torrent = callPackage ./pkgs/by-name/cl/cloud-torrent/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -1267,6 +1267,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cloud-torrent = callPackage ./pkgs/by-name/cl/cloud-torrent/package.nix { };
 
+  bittorrent-bootstrap-dht = callPackage ./pkgs/by-name/bi/bittorrent-bootstrap-dht/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

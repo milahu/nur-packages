@@ -1269,6 +1269,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   bookpipeline = callPackage ./pkgs/by-name/bo/bookpipeline/package.nix { };
 
+  thorium-reader = callPackage ./pkgs/by-name/th/thorium-reader/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

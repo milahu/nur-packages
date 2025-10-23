@@ -133,11 +133,11 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "A fast, modern and generic image processing library";
+    # example use: hocr2pdf -i 001.tiff -o 001.pdf <001.hocr
+    description = "A fast, modern and generic image processing library (bardecode, econvert, edentify, empty-page, hocr2pdf, optimize2bw)";
     homepage = "https://exactcode.com/opensource/exactimage/";
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ ];
-    # bardecode  econvert  edentify  empty-page  hocr2pdf  optimize2bw
     mainProgram = "econvert";
     platforms = lib.platforms.all;
   };

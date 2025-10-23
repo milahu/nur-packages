@@ -1269,6 +1269,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   bittorrent-bootstrap-dht = callPackage ./pkgs/by-name/bi/bittorrent-bootstrap-dht/package.nix { };
 
+  exactimage = callPackage ./pkgs/by-name/ex/exactimage/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

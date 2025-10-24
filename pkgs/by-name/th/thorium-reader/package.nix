@@ -73,7 +73,9 @@ buildNpmPackage (finalAttrs: {
     description = "EPUB reader";
     homepage = "https://www.edrlab.org/software/thorium-reader/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ YodaDaCoda ];
+    # error: undefined variable 'YodaDaCoda'
+    # maintainers = with lib.maintainers; [ YodaDaCoda ];
+    maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.all;
     mainProgram = "thorium-reader";
   };

@@ -1,23 +1,41 @@
 { lib
 , python3
 , fetchFromGitHub
+, buildPythonApplication
+, setuptools
+, wheel
+, ebooklib
+, pillow
+, python-fontconfig
+, tqdm
+, psutil
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "archive-hocr-tools";
-  version = "1.1.67";
+  version = "1.1.67-6ea6a9c";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "internetarchive";
     repo = "archive-hocr-tools";
-    rev = version;
-    hash = "sha256-ZHooJSF9qilF4pdz5I9rIAfP/LRaQsSKqNkinXuA1k4=";
+    # rev = version;
+    # https://github.com/internetarchive/archive-hocr-tools/pull/23
+    rev = "f65b4d464027a78d077cf5987754662df07d15f0";
+    hash = "sha256-N4KJb18UP3TNz98VRCWCPAUzXfstGGN4P+dMSRCtV7Y=";
   };
 
   nativeBuildInputs = [
-    python3.pkgs.setuptools
-    python3.pkgs.wheel
+    setuptools
+    wheel
+  ];
+
+  propagatedBuildInputs = [
+    ebooklib
+    pillow
+    python-fontconfig
+    tqdm
+    psutil
   ];
 
   pythonImportsCheck = [ "hocr" ];

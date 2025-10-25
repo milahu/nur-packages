@@ -518,6 +518,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       torrent-models = callPackage ./pkgs/development/python-modules/torrent-models { };
 
+      hocr-editor-qt = callPackage ./pkgs/python3/pkgs/hocr-editor-qt {
+        # fix: Found duplicated packages in closure for dependency 'tree_sitter'
+        tree-sitter = pkgs.python3.pkgs.tree-sitter;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -551,6 +556,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   archive-hocr-tools = python3Packages.archive-hocr-tools;
 
   ebutt2srt = python3Packages.ebutt2srt;
+
+  hocr-editor-qt = python3Packages.hocr-editor-qt;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

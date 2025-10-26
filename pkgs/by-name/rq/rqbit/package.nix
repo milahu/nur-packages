@@ -37,15 +37,15 @@ in
 let
   pname = "rqbit";
 
-  version = "9.0.0-beta.1-988d227";
+  version = "9.0.0-beta.1-b1a3074";
 
   src = fetchFromGitHub {
     owner = "ikatson";
     repo = "rqbit";
     # rev = "v${version}";
     # https://github.com/ikatson/rqbit/pull/489
-    rev = "988d2277d4a2a7101209c8fa8ada9de01139f6c8";
-    hash = "sha256-zHCYjOTm1qavleUF6DfNvi/Y0r/d6CI7p3SpVlRiyhQ=";
+    rev = "b1a3074440175a0b13052aac9570627f29c0d377";
+    hash = "sha256-Xv8S/EFFRx4HESUNV6CGshSby4UJGAFYmA7QMmXVV1w=";
   };
 
   rqbit-webui = buildNpmPackage {
@@ -72,7 +72,7 @@ in
 rustPlatform.buildRustPackage {
   inherit pname version src;
 
-  cargoHash = "sha256-OVVzWsF9xYlEDewF03JT9UBnc3XoHuNFyBF2gxO0Q74=";
+  cargoHash = "sha256-5pY7YqQle0p8GUtOOfrymf052EF3WoW/8lyO2X3nhoM=";
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
 

@@ -523,6 +523,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         tree-sitter = pkgs.python3.pkgs.tree-sitter;
       };
 
+      pysqlcipher3 = callPackage ./pkgs/development/python-modules/pysqlcipher3 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

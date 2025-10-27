@@ -525,6 +525,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pysqlcipher3 = callPackage ./pkgs/development/python-modules/pysqlcipher3 { };
 
+      sqlcipher-password-cracker-opencl = callPackage ./pkgs/development/python-modules/sqlcipher-password-cracker-opencl { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -560,6 +562,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   ebutt2srt = python3Packages.ebutt2srt;
 
   hocr-editor-qt = python3Packages.hocr-editor-qt;
+
+  sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

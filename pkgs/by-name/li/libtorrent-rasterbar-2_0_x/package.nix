@@ -60,9 +60,25 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '$'{prefix}/@_INSTALL_LIBDIR@ @_INSTALL_FULL_LIBDIR@
   '';
 
+  /*
+    add distinfo files to fix pythonRuntimeDepsCheckHook
+    expected:
+    $ python -c "import importlib.metadata; print('libtorrent' in importlib.metadata.packages_distributions()); import libtorrent"; echo $?
+    True
+    0
+  */
   postInstall = ''
     moveToOutput "include" "$dev"
     moveToOutput "lib/${python3.libPrefix}" "$python"
+
+    # add distinfo files to fix pythonRuntimeDepsCheckHook
+    distinfo=$python/${python3.sitePackages}/libtorrent-${finalAttrs.version}.dist-info
+    mkdir -p "$distinfo"
+    echo "Metadata-Version: 2.1" > "$distinfo/METADATA"
+    echo "Name: libtorrent" >> "$distinfo/METADATA"
+    echo "Version: ${finalAttrs.version}" >> "$distinfo/METADATA"
+    echo "Summary: Fake metadata for pythonRuntimeDepsCheckHook" >> "$distinfo/METADATA"
+    echo "" > "$distinfo/RECORD"
   '';
 
   postFixup = ''

@@ -527,6 +527,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       sqlcipher-password-cracker-opencl = callPackage ./pkgs/development/python-modules/sqlcipher-password-cracker-opencl { };
 
+      btcache = callPackage ./pkgs/development/python-modules/btcache {
+        # https://github.com/milahu/nixpkgs/issues/95
+        # fix: missing python distinfo files
+        libtorrent-rasterbar =
+          (pkgs.python3Packages.toPythonModule (libtorrent-rasterbar-2_0_x.override { python3 = pkgs.python3; })).python;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

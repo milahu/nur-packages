@@ -534,6 +534,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
           (pkgs.python3Packages.toPythonModule (libtorrent-rasterbar-2_0_x.override { python3 = pkgs.python3; })).python;
       };
 
+      deluge-ltconfig = callPackage ./pkgs/development/python-modules/deluge-ltconfig { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

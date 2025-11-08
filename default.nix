@@ -1266,7 +1266,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libtorrent-rasterbar-2_0_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_0_x/package.nix { };
 
-  libtorrent-rasterbar = libtorrent-rasterbar-2_0_x;
+  libtorrent-rasterbar-2_1_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_1_x/package.nix { };
+
+  libtorrent-rasterbar = libtorrent-rasterbar-2_1_x;
 
   # FIXME NUR CI fails to eval this: pkgsWithOverlay = import <nixpkgs> { ... }
   # rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };

@@ -1082,10 +1082,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     abseil-cpp = pkgs.abseil-cpp_202103;
   };
 
+  # FIXME Function called without required argument "litecoind"
+  /*
   basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap {
     # FIXME scope
     inherit nano-node;
   };
+  */
 
   asmr = callPackage ./pkgs/applications/blockchains/asmr { };
 

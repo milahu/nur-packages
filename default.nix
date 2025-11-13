@@ -948,7 +948,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     transmission_noSystemd = pkgs.transmission.override { enableSystemd = false; };
   };
 
-  fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
+  # FIXME Function called without required argument "torrenttools"
+  # fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
 
   qaac = qaac-bwrap;
   qaac-bwrap = callPackage ./pkgs/applications/audio/qaac/bwrap.nix { };

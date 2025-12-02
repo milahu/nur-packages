@@ -1301,6 +1301,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nix-hell = callPackage ./pkgs/by-name/ni/nix-hell/package.nix { };
 
+  monero-gui-tor = callPackage ./pkgs/by-name/mo/monero-gui-tor/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

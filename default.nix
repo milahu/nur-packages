@@ -536,6 +536,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       deluge-ltconfig = callPackage ./pkgs/development/python-modules/deluge-ltconfig { };
 
+      robobrowser = callPackage ./pkgs/python3/pkgs/robobrowser { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -538,6 +538,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       robobrowser = callPackage ./pkgs/python3/pkgs/robobrowser { };
 
+      libgen-uploader = callPackage ./pkgs/python3/pkgs/libgen-uploader { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

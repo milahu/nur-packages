@@ -871,12 +871,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };
 
+  # FIXME Function called without required argument "addOpenGLRunpath"
+  /*
   ffmpeg-full = callPackage ./pkgs/development/libraries/ffmpeg/6.nix {
     inherit (pkgs.darwin.apple_sdk.frameworks)
       Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
       VideoDecodeAcceleration VideoToolbox;
     ffmpegVariant = "full";
   };
+  */
 
   dtmfdial = callPackage ./pkgs/tools/networking/dtmfdial/dtmfdial.nix { };
 

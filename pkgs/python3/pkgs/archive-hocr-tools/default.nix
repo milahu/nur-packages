@@ -13,7 +13,7 @@
 
 buildPythonApplication rec {
   pname = "archive-hocr-tools";
-  version = "1.1.67-9a95d0d";
+  version = "1.1.67-805c8c6";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -21,8 +21,8 @@ buildPythonApplication rec {
     repo = "archive-hocr-tools";
     # rev = version;
     # https://github.com/internetarchive/archive-hocr-tools/pull/23
-    rev = "9a95d0d875fa752440d5b93e5dab04f1ac7e6e46";
-    hash = "sha256-PSagarUqSiBjq4p1Z5ygRBKRTiy3Tw9lpIsuihqmRlE=";
+    rev = "805c8c60957e40ba7fe749a21ce4ac3659a01fa0";
+    hash = "sha256-0Hrcvrx+WClNWs66Ainks16kK5RQNHSEpD0iArGewUQ=";
   };
 
   nativeBuildInputs = [

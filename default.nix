@@ -540,6 +540,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       libgen-uploader = callPackage ./pkgs/python3/pkgs/libgen-uploader { };
 
+      opensubtitlescom = callPackage ./pkgs/python3/pkgs/opensubtitlescom { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

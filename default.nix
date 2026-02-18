@@ -106,17 +106,17 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # alias: python3.pkgs -> python3Packages
   # no: error: attribute 'newScope' missing
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
-  #python3 = pkgs.recurseIntoAttrs ((({
-  python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = lib.recurseIntoAttrs ((({
+  python3 = lib.recurseIntoAttrs (((pkgs.python3 // {
     pkgs = python3Packages;
   })));
 
-  #python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = lib.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
 
     # fix: error: attribute 'sitePackages' missing: python3.sitePackages
     #sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
@@ -128,14 +128,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     # https://github.com/NixOS/nixpkgs/commit/632c4f2c9ba1f88cd5662da7bedf2ca5f0cda4a9 # add scope
     #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
     #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
-    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
-    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+    #pkgs = lib.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
 
   # TODO better?
-  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
-  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
-  python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
-  #python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in (pkgs.python3Packages // {
+  #python3Packages = lib.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
+  #python3Packages = lib.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
+  python3Packages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
+  #python3Packages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in (pkgs.python3Packages // {
 
       # fix: error: attribute 'buildPythonPackage' missing: python3.pkgs.buildPythonPackage
       #python3 = pkgs.python3;
@@ -787,7 +787,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
 
-  nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
+  nodePackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
 
     cowsay = callPackage ./pkgs/node/pkgs/cowsay/cowsay.nix { };
 
@@ -902,7 +902,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
 
-  perlPackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.perlPackages.newScope (self: let inherit (self) callPackage; in ({
+  perlPackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.perlPackages.newScope (self: let inherit (self) callPackage; in ({
 
     AptPkg = callPackage ./pkgs/perl/pkgs/apt-pkg/apt-pkg.nix { };
 
@@ -1009,7 +1009,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     pkgs = freetzPackages;
   };
 
-  freetzPackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (freetzPackagesSelf: let inherit (freetzPackagesSelf) callPackage; in ({
+  freetzPackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (freetzPackagesSelf: let inherit (freetzPackagesSelf) callPackage; in ({
 
     freetz = callPackage ./pkgs/tools/misc/freetz/pkgs/freetz { };
 
@@ -1205,7 +1205,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     ];
   };
 
-  nginxModules = pkgs.recurseIntoAttrs {
+  nginxModules = lib.recurseIntoAttrs {
 
     cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
 

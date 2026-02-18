@@ -12,7 +12,7 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 { lib
 , fetchFromGitHub
 , gtk3
-, wrapGAppsHook
+, wrapGAppsHook3
 , gdk-pixbuf
 , gobject-introspection
 , gettext
@@ -64,7 +64,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     gettext # msgfmt
-    wrapGAppsHook
+    wrapGAppsHook3
     gobject-introspection
     #intltool
   ];

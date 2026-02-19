@@ -541,6 +541,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pytest-sphinx = callPackage ./pkgs/python3/pkgs/pytest-sphinx { };
 
+      types-cachetools = callPackage ./pkgs/python3/pkgs/types-cachetools { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

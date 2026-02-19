@@ -547,6 +547,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       lingua-language-detector = callPackage ./pkgs/python3/pkgs/lingua-language-detector { };
 
+      olmocr = callPackage ./pkgs/python3/pkgs/olmocr { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -582,6 +584,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   ebutt2srt = python3Packages.ebutt2srt;
 
   hocr-editor-qt = python3Packages.hocr-editor-qt;
+
+  olmocr = python3Packages.olmocr;
 
   sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
 

@@ -543,6 +543,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       types-cachetools = callPackage ./pkgs/python3/pkgs/types-cachetools { };
 
+      cached-path = callPackage ./pkgs/python3/pkgs/cached-path { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

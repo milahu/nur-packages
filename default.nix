@@ -537,6 +537,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       beaker-py = callPackage ./pkgs/python3/pkgs/beaker-py { };
 
+      petname = callPackage ./pkgs/python3/pkgs/petname { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

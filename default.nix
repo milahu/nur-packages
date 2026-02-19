@@ -535,6 +535,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       opensubtitlescom = callPackage ./pkgs/python3/pkgs/opensubtitlescom { };
 
+      beaker-py = callPackage ./pkgs/python3/pkgs/beaker-py { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

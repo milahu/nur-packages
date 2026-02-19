@@ -539,6 +539,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       petname = callPackage ./pkgs/python3/pkgs/petname { };
 
+      pytest-sphinx = callPackage ./pkgs/python3/pkgs/pytest-sphinx { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

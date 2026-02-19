@@ -545,6 +545,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       cached-path = callPackage ./pkgs/python3/pkgs/cached-path { };
 
+      lingua-language-detector = callPackage ./pkgs/python3/pkgs/lingua-language-detector { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

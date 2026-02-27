@@ -1321,6 +1321,19 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   monero-gui-tor = callPackage ./pkgs/by-name/mo/monero-gui-tor/package.nix { };
 
+  # get the latest version of two versions of a package
+  getLatestVersion2 = p1: p2: (
+    if (builtins.compareVersions p1.version p2.version) == -1
+    then (
+      # builtins.trace "getLatestVersion2: p2: ${p2.name} > ${p1.name}"
+      p2
+    )
+    else (
+      # builtins.trace "getLatestVersion2: p1: ${p1.name} >= ${p2.name}"
+      p1
+    )
+  );
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

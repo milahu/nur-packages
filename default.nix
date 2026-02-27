@@ -1334,6 +1334,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     )
   );
 
+  session-desktop = getLatestVersion2 pkgs.session-desktop (callPackage ./pkgs/by-name/se/session-desktop/package.nix { });
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

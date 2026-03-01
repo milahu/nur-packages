@@ -1351,6 +1351,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     botan3
     ;
 
+  retroshare = getLatestVersion2 pkgs.retroshare (pkgs.libsForQt5.callPackage ./pkgs/applications/networking/p2p/retroshare {
+    inherit botan2;
+  });
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

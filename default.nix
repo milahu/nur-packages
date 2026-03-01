@@ -1340,6 +1340,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   swig2 = callPackage ./pkgs/development/tools/misc/swig/2.x.nix { };
 
+  briar-desktop-bin = getLatestVersion2 pkgs.briar-desktop (callPackage ./pkgs/by-name/br/briar-desktop-bin/package.nix { });
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

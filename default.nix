@@ -1342,6 +1342,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   briar-desktop-bin = getLatestVersion2 pkgs.briar-desktop (callPackage ./pkgs/by-name/br/briar-desktop-bin/package.nix { });
 
+  inherit
+    (pkgs.callPackages ./pkgs/development/libraries/botan {
+      # botan3 only sensibly works with libcxxStdenv when building static binaries
+      stdenv = if pkgs.stdenv.hostPlatform.isStatic then pkgs.buildPackages.libcxxStdenv else pkgs.stdenv;
+    })
+    botan2
+    botan3
+    ;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

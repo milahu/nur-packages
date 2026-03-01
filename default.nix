@@ -549,6 +549,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       olmocr = callPackage ./pkgs/python3/pkgs/olmocr { };
 
+      nose = callPackage ./pkgs/development/python-modules/nose { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

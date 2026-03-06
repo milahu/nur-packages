@@ -555,6 +555,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       lxst = callPackage ./pkgs/development/python-modules/lxst { };
 
+      sideband = callPackage ./pkgs/development/python-modules/sideband { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

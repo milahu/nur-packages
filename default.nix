@@ -557,6 +557,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       sideband = callPackage ./pkgs/development/python-modules/sideband { };
 
+      reticulum-meshchat = callPackage ./pkgs/development/python-modules/reticulum-meshchat { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -596,6 +598,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   olmocr = python3Packages.olmocr;
 
   sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
+
+  reticulum-meshchat = python3Packages.reticulum-meshchat;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -1360,6 +1364,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   retroshare = getLatestVersion2 pkgs.retroshare (pkgs.libsForQt5.callPackage ./pkgs/applications/networking/p2p/retroshare {
     inherit botan2;
   });
+
 
 }
 

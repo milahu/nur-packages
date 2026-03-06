@@ -559,6 +559,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       reticulum-meshchat = callPackage ./pkgs/development/python-modules/reticulum-meshchat { };
 
+      lxmfy = callPackage ./pkgs/development/python-modules/lxmfy { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

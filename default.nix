@@ -551,6 +551,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       nose = callPackage ./pkgs/development/python-modules/nose { };
 
+      pycodec2 = callPackage ./pkgs/development/python-modules/pycodec2 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

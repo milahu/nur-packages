@@ -553,6 +553,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pycodec2 = callPackage ./pkgs/development/python-modules/pycodec2 { };
 
+      lxst = callPackage ./pkgs/development/python-modules/lxst { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

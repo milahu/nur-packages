@@ -561,6 +561,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       lxmfy = callPackage ./pkgs/development/python-modules/lxmfy { };
 
+      reticulum-meshchatx = callPackage ./pkgs/development/python-modules/reticulum-meshchatx { };
+
       pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
 
       surya = callPackage ./pkgs/development/python-modules/surya { };
@@ -606,6 +608,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
 
   reticulum-meshchat = python3Packages.reticulum-meshchat;
+
+  reticulum-meshchatx = python3Packages.reticulum-meshchatx;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

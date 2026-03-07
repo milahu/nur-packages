@@ -561,6 +561,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       lxmfy = callPackage ./pkgs/development/python-modules/lxmfy { };
 
+      pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -22,6 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-gt/e2fmGffwlhSdUbg1ireCtQJ0xju+5u+QyttTZDog=";
   };
 
+  postPatch = ''
+    sed -i -E 's/([a-z0-9])(==|>=)[0-9*.]+(,<[0-9*.]+)?"/\1"/; s/"(=|==|>=|\^)[0-9*.]+(,<[0-9*.]+)?"/"*"/' pyproject.toml
+
+    substituteInPlace pyproject.toml \
+      --replace-fail \
+        'requires-python = "*"' \
+        'requires-python = ">=3.11"'
+  '';
+
   build-system = [
     setuptools
     cython

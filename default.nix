@@ -563,6 +563,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
 
+      surya = callPackage ./pkgs/development/python-modules/surya { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

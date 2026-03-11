@@ -1375,6 +1375,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     inherit botan2;
   });
 
+  ricochet-refresh = getLatestVersion2 pkgs.ricochet-refresh (callPackage ./pkgs/by-name/ri/ricochet-refresh/package.nix { });
 
 }
 

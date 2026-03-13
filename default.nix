@@ -569,6 +569,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       asyncio-gevent = callPackage ./pkgs/development/python-modules/asyncio-gevent { };
 
+      aio-udp-server = callPackage ./pkgs/development/python-modules/aio-udp-server { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

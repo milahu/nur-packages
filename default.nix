@@ -1387,6 +1387,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ricochet-refresh = getLatestVersion2 pkgs.ricochet-refresh (callPackage ./pkgs/by-name/ri/ricochet-refresh/package.nix { });
 
+  zeronet-conservancy = getLatestVersion2 pkgs.zeronet-conservancy (python3.pkgs.callPackage ./pkgs/applications/networking/p2p/zeronet-conservancy { });
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

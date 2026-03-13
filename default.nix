@@ -571,6 +571,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       aio-udp-server = callPackage ./pkgs/development/python-modules/aio-udp-server { };
 
+      py3-bencode = callPackage ./pkgs/development/python-modules/py3-bencode { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -567,6 +567,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       surya = callPackage ./pkgs/development/python-modules/surya { };
 
+      asyncio-gevent = callPackage ./pkgs/development/python-modules/asyncio-gevent { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

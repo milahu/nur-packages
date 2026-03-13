@@ -573,6 +573,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       py3-bencode = callPackage ./pkgs/development/python-modules/py3-bencode { };
 
+      aio-krpc-server = callPackage ./pkgs/development/python-modules/aio-krpc-server { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

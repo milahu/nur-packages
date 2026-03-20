@@ -1389,6 +1389,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   zeronet-conservancy = getLatestVersion2 pkgs.zeronet-conservancy (python3.pkgs.callPackage ./pkgs/applications/networking/p2p/zeronet-conservancy { });
 
+  project-nomad = callPackage ./pkgs/by-name/pr/project-nomad/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -5,6 +5,7 @@
   fetchFromGitHub,
   cmake,
   openssl,
+  boringssl,
   python3,
 }:
 
@@ -17,16 +18,16 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtorrent-rasterbar";
-  version = "2.1.0-pre-2025-09-09";
+  version = "2.1.0-pre-2026-03-28";
 
   src = fetchFromGitHub {
     owner = "arvidn";
     repo = "libtorrent";
     # there are no tags for version 2.1 yet
     # tag = "v${finalAttrs.version}";
-    rev = "a01469c8d1f88dd83bed458ffccffab2727b9d2a";
+    rev = "aa59c7c583e00e7b91f324d0792279d4637ab899";
     fetchSubmodules = true;
-    hash = "sha256-GOkZFYNxyTV0OwbAOq5D/nxTakqUE/J6MQXWMEAgSwI=";
+    hash = "sha256-5K9+TnGYbbVx2FAXyUp71QPRWMe3HMYAIZVCS936QOM=";
   };
 
   nativeBuildInputs = [
@@ -36,14 +37,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     boostPython
+    # https://github.com/arvidn/libtorrent/issues/7529#issuecomment-1811610101
+    # ECH (Encrypted Client Hello) support for HTTPS trackers
     openssl
+    # FIXME this breaks with https trackers:
+    # CERTIFICATE_VERIFY_FAILED (SSL routines, OPENSSL_internal)
+    # boringssl
   ];
 
   strictDeps = true;
 
   patches = [
-    # provide distutils alternative for python 3.12
-    ./distutils.patch
+    # 1 out of 1 hunk FAILED -- saving rejects to file bindings/python/CMakeLists.txt.rej
+    # # provide distutils alternative for python 3.12
+    # ./distutils.patch
   ];
 
   # https://github.com/arvidn/libtorrent/issues/6865
@@ -60,11 +67,12 @@ stdenv.mkDerivation (finalAttrs: {
   + ''
     substituteInPlace cmake/Modules/GeneratePkgConfig/pkg-config.cmake.in \
       --replace-fail '$'{prefix}/@_INSTALL_LIBDIR@ @_INSTALL_FULL_LIBDIR@
-
+  '';
+  /*
     # fix: Installing: $out/$out/lib/pkgconfig/libtorrent-rasterbar.pc
     substituteInPlace cmake/Modules/GeneratePkgConfig/generate-pkg-config.cmake.in \
       --replace-fail "\''${CMAKE_INSTALL_PREFIX}/@CMAKE_INSTALL_LIBDIR@/pkgconfig" "$dev/lib/pkgconfig"
-  '';
+  */
 
   postInstall = ''
     moveToOutput "include" "$dev"

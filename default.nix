@@ -1211,9 +1211,20 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
 
+  qbittorrent = callPackage ./pkgs/applications/networking/p2p/qbittorrent { };
+
   qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent {
     guiSupport = false;
   };
+
+  # debug 100% cpu load
+  # https://github.com/arvidn/libtorrent/issues/7894
+  # https://github.com/arvidn/libtorrent/issues/7535
+  # still an issue after
+  # https://github.com/arvidn/libtorrent/pull/7950
+  qbittorrent-debug = pkgs.enableDebugging (callPackage ./pkgs/applications/networking/p2p/qbittorrent {
+    libtorrent-rasterbar = pkgs.enableDebugging (callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_1_x/package.nix { });
+  });
 
   test-fchmodat2 = callPackage ./pkgs/test/test-fchmodat2 { };
 

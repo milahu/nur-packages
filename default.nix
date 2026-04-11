@@ -579,6 +579,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       validate-pyproject = callPackage ./pkgs/development/python-modules/validate-pyproject { };
 
+      cibuildwheel = callPackage ./pkgs/development/python-modules/cibuildwheel { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

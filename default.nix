@@ -577,6 +577,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       aio-btdht = callPackage ./pkgs/development/python-modules/aio-btdht { };
 
+      validate-pyproject = callPackage ./pkgs/development/python-modules/validate-pyproject { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -581,6 +581,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       cibuildwheel = callPackage ./pkgs/development/python-modules/cibuildwheel { };
 
+      doxapy = callPackage ./pkgs/development/python-modules/doxapy { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

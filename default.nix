@@ -629,6 +629,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   reticulum-meshchatx = python3Packages.reticulum-meshchatx;
 
+  binarize-pdf = python3Packages.binarize-pdf;
+
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
       callPackage ./pkgs/deno/pkgs { }

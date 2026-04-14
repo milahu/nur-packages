@@ -583,6 +583,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       doxapy = callPackage ./pkgs/development/python-modules/doxapy { };
 
+      binarize-pdf = callPackage ./pkgs/development/python-modules/binarize-pdf { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

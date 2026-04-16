@@ -1412,6 +1412,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   project-nomad = callPackage ./pkgs/by-name/pr/project-nomad/package.nix { };
 
+  espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

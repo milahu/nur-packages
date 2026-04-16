@@ -11,18 +11,19 @@
   pillow,
   tqdm,
   doxapy,
+  tifffile,
 }:
 
 buildPythonPackage rec {
   pname = "binarize-pdf";
-  version = "0.1.0-6360efe";
+  version = "0.1.0-5a9ca49";
 
   src = fetchFromGitHub {
     owner = "rahimnathwani";
     repo = "binarize-pdf";
     # https://github.com/rahimnathwani/binarize-pdf/pull/2
-    rev = "6360efef9d27a62c5de061384e1467ef20c15913";
-    hash = "sha256-FVUp0NSdhelWC3x1ESQ1DeGkpiOcVa7C8Xy7DWR7GIY=";
+    rev = "5a9ca491771b1cbd8e83c85b5d0201763e5312ab";
+    hash = "sha256-FDuNmRN9b9cLFhsrYf+rheA40EQoN2m+qj64dKRNzD0=";
   };
 
   pyproject = true;
@@ -39,6 +40,7 @@ buildPythonPackage rec {
     pillow
     tqdm
     doxapy
+    tifffile
   ];
 
   postInstall = ''

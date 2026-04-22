@@ -603,6 +603,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       musdb = callPackage ./pkgs/development/python-modules/musdb { };
 
+      museval = callPackage ./pkgs/development/python-modules/museval { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

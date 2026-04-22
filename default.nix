@@ -595,6 +595,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pyvideotrans = callPackage ./pkgs/development/python-modules/pyvideotrans { };
 
+      diffq = callPackage ./pkgs/development/python-modules/diffq { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

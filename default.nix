@@ -613,6 +613,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       conformer = callPackage ./pkgs/development/python-modules/conformer { };
 
+      praat-parselmouth = callPackage ./pkgs/development/python-modules/praat-parselmouth { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -619,6 +619,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pyrubberband = callPackage ./pkgs/development/python-modules/pyrubberband { };
 
+      sox = callPackage ./pkgs/development/python-modules/sox { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

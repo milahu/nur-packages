@@ -585,6 +585,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       binarize-pdf = callPackage ./pkgs/development/python-modules/binarize-pdf { };
 
+      ten-vad = callPackage ./pkgs/development/python-modules/ten-vad { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

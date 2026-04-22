@@ -617,6 +617,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pyloudnorm = callPackage ./pkgs/development/python-modules/pyloudnorm { };
 
+      pyrubberband = callPackage ./pkgs/development/python-modules/pyrubberband { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

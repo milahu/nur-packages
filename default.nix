@@ -587,6 +587,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ten-vad = callPackage ./pkgs/development/python-modules/ten-vad { };
 
+      deepgram-captions = callPackage ./pkgs/development/python-modules/deepgram-captions { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

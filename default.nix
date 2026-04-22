@@ -605,6 +605,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       museval = callPackage ./pkgs/development/python-modules/museval { };
 
+      stempeg = callPackage ./pkgs/development/python-modules/stempeg { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

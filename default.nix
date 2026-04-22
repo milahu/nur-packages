@@ -615,6 +615,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       praat-parselmouth = callPackage ./pkgs/development/python-modules/praat-parselmouth { };
 
+      pyloudnorm = callPackage ./pkgs/development/python-modules/pyloudnorm { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

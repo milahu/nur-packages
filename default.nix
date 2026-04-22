@@ -591,6 +591,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       deepgram-sdk = callPackage ./pkgs/development/python-modules/deepgram-sdk { };
 
+      zhconv = callPackage ./pkgs/development/python-modules/zhconv { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -599,6 +599,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       treetable = callPackage ./pkgs/development/python-modules/treetable { };
 
+      dora-search = callPackage ./pkgs/development/python-modules/dora-search { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

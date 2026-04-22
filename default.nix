@@ -625,6 +625,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       s3tokenizer = callPackage ./pkgs/development/python-modules/s3tokenizer { };
 
+      chatterbox-tts = callPackage ./pkgs/development/python-modules/chatterbox-tts { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

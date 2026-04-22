@@ -611,6 +611,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       demucs = callPackage ./pkgs/development/python-modules/demucs { };
 
+      conformer = callPackage ./pkgs/development/python-modules/conformer { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

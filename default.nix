@@ -601,6 +601,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       dora-search = callPackage ./pkgs/development/python-modules/dora-search { };
 
+      musdb = callPackage ./pkgs/development/python-modules/musdb { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

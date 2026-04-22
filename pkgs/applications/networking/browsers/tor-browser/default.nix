@@ -327,7 +327,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.torproject.org/";
     changelog = "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
     platforms = attrNames sources;
-    maintainers = with maintainers; [ felschr panicgh joachifm hax404 ];
+    maintainers = with maintainers; [ felschr panicgh hax404 ];
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain
     # restrictions on redistribution), it's free enough for our purposes.

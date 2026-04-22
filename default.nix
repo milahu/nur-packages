@@ -212,7 +212,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       # fix flask: ERROR: Could not find a version that satisfies the requirement Werkzeug>=2.3.3
       # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
-      werkzeug = callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
+      # werkzeug = callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
 
       # https://github.com/NixOS/nixpkgs/pull/245320
       # python3Packages.flask: 2.2.5 -> 2.3.2

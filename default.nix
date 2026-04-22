@@ -627,6 +627,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       chatterbox-tts = callPackage ./pkgs/development/python-modules/chatterbox-tts { };
 
+      videopython = callPackage ./pkgs/development/python-modules/videopython { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -607,6 +607,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       stempeg = callPackage ./pkgs/development/python-modules/stempeg { };
 
+      openunmix = callPackage ./pkgs/development/python-modules/openunmix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

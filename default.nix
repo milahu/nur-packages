@@ -899,16 +899,22 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         # bootstrap npmlock2nix without pnpm-install-only
         npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
           pnpm-install-only = null;
+          # fix: nodejs.src: error: attribute 'src' missing
+          nodejs = pkgs.nodejs-slim;
         };
       };
       # FIXME scope
       nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+      # fix: nodejs.src: error: attribute 'src' missing
+      nodejs = pkgs.nodejs-slim;
     };
 
     pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
       # bootstrap npmlock2nix without pnpm-install-only
       npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
         pnpm-install-only = null;
+        # fix: nodejs.src: error: attribute 'src' missing
+        nodejs = pkgs.nodejs-slim;
       };
     };
 

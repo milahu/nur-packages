@@ -623,6 +623,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       resemble-perth = callPackage ./pkgs/development/python-modules/resemble-perth { };
 
+      s3tokenizer = callPackage ./pkgs/development/python-modules/s3tokenizer { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

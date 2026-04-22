@@ -609,6 +609,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       openunmix = callPackage ./pkgs/development/python-modules/openunmix { };
 
+      demucs = callPackage ./pkgs/development/python-modules/demucs { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

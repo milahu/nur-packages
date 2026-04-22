@@ -593,6 +593,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       zhconv = callPackage ./pkgs/development/python-modules/zhconv { };
 
+      pyvideotrans = callPackage ./pkgs/development/python-modules/pyvideotrans { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -597,6 +597,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       diffq = callPackage ./pkgs/development/python-modules/diffq { };
 
+      treetable = callPackage ./pkgs/development/python-modules/treetable { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

@@ -621,6 +621,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       sox = callPackage ./pkgs/development/python-modules/sox { };
 
+      resemble-perth = callPackage ./pkgs/development/python-modules/resemble-perth { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

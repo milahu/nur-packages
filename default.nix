@@ -589,6 +589,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       deepgram-captions = callPackage ./pkgs/development/python-modules/deepgram-captions { };
 
+      deepgram-sdk = callPackage ./pkgs/development/python-modules/deepgram-sdk { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

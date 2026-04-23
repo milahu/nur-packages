@@ -631,6 +631,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       local-llm-pdf-ocr = callPackage ./pkgs/development/python-modules/local-llm-pdf-ocr { };
 
+      dukpy = callPackage ./pkgs/development/python-modules/dukpy { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

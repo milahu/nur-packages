@@ -631,6 +631,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       py-mini-racer = callPackage ./pkgs/development/python-modules/py-mini-racer { };
 
+      aia-chaser = callPackage ./pkgs/development/python-modules/aia-chaser { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

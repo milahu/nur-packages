@@ -16,7 +16,7 @@
 
 buildPythonPackage rec {
   pname = "pycurl";
-  version = "7.45.6";
+  version = "7.45.7";
   pyproject = true;
 
   disabled = isPyPy; # https://github.com/pycurl/pycurl/issues/208
@@ -25,23 +25,8 @@ buildPythonPackage rec {
     owner = "pycurl";
     repo = "pycurl";
     tag = "REL_${lib.replaceStrings [ "." ] [ "_" ] version}";
-    hash = "sha256-M4rO0CaI2SmjdJVS7hWnJZrL72WvayB4aKn707KoNiQ=";
+    hash = "sha256-ODqmFRPL0rvIG311pGIzb9R9OXBsU/z2+KfxvNnYa74=";
   };
-
-  patches = [
-    # curl 8.16 compatibility
-    (fetchpatch {
-      url = "https://github.com/pycurl/pycurl/commit/eb7f52eeef85feb6c117678d52803050bbdd7bc8.patch";
-      hash = "sha256-hdwazS7R9duuMd/7S3SNAxVcToo3GhtyWu/1Q6qTMYc=";
-    })
-    # curl 8.17+ compatibility
-    # https://github.com/pycurl/pycurl/pull/909
-    (fetchpatch {
-      name = "pycurl-8.17.0-compat.patch";
-      url = "https://github.com/pycurl/pycurl/commit/ea92e3ca230a3ff3d464cb6816102fa157177aca.patch";
-      hash = "sha256-kmlsG0SFfS9FdRNp8pPgudcWK6hSyD9x5oAedZLgBcY=";
-    })
-  ];
 
   preConfigure = ''
     substituteInPlace setup.py \
@@ -92,6 +77,10 @@ buildPythonPackage rec {
     "test_ssl_in_static_libs"
     # https://github.com/pycurl/pycurl/issues/819
     "test_multi_socket_select"
+    # TODO
+    # pycurl.error: (4, 'A requested feature, protocol or option was not found
+    "test_krb4level"
+    "test_krblevel"
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # https://github.com/pycurl/pycurl/issues/729

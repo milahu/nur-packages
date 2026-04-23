@@ -629,6 +629,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       videopython = callPackage ./pkgs/development/python-modules/videopython { };
 
+      local-llm-pdf-ocr = callPackage ./pkgs/development/python-modules/local-llm-pdf-ocr { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

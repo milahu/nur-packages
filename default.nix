@@ -565,7 +565,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
 
-      surya = callPackage ./pkgs/development/python-modules/surya { };
+      surya-ocr = callPackage ./pkgs/development/python-modules/surya-ocr { };
 
       asyncio-gevent = callPackage ./pkgs/development/python-modules/asyncio-gevent { };
 

@@ -633,6 +633,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       dukpy = callPackage ./pkgs/development/python-modules/dukpy { };
 
+      flask-themes2 = callPackage ./pkgs/development/python-modules/flask-themes2 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

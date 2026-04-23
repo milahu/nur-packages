@@ -629,6 +629,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       flask-themes2 = callPackage ./pkgs/development/python-modules/flask-themes2 { };
 
+      mini-racer = callPackage ./pkgs/development/python-modules/mini-racer { };
+
       aia-chaser = callPackage ./pkgs/development/python-modules/aia-chaser { };
 
       pycurl = callPackage ./pkgs/development/python-modules/pycurl { };

@@ -219,27 +219,27 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init pkgs/python3/pkgs/flask/flask.nix --url https://github.com/pallets/flask
       # FIXME use python3.pkgs.werkzeug from this scope
       #flask = callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
-      flask = self.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+      # flask = self.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-caching/flask-caching.nix --url https://github.com/pallets-eco/flask-caching
       # FIXME: ERROR: Could not find a version that satisfies the requirement Flask<3 (from flask-caching) (from versions: none)
       # update?
-      flask-caching = callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
+      # flask-caching = callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
 
       # no: nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://github.com/colour-science/flask-compress
       # fix: LookupError: setuptools-scm was unable to detect version for /build/source.
       # Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
       # nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://pypi.org/project/flask-compress
-      flask-compress = callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
+      # flask-compress = callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-session/flask-session.nix --url https://github.com/pallets-eco/flask-session
-      flask-session = callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
+      # flask-session = callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-babel/flask-babel.nix --url https://github.com/python-babel/flask-babel
-      flask-babel = callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
+      # flask-babel = callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
-      flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
+      # flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
       pyjsparser = callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
 

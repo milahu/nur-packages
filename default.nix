@@ -1468,6 +1468,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
 
+  v8 = callPackage ./pkgs/development/libraries/v8 { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -1303,6 +1303,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
 
+  /* TODO remove? 'quictls' has been removed. QUIC support is now available in `openssl`.
   nginx = nginxStable;
 
   nginxQuic = callPackage ./pkgs/servers/http/nginx/quic.nix {
@@ -1330,6 +1331,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       pkgs.nginxModules.moreheaders
     ];
   };
+  */
 
   nginxModules = lib.recurseIntoAttrs {
 

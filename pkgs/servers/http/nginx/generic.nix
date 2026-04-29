@@ -5,6 +5,7 @@ outer@{
   fetchpatch,
   openssl,
   zlib-ng,
+  zlib,
   pcre2,
   libxml2,
   libxslt,
@@ -113,6 +114,8 @@ stdenv.mkDerivation {
   buildInputs = [
     openssl
     zlib-ng
+    # fix: configure: error: the HTTP gzip module requires the zlib library
+    zlib
     pcre2
     libxml2
     libxslt

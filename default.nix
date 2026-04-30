@@ -638,6 +638,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pycurl = callPackage ./pkgs/development/python-modules/pycurl { };
 
+      pdf-ocr-editor = callPackage ./pkgs/development/python-modules/pdf-ocr-editor { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

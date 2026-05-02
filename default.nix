@@ -1078,11 +1078,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
 
+  /*
   opensshPackages = pkgs.dontRecurseIntoAttrs (callPackage ./pkgs/tools/networking/openssh {});
 
   openssh = opensshPackages.openssh.override {
     etcDir = "/etc/ssh";
   };
+  */
 
   fritzbox-reconnect = python3.pkgs.callPackage ./pkgs/tools/networking/fritzbox-reconnect { };
 

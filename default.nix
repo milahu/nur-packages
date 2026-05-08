@@ -648,6 +648,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pretty-midi = callPackage ./pkgs/development/python-modules/pretty-midi { };
 
+      synctoolbox = callPackage ./pkgs/development/python-modules/synctoolbox { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

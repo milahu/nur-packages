@@ -646,6 +646,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       music21 = callPackage ./pkgs/development/python-modules/music21 { };
 
+      pretty-midi = callPackage ./pkgs/development/python-modules/pretty-midi { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

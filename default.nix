@@ -1048,9 +1048,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     sqliteBranch = "reuse-schema";
   };
 
+  /*
   tree-sitter = pkgs.makeOverridable (callPackage ./pkgs/development/tools/parsing/tree-sitter) {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;
   };
+  */
 
   vdhcoapp = callPackage ./pkgs/tools/video/vdhcoapp { };
 

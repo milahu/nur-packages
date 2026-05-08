@@ -644,6 +644,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       libfmp = callPackage ./pkgs/development/python-modules/libfmp { };
 
+      music21 = callPackage ./pkgs/development/python-modules/music21 { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

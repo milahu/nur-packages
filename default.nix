@@ -1333,6 +1333,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     dav = callPackage ./pkgs/servers/http/nginx/modules/dav.nix { };
 
+    tree_sitter_filter = callPackage ./pkgs/servers/http/nginx/modules/tree_sitter_filter.nix { };
+
   };
 
   bbcode = callPackage ./pkgs/development/libraries/bbcode { };

@@ -1469,6 +1469,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   v8 = callPackage ./pkgs/development/libraries/v8 { };
 
+  lingua-rs = callPackage ./pkgs/by-name/li/lingua-rs/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

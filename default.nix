@@ -642,6 +642,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       chandra-ocr = callPackage ./pkgs/development/python-modules/chandra-ocr { };
 
+      libfmp = callPackage ./pkgs/development/python-modules/libfmp { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

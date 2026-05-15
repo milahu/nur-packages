@@ -1475,6 +1475,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
 
+  nixVersions = pkgs.lib.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/tools/package-management/nix {
+      storeDir = config.nix.storeDir or "/nix/store";
+      stateDir = config.nix.stateDir or "/nix/var";
+    }
+  );
+
+  nix = nixVersions.stable;
+
   v8 = callPackage ./pkgs/development/libraries/v8 { };
 
   lingua-rs = callPackage ./pkgs/by-name/li/lingua-rs/package.nix { };

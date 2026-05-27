@@ -1492,6 +1492,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   losslesscut = callPackage ./pkgs/by-name/lo/losslesscut/package.nix { };
 
+  webcrack = callPackage ./pkgs/by-name/we/webcrack/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -1494,6 +1494,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   webcrack = callPackage ./pkgs/by-name/we/webcrack/package.nix { };
 
+  pnpm-better-sqlite3 = callPackage ./pkgs/by-name/pn/pnpm-better-sqlite3/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

@@ -943,6 +943,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     js2nix = callPackage ./pkgs/development/tools/js2nix { };
 
+    isolated-vm = callPackage ./pkgs/node/pkgs/isolated-vm { };
+
   })));
 
   inherit (nodePackages)

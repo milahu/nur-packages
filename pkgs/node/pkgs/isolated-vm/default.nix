@@ -1,3 +1,10 @@
+# NOTE please dont use this
+# instead, build the isolated-vm module
+# in the app that requires isolated-vm
+# then you dont need a lockfile in nix sources
+# examples:
+# pkgs/by-name/we/webcrack/package.nix
+
 {
   lib,
   buildNpmPackage,

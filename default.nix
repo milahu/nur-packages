@@ -1479,8 +1479,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nixVersions = pkgs.lib.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/tools/package-management/nix {
-      storeDir = config.nix.storeDir or "/nix/store";
-      stateDir = config.nix.stateDir or "/nix/var";
+      # storeDir = config.nix.storeDir or "/nix/store";
+      # stateDir = config.nix.stateDir or "/nix/var";
+      # fix: error: undefined variable 'config'
+      storeDir = "/nix/store";
+      stateDir = "/nix/var";
     }
   );
 

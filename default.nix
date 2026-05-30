@@ -11,7 +11,7 @@
   config ? null,
 }:
 
-if true then throw "test5" else
+# if true then throw "test5" else
 
 let _pkgs = pkgs; in
 

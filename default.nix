@@ -1525,6 +1525,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   har-extractor = callPackage ./pkgs/by-name/ha/har-extractor/package.nix { };
 
+  ffmpeg-malicious = callPackage ./pkgs/by-name/ff/ffmpeg-malicious/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

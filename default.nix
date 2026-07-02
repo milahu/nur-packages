@@ -1533,6 +1533,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ffmpeg-malicious = callPackage ./pkgs/by-name/ff/ffmpeg-malicious/package.nix { };
 
+  vobsub2srt = callPackage ./pkgs/by-name/vo/vobsub2srt/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

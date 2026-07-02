@@ -4,33 +4,46 @@
   fetchFromGitHub,
   cmake,
   libtiff,
+  leptonica,
+  libpng,
   pkg-config,
-  tesseract3,
+  tesseract,
 }:
 
 stdenv.mkDerivation {
   pname = "vobsub2srt";
-  version = "unstable-2014-08-17";
+  version = "1.1.3-unstable-2026-07-01";
 
   src = fetchFromGitHub {
     owner = "ruediger";
     repo = "VobSub2SRT";
-    rev = "a6abbd61127a6392d420bbbebdf7612608c943c2";
-    sha256 = "sha256-i6V2Owb8GcTcWowgb/BmdupOSFsYiCF2SbC9hXa26uY=";
+    # https://github.com/ruediger/VobSub2SRT/pull/108
+    rev = "44b55903b19d72770566d375e7ee6048916410b6";
+    hash = "sha256-TNuO4L96YUjFg5PSCPihht5ync/ePmFfWe3bA3BaKY0=";
   };
-
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [ "-std=c++11" ]);
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
-  buildInputs = [ libtiff ];
-  propagatedBuildInputs = [ tesseract3 ];
+
+  buildInputs = [
+    tesseract
+    libtiff
+    leptonica
+    libpng
+  ];
+
+  propagatedBuildInputs = [
+    tesseract
+  ];
 
   postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace-fail "cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)" "cmake_minimum_required(VERSION 3.10)"
+    # fix: fatal error: libpng/png.h: No such file or directory
+    substituteInPlace src/vobsub2srt.c++ \
+      --replace \
+        '#include <libpng/png.h>' \
+        '#include <png.h>'
   '';
 
   meta = {

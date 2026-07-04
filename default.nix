@@ -678,6 +678,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       epub-meta = callPackage ./pkgs/development/python-modules/epub-meta { };
 
+      epub-toc = callPackage ./pkgs/development/python-modules/epub-toc { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -725,6 +727,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   binarize-pdf = python3Packages.binarize-pdf;
 
   kobo-book-downloader = python3Packages.kobo-book-downloader;
+
+  epub-toc = python3Packages.epub-toc;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (

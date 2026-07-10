@@ -680,6 +680,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       epub-toc = callPackage ./pkgs/development/python-modules/epub-toc { };
 
+      pyexiv2 = callPackage ./pkgs/development/python-modules/pyexiv2 {
+        pkgs-exiv2 = pkgs.exiv2;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

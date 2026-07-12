@@ -1545,6 +1545,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   vobsub2srt = callPackage ./pkgs/by-name/vo/vobsub2srt/package.nix { };
 
+  flatcv = callPackage ./pkgs/by-name/fl/flatcv/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

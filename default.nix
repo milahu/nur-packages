@@ -684,6 +684,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pkgs-exiv2 = pkgs.exiv2;
       };
 
+      securedrop = callPackage ./pkgs/development/python-modules/securedrop { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

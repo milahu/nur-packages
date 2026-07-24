@@ -111,6 +111,8 @@ let
             --replace-fail '"/usr/bin/env", "mount"'  '"${util-linux}/bin/mount", "-n"'
         ''
         + optionalString buildUser ''
+          # FIXME substitute(): ERROR: file './lib/libshare/os/linux/nfs.c' does not exist
+          if false; then
           substituteInPlace ./lib/libshare/os/linux/nfs.c --replace-fail "/usr/sbin/exportfs" "${
             # We don't *need* python support, but we set it like this to minimize closure size:
             # If it's disabled by default, no need to enable it, even if we have python enabled
@@ -119,6 +121,9 @@ let
               enablePython = old.enablePython or true && enablePython;
             })
           }/bin/exportfs"
+          fi
+          # FIXME substitute(): ERROR: file './lib/libshare/smb.h' does not exist
+          false &&
           substituteInPlace ./lib/libshare/smb.h        --replace-fail "/usr/bin/net"            "/run/current-system/sw/bin/net"
           # Disable dynamic loading of libcurl
           substituteInPlace ./config/user-libfetch.m4   --replace-fail "curl-config --built-shared" "true"

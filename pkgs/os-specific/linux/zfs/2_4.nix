@@ -7,7 +7,7 @@
   ...
 }@args:
 
-callPackage ./generic.nix args {
+callPackage ./generic.nix args rec {
   # You have to ensure that in `pkgs/top-level/linux-kernels.nix`
   # this attribute is the correct one for this package.
   kernelModuleAttribute = "zfs_2_4";
@@ -35,6 +35,10 @@ callPackage ./generic.nix args {
     })
     */
   ];
+
+  postPatch = ''
+    sed -i -E 's/^(Version:      ) .*$/\1 ${version}/' META
+  '';
 
   tests = {
     inherit (nixosTests.zfs) series_2_4;

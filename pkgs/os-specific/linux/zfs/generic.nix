@@ -47,6 +47,7 @@ let
       kernelModuleAttribute,
       extraLongDescription ? "",
       extraPatches ? [ ],
+      postPatch ? ":",
       rev ? "zfs-${version}",
       kernelMinSupportedMajorMinor,
       kernelMaxSupportedMajorMinor,
@@ -160,6 +161,7 @@ let
         + lib.optionalString (lib.versionAtLeast version "2.4.0") ''
           substituteInPlace ./cmd/zarcsummary --replace-fail "/sbin/modinfo" "modinfo"
         ''
+        + "\n" + postPatch + "\n"
         + ''
           echo 'Supported Kernel versions:'
           grep '^Linux-' META

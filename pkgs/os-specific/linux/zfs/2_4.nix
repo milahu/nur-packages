@@ -16,13 +16,13 @@ callPackage ./generic.nix args {
   kernelMaxSupportedMajorMinor = "7.1";
 
   # this package should point to the latest release.
-  version = "2.4.3-pr-11082-2026-07-14";
+  version = "2.4.3-pr-11082-2026-08-11";
 
   # https://github.com/openzfs/zfs/pull/11082
   # branch parent: 733f048fd6680f013691876e9f7ca23dc63ade52 2026-07-14
-  rev = "c82f3a217eca13f2238b84939b3d7bf98bed487b";
+  rev = "c873ebf87865683b6685739e4fd9d4958f0aa8b4";
 
-  hash = "sha256-5crgVOnCstv85CM1WHBcvr6s02swUzeHdczK9KKEmho=";
+  hash = "sha256-+3b9CYXjo3HWNXFtcrrJlde4eug+IqcJ9QOVpcc8HSQ=";
 
   extraPatches = [
     # this has been merged into master on 2026-05-15

@@ -13,7 +13,7 @@
 mkNginxPlugin rec {
   pname = "ngx_markdown_filter_module";
   version = "0.1.7";
-  src = (fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "ukarim";
     repo = "ngx_markdown_filter_module";
     rev = version;
@@ -26,8 +26,10 @@ mkNginxPlugin rec {
     rev = "3e0362b4e60c5f26071bfa3d2418ec30cd0d0dbd";
     hash = "sha256-i7orFQEuB9uoFQ+UUdWibJAy26Z6bjGsZqCSWdZ8UhE=";
     */
-  }) // {
-    patchPhase = ''
+  };
+
+  patchPhase = (
+    ''
       mv config_gfm config
     ''
     /*
@@ -46,8 +48,9 @@ mkNginxPlugin rec {
     # TODO? also remove dangerous links like <a href="javascript:alert(123)">clickme</a>
     ''
       sed -i 's/CMARK_OPT_DEFAULT/CMARK_OPT_DEFAULT | CMARK_OPT_UNSAFE/' ngx_markdown_filter_module.c
-    '';
-  };
+    ''
+  );
+
   buildInputs = [ cmark-gfm ];
   configureFlags = [ "--with-cc-opt=-DWITH_CMARK_GFM=1" ];
   meta = with lib; {

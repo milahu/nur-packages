@@ -9,7 +9,8 @@
   setuptools,
   nodejs,
   pnpmConfigHook,
-  pnpm,
+  # pnpm,
+  pnpm_10,
   fetchPnpmDeps,
   npmHooks,
   # jq, # python3.pkgs.jq
@@ -33,6 +34,8 @@
   makeDesktopItem,
   imagemagick,
 }:
+
+let pnpm = pnpm_10; in # fetchPnpmDeps: fetcherVersion = 3
 
 stdenv.mkDerivation (finalAttrs: {
 
@@ -76,6 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    inherit pnpm;
     fetcherVersion = 3;
     hash = "sha256-tGhOG/4KN83x75AIaAJoNwaUs+UH+F+2KAxIhNB9BVY=";
   };

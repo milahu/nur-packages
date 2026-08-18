@@ -4,17 +4,19 @@
 
 {
   lib,
+  mkNginxPlugin,
   fetchFromGitHub,
   cmark-gfm,
   stdenv,
 }:
 
-rec {
-  name = "ngx_markdown_filter_module";
+mkNginxPlugin rec {
+  pname = "ngx_markdown_filter_module";
+  version = "0.1.7";
   src = (fetchFromGitHub {
     owner = "ukarim";
     repo = "ngx_markdown_filter_module";
-    rev = "0.1.7";
+    rev = version;
     hash = "sha256-OZL0MuATZ1BnSOgJshf0AwQdWJbRkdjClmYVl9BEY+o=";
     /*
     owner = "milahu";

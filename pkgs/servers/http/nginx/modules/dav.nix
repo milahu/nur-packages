@@ -1,16 +1,18 @@
 {
   lib,
+  mkNginxPlugin,
   fetchFromGitHub,
   expat,
 }:
 
-{
-  name = "dav";
+mkNginxPlugin rec {
+  pname = "dav";
+  version = "4.0.1";
   src = fetchFromGitHub {
-    name = "dav";
+    pname = "dav";
     owner = "mid1221213";
     repo = "nginx-dav-ext-module";
-    rev = "v4.0.1";
+    rev = "v${version}";
     hash = "sha256-BMYRH/BNuq/TTWPWdQJpz/Mx64vNEN7SQ/Swu3by92A=";
   };
 

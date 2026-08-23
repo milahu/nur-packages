@@ -105,7 +105,7 @@ let
     ;
   inherit (lib.trivial) flip;
 
-  version = "4.13.0";
+  version = "4.14.0";
 
   # It's necessary to consistently use backendStdenv when building with CUDA
   # support, otherwise we get libstdc++ errors downstream
@@ -116,21 +116,22 @@ let
     owner = "opencv";
     repo = "opencv";
     tag = version;
-    hash = "sha256-h9gpSf+xf/OafQSCYq3JYBt/ShnxafSG7WbxesTjM/A=";
+    hash = "sha256-vVTVL04Vhh4Kxtdjg1MWjbVYSaQP0zUy8ct9p3P94eo=";
   };
 
   contribSrc = fetchFromGitHub {
     owner = "opencv";
     repo = "opencv_contrib";
     tag = version;
-    hash = "sha256-8YRCq1H9afb1a0pVevH0x61SMW4dTpLAno/P9A6bOIg=";
+    hash = "sha256-XJgxlnIpc6vV9F671u/Cwl0pPwQtP6rVqjoISG/wPfY=";
   };
 
   testDataSrc = fetchFromGitHub {
     owner = "opencv";
     repo = "opencv_extra";
     tag = version;
-    hash = "sha256-r73Hphh5ZuKt3IoQMzbtL1AxeVZd2OSpvZ8x8v6Bd0k=";
+    # hash = "sha256-r73Hphh5ZuKt3IoQMzbtL1AxeVZd2OSpvZ8x8v6Bd0k=";
+    hash = "";
   };
 
   # Contrib must be built in order to enable Tesseract support:
@@ -142,8 +143,8 @@ let
       fetchFromGitHub {
         owner = "opencv";
         repo = "opencv_3rdparty";
-        rev = "c934a2a15a6df020446ac3dfa07e3acf72b63a8f";
-        hash = "sha256-L1n1pq7SiPLOMTCEpju4kXPHxhH9La8AvmwZrYU9iEQ=";
+        rev = "8338862a733cb3980d8b51d8e14917fe0e695f71";
+        hash = "";
       }
       + "/ippicv";
     files =
@@ -305,16 +306,6 @@ effectiveStdenv.mkDerivation {
   ++ optionals enableCuda (
     [
       ./cuda_opt_flow.patch
-    ]
-    ++ optionals (cudaPackages.cudaAtLeast "13.2") [
-      # Backport https://github.com/opencv/opencv_contrib/pull/4097
-      (fetchpatch {
-        name = "fix-cuda-13-2-compat";
-        url = "https://github.com/opencv/opencv_contrib/commit/f2854f4f5e7b67d4e073ea002ae0174d437e2962.patch";
-        stripLen = 2;
-        extraPrefix = "opencv_contrib/";
-        hash = "sha256-nJqPT3gvqTTKFDR9uTFR/7gummlpz1Dw+UQ4EWPfqOA=";
-      })
     ]
   );
 

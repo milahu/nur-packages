@@ -3,6 +3,7 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
+  fetchurl,
 
   # build-system
   setuptools,
@@ -43,6 +44,19 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-8uzWS0YZEteeLTYAp9qpnnJhxyhxbWkKt1krqe/RF4M=";
   };
+
+  patches = [
+    # https://github.com/argosopentech/argos-translate/pull/506
+    # Adding feature: cli interactive mode
+    (fetchurl {
+      url = "https://github.com/argosopentech/argos-translate/commit/8557a51e78f24983db1427cca9cf4dee9872e434.patch";
+      hash = "sha256-iDMN0PMg9hEYUR4ED7htISkYHPMPgGvHlII+9v5aFzQ=";
+    })
+    (fetchurl {
+      url = "https://github.com/argosopentech/argos-translate/commit/b6bf7f88f9e1bf73300f5feffa79eb927f60806c.patch";
+      hash = "sha256-ejs/Wph4//+9RXLkVwgY8wxq4mFoZTnDxc3YESggqlU=";
+    })
+  ];
 
   build-system = [ setuptools ];
 

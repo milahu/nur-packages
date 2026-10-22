@@ -694,6 +694,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       fsindex = callPackage ./pkgs/development/python-modules/fsindex { };
 
+      patchright = callPackage ./pkgs/development/python-modules/patchright { };
+
 
 
       # python3.pkgs.opencv4

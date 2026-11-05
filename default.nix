@@ -746,6 +746,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pdf-toc = callPackage ./pkgs/development/python-modules/pdf-toc { };
 
+      fpgen = callPackage ./pkgs/development/python-modules/fpgen { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

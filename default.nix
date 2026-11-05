@@ -748,6 +748,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       fpgen = callPackage ./pkgs/development/python-modules/fpgen { };
 
+      camoufox = callPackage ./pkgs/development/python-modules/camoufox {
+        # pkgs-camoufox = pkgs.camoufox-unwrapped; # FIXME scope
+        # FIXME wrap camoufox like librewolf
+        pkgs-camoufox = callPackage ./pkgs/by-name/ca/camoufox-unwrapped/package.nix { };
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3

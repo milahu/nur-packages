@@ -235,6 +235,7 @@ buildMozillaMach {
 ).overrideAttrs (oldAttrs: {
   passthru = {
     inherit (src) firefoxVersion camoufoxVersion;
+    inherit (src) firefoxSource camoufoxSource;
 
     camoufoxFontBundle = stdenv.mkDerivation {
       pname = "camoufox-font-bundle";
